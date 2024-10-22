@@ -1,0 +1,7 @@
+{
+  "asset_id": "",
+  "description": {
+    "translate": "tool_trim_pattern.tooltrims.frost"
+  },
+  "template_item": "tooltrims:frost_tool_trim_smithing_template"
+}

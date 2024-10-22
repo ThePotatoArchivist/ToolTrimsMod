@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "tooltrims",
+	"version": "${version}",
+	"name": "Tool Trims Fabric",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/tooltrims/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "archives.tater.tooltrims.ToolTrims"
+		],
+		"client": [
+			"archives.tater.tooltrims.ToolTrimsClient"
+		],
+		"fabric-datagen": [
+			"archives.tater.tooltrims.ToolTrimsData"
+		]
+	},
+	"mixins": [
+		"tooltrims.mixins.json",
+		{
+			"config": "tooltrims.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.7",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

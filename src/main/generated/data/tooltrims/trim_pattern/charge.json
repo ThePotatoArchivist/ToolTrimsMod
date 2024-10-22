@@ -1,0 +1,7 @@
+{
+  "asset_id": "",
+  "description": {
+    "translate": "tool_trim_pattern.tooltrims.charge"
+  },
+  "template_item": "tooltrims:charge_tool_trim_smithing_template"
+}

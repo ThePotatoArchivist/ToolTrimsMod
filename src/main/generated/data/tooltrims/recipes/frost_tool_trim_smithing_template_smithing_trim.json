@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing_trim",
+  "addition": {
+    "tag": "minecraft:trim_materials"
+  },
+  "base": {
+    "tag": "tooltrims:trimmable_tools"
+  },
+  "template": {
+    "item": "tooltrims:frost_tool_trim_smithing_template"
+  }
+}
