@@ -1,7 +1,10 @@
 package archives.tater.tooltrims.item;
 
 import archives.tater.tooltrims.ToolTrimsPatterns;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.item.trim.ArmorTrimPattern;
 import net.minecraft.registry.Registries;
@@ -47,6 +50,12 @@ public class ToolTrimsItems {
     );
 
     public static void register() {
-
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                    LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
+                    TRACKS_TOOL_TRIM_SMITHING_TEMPLATE,
+                    CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,
+                    FROST_TOOL_TRIM_SMITHING_TEMPLATE);
+        });
     }
 }

@@ -29,7 +29,7 @@ public class ModelGenerator extends FabricModelProvider {
 
     }
 
-    public Identifier getSuffixedModelId(Item item, String pattern, String material) {
+    private Identifier getSuffixedModelId(Item item, String pattern, String material) {
         var itemId = Registries.ITEM.getId(item);
         return new Identifier(MOD_ID, "item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
@@ -99,8 +99,25 @@ public class ModelGenerator extends FabricModelProvider {
                 Items.NETHERITE_AXE,
                 Items.NETHERITE_HOE
         );
+
         for (var tool : standardTools) {
             var overrides = new JsonArray();
+
+            // vvv -- Abstract this part into function -- vvv
+            for (var patternName : patternOrder) {
+                for (var materialName : legacyMaterialOrder) {
+                    var trimmedId = getSuffixedModelId(tool, patternName, materialName);
+
+                    // make override api?
+                    var override = new JsonObject();
+                    var predicate = new JsonObject();
+                    predicate.addProperty("custom_model_data", 311001 + patternOrder.indexOf(patternName) * legacyMaterialOrder.size() + legacyMaterialOrder.indexOf(materialName));
+                    override.add("predicate", predicate);
+                    override.addProperty("model", trimmedId.toString());
+                    overrides.add(override);
+                }
+            }
+
             for (var patternName : patternOrder) {
                 var pattern = patterns.get(patternName);
                 for (var material : materials) {
@@ -117,19 +134,7 @@ public class ModelGenerator extends FabricModelProvider {
                     overrides.add(override);
                 }
             }
-
-            for (var patternName : patternOrder) {
-                for (var materialName : legacyMaterialOrder) {
-                    var trimmedId = getSuffixedModelId(tool, patternName, materialName);
-
-                    var legacyOverride = new JsonObject();
-                    var legacyPredicate = new JsonObject();
-                    legacyPredicate.addProperty("custom_model_data", 311001 + patternOrder.indexOf(patternName) * legacyMaterialOrder.size() + legacyMaterialOrder.indexOf(materialName));
-                    legacyOverride.add("predicate", legacyPredicate);
-                    legacyOverride.addProperty("model", trimmedId.toString());
-                    overrides.add(legacyOverride);
-                }
-            }
+            // ^^^ -- ^^^
 
             Models.HANDHELD.upload(ModelIds.getItemModelId(tool), TextureMap.layer0(tool), itemModelGenerator.writer, (id, textures) -> {
                 var json = Models.HANDHELD.createJson(id, textures);

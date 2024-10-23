@@ -19,7 +19,7 @@ public class ModelPredicateProviderRegistryMixin {
             method = "method_48484",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isIn(Lnet/minecraft/registry/tag/TagKey;)Z")
     )
-    private static boolean allowApplyForTools(ItemStack instance, TagKey<Item> tag, Operation<Boolean> original) {
+    private static boolean allowPredicateForTools(ItemStack instance, TagKey<Item> tag, Operation<Boolean> original) {
         return original.call(instance, tag) || instance.isIn(ToolTrimsTags.TRIMMABLE_TOOLS);
     }
 }
