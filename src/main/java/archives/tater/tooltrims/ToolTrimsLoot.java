@@ -27,7 +27,13 @@ public class ToolTrimsLoot {
         });
     }
 
-    record InjectEntry(Identifier lootTableId, int poolIndex, Item item, @Nullable LootNumberProvider count, int weight) {}
+    record InjectEntry(
+            Identifier lootTableId,
+            int poolIndex,
+            Item item,
+            @Nullable LootNumberProvider count,
+            int weight
+    ) {}
 
     private static final LootNumberProvider ONE_OR_TWO = UniformLootNumberProvider.create(1, 2);
     private static final LootNumberProvider TWO = ConstantLootNumberProvider.create(2);
@@ -36,7 +42,6 @@ public class ToolTrimsLoot {
             new InjectEntry(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY, 0, ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO, 1),
             new InjectEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, TWO, 3),
             new InjectEntry(LootTables.ANCIENT_CITY_CHEST, 1, ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO, 3),
-            new InjectEntry(LootTables.IGLOO_CHEST_CHEST, -1, ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE, null, 2)
     };
 
     public static void register() {
@@ -55,11 +60,15 @@ public class ToolTrimsLoot {
                 if (inject.weight != 1)
                     entry.weight(inject.weight);
 
-                if (inject.poolIndex == -1)
-                    builder.pool(LootPool.builder().with(entry).with(EmptyEntry.builder().weight(2)));
-                else
-                    modifyPool(builder, inject.poolIndex, pool -> pool.with(entry));
+                modifyPool(builder, inject.poolIndex, pool -> pool.with(entry));
             }
+
+            // Special case for igloo
+            if (LootTables.IGLOO_CHEST_CHEST.equals(id))
+                builder.pool(LootPool.builder()
+                    .with(ItemEntry.builder(ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE).weight(2))
+                    .with(EmptyEntry.builder().weight(3))
+                );
         });
     }
 }
