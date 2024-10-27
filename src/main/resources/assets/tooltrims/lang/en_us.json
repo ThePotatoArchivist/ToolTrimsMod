@@ -1,7 +1,7 @@
 {
     "block.toolsmithing_table.name" : "Toolsmithing Table",
     "advancements.adventure.shiny_tools.title": "Shiny Tools",
-    "advancements.adventure.shiny_tools.description": "Craft a trimmed tool at a Toolsmithing Table",
+    "advancements.adventure.shiny_tools.description": "Craft a trimmed tool at a Smithing Table",
     "advancements.adventure.tools_of_all_styles.title": "Tools of All Styles",
     "advancements.adventure.tools_of_all_styles.description": "Apply all tool trim smithing templates at least once",
     "item.tooltrims.smithing_template.tool_trim.applies_to": "Weapons & Tools",

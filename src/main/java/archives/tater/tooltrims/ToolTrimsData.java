@@ -1,9 +1,6 @@
 package archives.tater.tooltrims;
 
-import archives.tater.tooltrims.datagen.ItemTagGenerator;
-import archives.tater.tooltrims.datagen.ModelGenerator;
-import archives.tater.tooltrims.datagen.RecipeGenerator;
-import archives.tater.tooltrims.datagen.TrimPatternGenerator;
+import archives.tater.tooltrims.datagen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -15,5 +12,6 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(RecipeGenerator::new);
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(ModelGenerator::new);
+		pack.addProvider(AdvancementGenerator::new);
 	}
 }
