@@ -1,0 +1,59 @@
+{
+  "parent": "tooltrims:adventure/shiny_tools",
+  "criteria": {
+    "tool_trimmed_tooltrims:charge": {
+      "conditions": {
+        "recipe_id": "tooltrims:charge_tool_trim_smithing_template_smithing_trim"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    },
+    "tool_trimmed_tooltrims:frost": {
+      "conditions": {
+        "recipe_id": "tooltrims:frost_tool_trim_smithing_template_smithing_trim"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    },
+    "tool_trimmed_tooltrims:linear": {
+      "conditions": {
+        "recipe_id": "tooltrims:linear_tool_trim_smithing_template_smithing_trim"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    },
+    "tool_trimmed_tooltrims:tracks": {
+      "conditions": {
+        "recipe_id": "tooltrims:tracks_tool_trim_smithing_template_smithing_trim"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.adventure.tools_of_all_styles.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "tooltrims:linear_tool_trim_smithing_template"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.adventure.tools_of_all_styles.title"
+    }
+  },
+  "requirements": [
+    [
+      "tool_trimmed_tooltrims:linear"
+    ],
+    [
+      "tool_trimmed_tooltrims:tracks"
+    ],
+    [
+      "tool_trimmed_tooltrims:charge"
+    ],
+    [
+      "tool_trimmed_tooltrims:frost"
+    ]
+  ],
+  "sends_telemetry_event": false
+}
