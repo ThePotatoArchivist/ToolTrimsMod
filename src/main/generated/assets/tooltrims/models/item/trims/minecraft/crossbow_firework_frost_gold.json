@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/crossbow",
+  "parent": "tooltrims:item/template_crossbow",
   "textures": {
     "layer0": "tooltrims:item/trims/minecraft/crossbow_firework_frost_gold"
   }

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/bow",
+  "parent": "tooltrims:item/template_bow",
   "textures": {
     "layer0": "tooltrims:item/trims/minecraft/bow_charge_gold"
   }
