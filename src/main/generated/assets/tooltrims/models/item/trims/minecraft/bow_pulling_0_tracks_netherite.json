@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_netherite"
+  }
+}

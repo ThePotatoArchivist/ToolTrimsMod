@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/crossbow_pulling_2_linear_diamond"
+  }
+}
