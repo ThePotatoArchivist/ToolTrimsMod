@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/iron_axe_frost_netherite"
+  }
+}

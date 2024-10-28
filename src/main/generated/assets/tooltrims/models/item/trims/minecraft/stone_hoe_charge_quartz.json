@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/stone_hoe_charge_quartz"
+  }
+}
