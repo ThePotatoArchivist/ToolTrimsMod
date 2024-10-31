@@ -22,5 +22,8 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsItems.register();
 		ToolTrimsTags.register();
 		ToolTrimsLoot.register();
+		ToolTrimsGamerules.register();
+		ToolTrimsCommands.register();
+		ToolTrimsDPCompat.register();
 	}
 }
