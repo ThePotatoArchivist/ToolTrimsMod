@@ -1,5 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
+import archives.tater.tooltrims.ToolTrimsDPCompat;
 import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import archives.tater.tooltrims.mixin.ItemModelGeneratorAccessor;
@@ -11,9 +12,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrimPattern;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -31,34 +30,7 @@ public class ModelGenerator extends FabricModelProvider {
         super(output);
     }
 
-    public static List<ItemModelGenerator.TrimMaterial> materials = ItemModelGeneratorAccessor.TRIM_MATERIALS();
-
-    private static final Map<String, RegistryKey<ArmorTrimPattern>> patterns = Map.of(
-            "linear", ToolTrimsPatterns.LINEAR,
-            "tracks", ToolTrimsPatterns.TRACKS,
-            "charge", ToolTrimsPatterns.CHARGE,
-            "frost", ToolTrimsPatterns.FROST
-    );
-
-    private static final List<String> legacyMaterialOrder = List.of(
-            "amethyst",
-            "copper",
-            "diamond",
-            "emerald",
-            "gold",
-            "iron",
-            "lapis",
-            "netherite",
-            "quartz",
-            "redstone"
-    );
-
-    private static final List<String> patternOrder = List.of(
-            "linear",
-            "tracks",
-            "charge",
-            "frost"
-    );
+    private static final List<ItemModelGenerator.TrimMaterial> materials = ItemModelGeneratorAccessor.TRIM_MATERIALS();
 
     private static final List<Item> standardTools = List.of(
             Items.WOODEN_SWORD,
@@ -110,25 +82,23 @@ public class ModelGenerator extends FabricModelProvider {
             overrides.add(override);
         }
 
-        for (var patternName : patternOrder) {
-            for (var materialName : legacyMaterialOrder) {
-                var trimmedId = getSuffixedModelId(toolId, patternName, materialName);
+        for (var pattern : ToolTrimsDPCompat.legacyPatternOrder) {
+            for (var material : ToolTrimsDPCompat.legacyMaterialOrder) {
+                var trimmedId = getSuffixedModelId(toolId, pattern.getValue().getPath(), material.getValue().getPath());
 
                 var override = new JsonObject();
                 var predicate = new JsonObject();
                 extraPredicates.forEach(predicate::addProperty);
-                predicate.addProperty("custom_model_data", 311001 + patternOrder.indexOf(patternName) * legacyMaterialOrder.size() + legacyMaterialOrder.indexOf(materialName));
+                predicate.addProperty("custom_model_data", ToolTrimsDPCompat.getCustomModelData(material, pattern));
                 override.add("predicate", predicate);
                 override.addProperty("model", trimmedId.toString());
                 overrides.add(override);
             }
         }
 
-        for (var patternName : patternOrder) {
-            var pattern = patterns.get(patternName);
+        for (var pattern : ToolTrimsPatterns.PATTERNS) {
             for (var material : materials) {
-                var materialName = material.name();
-                var trimmedId = getSuffixedModelId(toolId, patternName, materialName);
+                var trimmedId = getSuffixedModelId(toolId, pattern.getValue().getPath(), material.name());
 
                 model.upload(trimmedId, TextureMap.layer0(trimmedId), writer);
 

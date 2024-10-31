@@ -25,5 +25,8 @@
     "trim_material.tooltrims.lapis": "Lapis Material",
     "trim_material.tooltrims.netherite": "Netherite Material",
     "trim_material.tooltrims.quartz": "Quartz Material",
-    "trim_material.tooltrims.redstone": "Redstone Material"
+    "trim_material.tooltrims.redstone": "Redstone Material",
+    "commands.tooltrims.upgrade.success": "Successfully upgraded Tool Trims legacy item %s",
+    "commands.tooltrims.upgrade.error.noplayer": "Must be executed by a player",
+    "commands.tooltrims.upgrade.error.fail": "Could not upgrade %s"
 }
