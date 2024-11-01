@@ -1,6 +1,7 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -12,14 +13,18 @@ import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimMaterials;
 import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ToolTrimsDPCompat {
     public static final List<RegistryKey<ArmorTrimMaterial>> legacyMaterialOrder = List.of(
@@ -45,6 +50,32 @@ public class ToolTrimsDPCompat {
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
         ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(ToolTrims.MOD_ID, "legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            var state = State.ofServer(server);
+            if (!state.hasCheckedForDP()) {
+                if (wasDatapackUsed(server)) {
+                    server.getGameRules().get(ToolTrimsGamerules.DELETE_LEGACY_ITEMS).set(true, server);
+                    // TODO send message
+                }
+                state.setCheckedForDP();
+            }
+            if (server.isDedicated() && isDatapackRunning(server)) {
+                ToolTrims.LOGGER.warn("You should not run the Tool Trims mod and datapack at the same time. Remove one.");
+            }
+        });
+
+//        .sendMessage(Text.literal("You should not run the Tool Trims mod and datapack at the same time. Remove one.").formatted(Formatting.GOLD));
+    }
+
+    public static boolean wasDatapackUsed(MinecraftServer server) {
+        return server.getScoreboard().containsObjective("310_recipe");
+    }
+
+    public static boolean isDatapackRunning(MinecraftServer server) {
+        return server.getCommandFunctionManager()
+                .getTag(new Identifier("load"))
+                .stream().anyMatch(function -> function.getId().equals(new Identifier("tooltrims", "load")));
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
@@ -117,9 +148,44 @@ public class ToolTrimsDPCompat {
             itemNbt.remove("trimmed_tool");
             itemNbt.remove("combination");
             itemNbt.remove("CustomModelData");
-            ArmorTrim.apply(world.getRegistryManager(), itemStack, getTrim(world, customModelData));
+            if (ArmorTrim.getTrim(world.getRegistryManager(), itemStack).isEmpty()) {
+                ArmorTrim.apply(world.getRegistryManager(), itemStack, getTrim(world, customModelData));
+            }
             return itemStack;
         }
         return null;
+    }
+
+    public static class State extends PersistentState {
+        private static final String CHECKED_NBT = "CheckedForDP";
+
+        private boolean checkedForDP;
+
+        @Override
+        public NbtCompound writeNbt(NbtCompound nbt) {
+            nbt.putBoolean(CHECKED_NBT, checkedForDP);
+            return nbt;
+        }
+
+        public boolean hasCheckedForDP() {
+            return checkedForDP;
+        }
+
+        public void setCheckedForDP() {
+            this.checkedForDP = true;
+            setDirty(true);
+        }
+
+        public static State fromNbt(NbtCompound nbt) {
+            var state = new State();
+            state.checkedForDP = nbt.getBoolean(CHECKED_NBT);
+            return state;
+        }
+
+        public static State ofServer(MinecraftServer server) {
+            return Objects.requireNonNull(server.getWorld(World.OVERWORLD))
+                    .getPersistentStateManager()
+                    .getOrCreate(State::fromNbt, State::new, ToolTrims.MOD_ID);
+        }
     }
 }
