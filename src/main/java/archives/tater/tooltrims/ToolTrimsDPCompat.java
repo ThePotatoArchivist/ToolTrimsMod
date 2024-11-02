@@ -2,6 +2,7 @@ package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,6 +19,8 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
@@ -47,6 +50,8 @@ public class ToolTrimsDPCompat {
             ToolTrimsPatterns.FROST
     );
 
+    private static final String disableGamerule = "/gamerule " + ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES.getName() + " false";
+
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
         ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(ToolTrims.MOD_ID, "legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
@@ -55,17 +60,27 @@ public class ToolTrimsDPCompat {
             var state = State.ofServer(server);
             if (!state.hasCheckedForDP()) {
                 if (wasDatapackUsed(server)) {
-                    server.getGameRules().get(ToolTrimsGamerules.DELETE_LEGACY_ITEMS).set(true, server);
-                    // TODO send message
+                    server.getGameRules().get(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES).set(true, server);
+                    ToolTrims.LOGGER.warn(Text.translatable("tooltrims.warning.auto_enable", disableGamerule).getString());
                 }
                 state.setCheckedForDP();
             }
-            if (server.isDedicated() && isDatapackRunning(server)) {
-                ToolTrims.LOGGER.warn("You should not run the Tool Trims mod and datapack at the same time. Remove one.");
+            if (isDatapackRunning(server)) {
+                ToolTrims.LOGGER.warn(Text.translatable("tooltrims.warning.datapack_running").getString());
             }
         });
 
-//        .sendMessage(Text.literal("You should not run the Tool Trims mod and datapack at the same time. Remove one.").formatted(Formatting.GOLD));
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            if (server.isHost(handler.player.getGameProfile())) {
+                var state = State.ofServer(server);
+                if (state.justEnabledGamerule()) {
+                    handler.player.sendMessage(Text.translatable("tooltrims.warning.auto_enable", disableGamerule));
+                }
+                if (isDatapackRunning(server)) {
+                    handler.player.sendMessage(Text.translatable("tooltrims.warning.datapack_running").formatted(Formatting.GOLD));
+                }
+            }
+        });
     }
 
     public static boolean wasDatapackUsed(MinecraftServer server) {
@@ -79,7 +94,7 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
-        return armorStand.getWorld().getGameRules().getBoolean(ToolTrimsGamerules.DELETE_LEGACY_ITEMS) &&
+        return armorStand.getWorld().getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
                 (armorStand.getCommandTags().contains("310_toolsmithing_table") || armorStand.getCommandTags().contains("310_place_toolsmithing_table")) &&
                         armorStand.getWorld().getClosestPlayer(armorStand, 6) != null;
     }
@@ -118,7 +133,7 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable World world) {
-        if (world != null && !world.getGameRules().getBoolean(ToolTrimsGamerules.DELETE_LEGACY_ITEMS)) return false;
+        if (world != null && !world.getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
         if (!itemStack.isOf(Items.STRUCTURE_BLOCK)) return false;
         var customModelData = getCustomModelData(itemStack, 0);
         return 312001 <= customModelData && customModelData <= 312021;
@@ -159,6 +174,7 @@ public class ToolTrimsDPCompat {
     public static class State extends PersistentState {
         private static final String CHECKED_NBT = "CheckedForDP";
 
+        private boolean justEnabledGamerule = false;
         private boolean checkedForDP;
 
         @Override
@@ -173,7 +189,12 @@ public class ToolTrimsDPCompat {
 
         public void setCheckedForDP() {
             this.checkedForDP = true;
+            this.justEnabledGamerule = true;
             setDirty(true);
+        }
+
+        public boolean justEnabledGamerule() {
+            return justEnabledGamerule;
         }
 
         public static State fromNbt(NbtCompound nbt) {
