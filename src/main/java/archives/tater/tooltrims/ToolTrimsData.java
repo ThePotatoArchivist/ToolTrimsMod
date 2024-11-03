@@ -13,5 +13,6 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(ModelGenerator::new);
 		pack.addProvider(AdvancementGenerator::new);
+		pack.addProvider(LootTableGenerator::new);
 	}
 }

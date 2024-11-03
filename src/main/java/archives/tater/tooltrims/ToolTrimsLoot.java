@@ -1,24 +1,25 @@
 package archives.tater.tooltrims;
 
-import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.item.Item;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.EmptyEntry;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.LootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class ToolTrimsLoot {
+    private static Identifier idInject(Identifier identifier) {
+        return  new Identifier(ToolTrims.MOD_ID, "inject/" + identifier.getNamespace() + "/" + identifier.getPath());
+    }
+
+    public static final Identifier TRAIL_RUINS_INJECT = idInject(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY);
+    public static final Identifier PILLAGER_OUTPOST_INJECT = idInject(LootTables.PILLAGER_OUTPOST_CHEST);
+    public static final Identifier ANCIENCT_CITY_INJECT = idInject(LootTables.ANCIENT_CITY_CHEST);
+    public static final Identifier IGLOO_INJECT = idInject(LootTables.IGLOO_CHEST_CHEST);
+
     private static void modifyPool(LootTable.Builder tableBuilder, int index, Consumer<LootPool.Builder> modify) {
         AtomicInteger i = new AtomicInteger();
         tableBuilder.modifyPools(pool -> {
@@ -28,20 +29,16 @@ public class ToolTrimsLoot {
     }
 
     record InjectEntry(
-            Identifier lootTableId,
+            Identifier targetTableId,
             int poolIndex,
-            Item item,
-            @Nullable LootNumberProvider count,
+            Identifier injectTableId,
             int weight
     ) {}
 
-    private static final LootNumberProvider ONE_OR_TWO = UniformLootNumberProvider.create(1, 2);
-    private static final LootNumberProvider TWO = ConstantLootNumberProvider.create(2);
-
     private static final InjectEntry[] injects = {
-            new InjectEntry(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY, 0, ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO, 1),
-            new InjectEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, TWO, 3),
-            new InjectEntry(LootTables.ANCIENT_CITY_CHEST, 1, ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO, 3),
+            new InjectEntry(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY, 0, TRAIL_RUINS_INJECT, 1),
+            new InjectEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, PILLAGER_OUTPOST_INJECT, 3),
+            new InjectEntry(LootTables.ANCIENT_CITY_CHEST, 1, ANCIENCT_CITY_INJECT, 3),
     };
 
     public static void register() {
@@ -50,12 +47,9 @@ public class ToolTrimsLoot {
             if (!source.isBuiltin()) return;
 
             for (var inject : injects) {
-                if (!(inject.lootTableId.equals(id))) continue;
+                if (!(inject.targetTableId.equals(id))) continue;
 
-                var entry = ItemEntry.builder(inject.item);
-
-                if (inject.count != null)
-                    entry.apply(SetCountLootFunction.builder(inject.count));
+                var entry = LootTableEntry.builder(inject.injectTableId);
 
                 if (inject.weight != 1)
                     entry.weight(inject.weight);
@@ -66,9 +60,7 @@ public class ToolTrimsLoot {
             // Special case for igloo
             if (LootTables.IGLOO_CHEST_CHEST.equals(id))
                 builder.pool(LootPool.builder()
-                    .with(ItemEntry.builder(ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE).weight(2))
-                    .with(EmptyEntry.builder().weight(3))
-                );
+                    .with(LootTableEntry.builder(IGLOO_INJECT)));
         });
     }
 }
