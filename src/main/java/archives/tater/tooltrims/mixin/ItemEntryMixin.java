@@ -6,21 +6,25 @@ import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.LootFunction;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+import java.util.List;
+
 @Mixin(ItemEntry.class)
 public abstract class ItemEntryMixin extends LeafEntry implements CopyWithWeight<ItemEntry> {
-    @Shadow @Final Item item;
+    @Shadow @Final
+    private RegistryEntry<Item> item;
 
-    protected ItemEntryMixin(int weight, int quality, LootCondition[] conditions, LootFunction[] functions) {
+    protected ItemEntryMixin(int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
         super(weight, quality, conditions, functions);
     }
 
     @Invoker("<init>")
-    static ItemEntry newItemEntry(Item item, int weight, int quality, LootCondition[] conditions, LootFunction[] functions) {
+    static ItemEntry newItemEntry(RegistryEntry<Item> item, int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
         throw new AssertionError();
     }
 

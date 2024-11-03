@@ -2,7 +2,6 @@ package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.TridentTextures;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -20,8 +19,6 @@ public class BuiltinModelItemRendererMixin {
             index = 0
     )
     private Identifier applyTridentTrimTexture(Identifier original, @Local(argsOnly = true) ItemStack stack) {
-        var networkHandler = MinecraftClient.getInstance().getNetworkHandler();
-        if (networkHandler == null) return original;
-        return Objects.requireNonNullElse(TridentTextures.getTextureId(networkHandler.getRegistryManager(), stack), original);
+        return Objects.requireNonNullElse(TridentTextures.getTextureId(stack), original);
     }
 }

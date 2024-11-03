@@ -9,6 +9,8 @@ import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.Objects;
+
 @Mixin(TridentEntityRenderer.class)
 public class TridentEntityRendererMixin {
     @ModifyReturnValue(
@@ -16,6 +18,6 @@ public class TridentEntityRendererMixin {
             at = @At("RETURN")
     )
     private Identifier applyTrimTexture(Identifier original, @Local(argsOnly = true) TridentEntity tridentEntity) {
-        return TridentTextures.getCachedTextureId(tridentEntity, original);
+        return Objects.requireNonNullElse(TridentTextures.getTextureId(tridentEntity), original);
     }
 }

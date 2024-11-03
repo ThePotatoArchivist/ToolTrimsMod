@@ -49,7 +49,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.NETHERITE_HOE,
                 Items.BOW,
                 Items.CROSSBOW,
-                Items.TRIDENT
+                Items.TRIDENT,
+                Items.MACE
         );
         getOrCreateTagBuilder(ToolTrimsTags.TOOL_TRIM_MATERIALS).add(
                 Items.IRON_INGOT,

@@ -20,7 +20,7 @@ public class ToolTrims implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static Identifier id(String path) {
-		return new Identifier(MOD_ID, path);
+		return Identifier.of(MOD_ID, path);
 	}
 
 	@Override
@@ -35,6 +35,7 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsGamerules.register();
 		ToolTrimsCommands.register();
 		ToolTrimsDPCompat.register();
+		ToolTrimsDataAttachment.register();
 
 		if (ToolTrimsModCompat.isEnchancementLoaded)
             //noinspection OptionalGetWithoutIsPresent
