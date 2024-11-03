@@ -38,7 +38,7 @@
 	"accessWidener" : "tooltrims.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.16.7",
-		"minecraft": "~1.20.1",
+		"minecraft": "1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
