@@ -1,0 +1,5 @@
+// 1.21	2025-03-25T01:55:07.123091681	Tool Trims Mod/minecraft:chest Loot Table
+cc67190be4d063f9b874bd7d0f30691d2292b65e data/tooltrims/loot_table/inject/minecraft/chests/igloo_chest.json
+8cd5a19009cdf524030e72099f1bd4836da1c596 data/tooltrims/loot_table/inject/minecraft/chests/ancient_city.json
+2b2b2557f846966e5acf4466eedc51c4cbc82cd9 data/tooltrims/loot_table/inject/minecraft/chests/pillager_outpost.json
+60daeb61d203651289378c0c9d4592c2767627bf data/tooltrims/loot_table/inject/minecraft/archaeology/trail_ruins_rare.json

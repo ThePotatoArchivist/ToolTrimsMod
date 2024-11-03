@@ -17,7 +17,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
     }
 
     public static Identifier enchancementId(String path) {
-        return new Identifier("enchancement", path);
+        return Identifier.of("enchancement", path);
     }
 
     private record CrossbowModel(
@@ -45,7 +45,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         var twoLayersTemplate = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER1);
 
-        var crossbowPullId = new Identifier("crossbow_pulling_2");
+        var crossbowPullId = Identifier.ofVanilla("crossbow_pulling_2");
         var crossbowOverrides = generateCrossbowOverrides(itemModelGenerator, false);
         for (var model : crossbowModels) {
             var templateModelId = ToolTrims.id(model.path).withPrefixedPath("item/enchancement/");

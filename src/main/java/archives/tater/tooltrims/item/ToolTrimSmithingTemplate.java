@@ -21,23 +21,24 @@ public class ToolTrimSmithingTemplate {
             Util.createTranslationKey("item", ToolTrims.id("smithing_template.tool_trim.base_slot_description"))
     );
     public static final Text ADDITIONS_SLOT_DESCRIPTION_TEXT = Text.translatable(
-            Util.createTranslationKey("item", new Identifier("smithing_template.armor_trim.additions_slot_description"))
+            Util.createTranslationKey("item", Identifier.ofVanilla("smithing_template.armor_trim.additions_slot_description"))
     );
-    public static final Identifier EMPTY_SLOT_HOE_TEXTURE = new Identifier("item/empty_slot_hoe");
-    public static final Identifier EMPTY_SLOT_AXE_TEXTURE = new Identifier("item/empty_slot_axe");
-    public static final Identifier EMPTY_SLOT_SWORD_TEXTURE = new Identifier("item/empty_slot_sword");
-    public static final Identifier EMPTY_SLOT_SHOVEL_TEXTURE = new Identifier("item/empty_slot_shovel");
-    public static final Identifier EMPTY_SLOT_PICKAXE_TEXTURE = new Identifier("item/empty_slot_pickaxe");
+    public static final Identifier EMPTY_SLOT_HOE_TEXTURE = Identifier.ofVanilla("item/empty_slot_hoe");
+    public static final Identifier EMPTY_SLOT_AXE_TEXTURE = Identifier.ofVanilla("item/empty_slot_axe");
+    public static final Identifier EMPTY_SLOT_SWORD_TEXTURE = Identifier.ofVanilla("item/empty_slot_sword");
+    public static final Identifier EMPTY_SLOT_SHOVEL_TEXTURE = Identifier.ofVanilla("item/empty_slot_shovel");
+    public static final Identifier EMPTY_SLOT_PICKAXE_TEXTURE = Identifier.ofVanilla("item/empty_slot_pickaxe");
     public static final Identifier EMPTY_SLOT_BOW_TEXTURE = ToolTrims.id("item/empty_slot_bow");
     public static final Identifier EMPTY_SLOT_CROSSBOW_TEXTURE = ToolTrims.id("item/empty_slot_crossbow");
+    public static final Identifier EMPTY_SLOT_MACE_TEXTURE = ToolTrims.id("item/empty_slot_mace");
 
-    public static final Identifier EMPTY_SLOT_INGOT_TEXTURE = new Identifier("item/empty_slot_ingot");
-    public static final Identifier EMPTY_SLOT_REDSTONE_DUST_TEXTURE = new Identifier("item/empty_slot_redstone_dust");
-    public static final Identifier EMPTY_SLOT_QUARTZ_TEXTURE = new Identifier("item/empty_slot_quartz");
-    public static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = new Identifier("item/empty_slot_emerald");
-    public static final Identifier EMPTY_SLOT_DIAMOND_TEXTURE = new Identifier("item/empty_slot_diamond");
-    public static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = new Identifier("item/empty_slot_lapis_lazuli");
-    public static final Identifier EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = new Identifier("item/empty_slot_amethyst_shard");
+    public static final Identifier EMPTY_SLOT_INGOT_TEXTURE = Identifier.ofVanilla("item/empty_slot_ingot");
+    public static final Identifier EMPTY_SLOT_REDSTONE_DUST_TEXTURE = Identifier.ofVanilla("item/empty_slot_redstone_dust");
+    public static final Identifier EMPTY_SLOT_QUARTZ_TEXTURE = Identifier.ofVanilla("item/empty_slot_quartz");
+    public static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.ofVanilla("item/empty_slot_emerald");
+    public static final Identifier EMPTY_SLOT_DIAMOND_TEXTURE = Identifier.ofVanilla("item/empty_slot_diamond");
+    public static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("item/empty_slot_lapis_lazuli");
+    public static final Identifier EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = Identifier.ofVanilla("item/empty_slot_amethyst_shard");
 
     public static List<Identifier> getEmptyAdditionsSlotTextures() {
         return List.of(
@@ -59,7 +60,8 @@ public class ToolTrimSmithingTemplate {
                 EMPTY_SLOT_HOE_TEXTURE,
                 EMPTY_SLOT_SHOVEL_TEXTURE,
                 EMPTY_SLOT_BOW_TEXTURE,
-                EMPTY_SLOT_CROSSBOW_TEXTURE
+                EMPTY_SLOT_CROSSBOW_TEXTURE,
+                EMPTY_SLOT_MACE_TEXTURE
         );
     }
 
