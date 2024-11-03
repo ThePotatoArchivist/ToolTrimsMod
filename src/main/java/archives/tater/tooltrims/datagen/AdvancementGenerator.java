@@ -6,9 +6,9 @@ import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.CriterionMerger;
+import net.minecraft.advancement.AdvancementRequirements.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeCraftedCriterion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -17,7 +17,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class AdvancementGenerator extends FabricAdvancementProvider {
@@ -37,12 +36,8 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         return requireAllToolTrims(Advancement.Builder.createUntelemetered());
     }
 
-    private static Advancement fakeAdvancement(Identifier identifier) {
-        return new Advancement(identifier, null, null, AdvancementRewards.NONE, Map.of(), new String[][]{}, false);
-    }
-
     @Override
-    public void generateAdvancement(Consumer<Advancement> consumer) {
+    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
         var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
         var shinyToolsIconTrim = new NbtCompound();
         shinyToolsIconTrim.putString("material", ArmorTrimMaterials.DIAMOND.getValue().toString());
@@ -50,7 +45,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         shinyToolsIcon.setSubNbt("Trim", shinyToolsIconTrim);
 
         var shinyTools = createWithAllToolTrims()
-                .parent(fakeAdvancement(new Identifier("adventure/root")))
+                .parent(new AdvancementEntry(new Identifier("adventure/root"), null)) // fake advancement
                 .display(shinyToolsIcon,
                         Text.translatable("advancements.adventure.shiny_tools.title"),
                         Text.translatable("advancements.adventure.shiny_tools.description"),

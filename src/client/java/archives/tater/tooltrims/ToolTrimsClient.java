@@ -14,7 +14,7 @@ public class ToolTrimsClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(TRIM_PATTERN_PREDICATE, (stack, world, entity, seed) -> {
             if (!stack.isIn(ToolTrimsTags.TRIMMABLE_TOOLS)) return Float.NEGATIVE_INFINITY;
             if (world == null) return 0.0F;
-            return ArmorTrim.getTrim(world.getRegistryManager(), stack)
+            return ArmorTrim.getTrim(world.getRegistryManager(), stack, true)
                     .map(ArmorTrim::getPattern)
                     .flatMap(RegistryEntry::getKey)
                     .map(ToolTrimsPatterns::getModelIndex)

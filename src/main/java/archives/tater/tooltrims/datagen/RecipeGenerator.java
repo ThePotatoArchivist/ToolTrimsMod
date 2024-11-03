@@ -4,7 +4,7 @@ import archives.tater.tooltrims.ToolTrimsTags;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.SmithingTrimRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -14,7 +14,6 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class RecipeGenerator extends FabricRecipeProvider {
 
@@ -22,7 +21,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
         super(output);
     }
 
-    public static void offerToolTrimRecipe(Consumer<RecipeJsonProvider> exporter, Item template, Identifier recipeId) {
+    public static void offerToolTrimRecipe(RecipeExporter exporter, Item template, Identifier recipeId) {
         SmithingTrimRecipeJsonBuilder.create(
                         Ingredient.ofItems(template), Ingredient.fromTag(ToolTrimsTags.TRIMMABLE_TOOLS), Ingredient.fromTag(ItemTags.TRIM_MATERIALS), RecipeCategory.MISC
                 )
@@ -31,7 +30,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
         Map<Item, Item> materials = Map.of(
                 ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, Items.TERRACOTTA,
                 ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, Items.COBBLESTONE,

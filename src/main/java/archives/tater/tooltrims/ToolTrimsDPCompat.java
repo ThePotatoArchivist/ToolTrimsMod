@@ -93,7 +93,7 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean wasDatapackUsed(MinecraftServer server) {
-        return server.getScoreboard().containsObjective("310_recipe");
+        return server.getScoreboard().getObjectiveNames().contains("310_recipe");
     }
 
     public static boolean isDatapackRunning(MinecraftServer server) {
@@ -172,7 +172,7 @@ public class ToolTrimsDPCompat {
             itemNbt.remove("trimmed_tool");
             itemNbt.remove("combination");
             itemNbt.remove("CustomModelData");
-            if (ArmorTrim.getTrim(world.getRegistryManager(), itemStack).isEmpty()) {
+            if (ArmorTrim.getTrim(world.getRegistryManager(), itemStack, true).isEmpty()) {
                 ArmorTrim.apply(world.getRegistryManager(), itemStack, getTrim(world, customModelData));
             }
             return itemStack;
@@ -206,10 +206,12 @@ public class ToolTrimsDPCompat {
             return state;
         }
 
+        private static final Type<State> TYPE = new Type<>(State::new, State::fromNbt, null);
+
         public static State ofServer(MinecraftServer server) {
             return Objects.requireNonNull(server.getWorld(World.OVERWORLD))
                     .getPersistentStateManager()
-                    .getOrCreate(State::fromNbt, State::new, ToolTrims.MOD_ID);
+                    .getOrCreate(TYPE, ToolTrims.MOD_ID);
         }
     }
 }
