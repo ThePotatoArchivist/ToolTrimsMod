@@ -50,7 +50,7 @@ public class ToolTrimsItems {
 
     public static void register() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries ->
-                entries.addAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE,
+            entries.addAfter(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
                     LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
                     TRACKS_TOOL_TRIM_SMITHING_TEMPLATE,
                     CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,

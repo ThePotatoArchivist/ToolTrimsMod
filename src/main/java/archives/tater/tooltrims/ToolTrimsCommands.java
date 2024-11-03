@@ -1,8 +1,10 @@
 package archives.tater.tooltrims;
 
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.ItemSlotArgumentType;
 import net.minecraft.entity.EquipmentSlot;
@@ -15,6 +17,10 @@ import org.jetbrains.annotations.Nullable;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class ToolTrimsCommands {
+
+    private static final SimpleCommandExceptionType UPGRADE_NOPLAYER = new SimpleCommandExceptionType(Text.translatable("commands.tooltrims.upgrade.error.noplayer"));
+    private static final DynamicCommandExceptionType UPGRADE_FAIL = new DynamicCommandExceptionType(itemText -> Text.translatable("commands.tooltrims.upgrade.error.fail", itemText));
+
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 dispatcher.register(literal("tooltrims")
@@ -34,13 +40,13 @@ public class ToolTrimsCommands {
         ));
     }
 
-    public static void upgrade(CommandContext<ServerCommandSource> ctx, @Nullable ServerPlayerEntity player, int slot) {
-        if (player == null) throw new CommandException(Text.translatable("commands.tooltrims.upgrade.error.noplayer"));
+    public static void upgrade(CommandContext<ServerCommandSource> ctx, @Nullable ServerPlayerEntity player, int slot) throws CommandSyntaxException {
+        if (player == null) throw UPGRADE_NOPLAYER.create();
         var stackReference = player.getStackReference(slot);
         var currentStack = stackReference.get();
         var newStack = ToolTrimsDPCompat.upgradeItem(player.getWorld(), currentStack);
         if (newStack == null)
-            throw new CommandException(Text.translatable("commands.tooltrims.upgrade.error.fail", currentStack.toHoverableText()));
+            throw UPGRADE_FAIL.create(currentStack.toHoverableText());
         stackReference.set(newStack);
         ctx.getSource().sendFeedback(() -> Text.translatable("commands.tooltrims.upgrade.success", newStack.toHoverableText()), true);
     }

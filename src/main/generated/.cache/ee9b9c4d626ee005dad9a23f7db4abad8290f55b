@@ -1,5 +1,0 @@
-// 1.20.1	2025-03-25T01:41:46.358340773	Tool Trims Mod/minecraft:generic Loot Table
-302ca24d286aed83a5ecbf3dec3953b057dc15a5 data/tooltrims/loot_tables/inject/minecraft/chests/igloo_chest.json
-f944abc09c6290cbfdcbfb0e873220663b8d7654 data/tooltrims/loot_tables/inject/minecraft/chests/pillager_outpost.json
-2705c697c58f5889bb5d5b4399502d55bcf23626 data/tooltrims/loot_tables/inject/minecraft/archaeology/trail_ruins_rare.json
-229542e28367218233833c219a2b41bae9b67652 data/tooltrims/loot_tables/inject/minecraft/chests/ancient_city.json

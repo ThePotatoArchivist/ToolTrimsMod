@@ -7,6 +7,9 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.LoreComponent;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,6 +21,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -93,13 +97,13 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean wasDatapackUsed(MinecraftServer server) {
-        return server.getScoreboard().containsObjective("310_recipe");
+        return server.getScoreboard().getObjectiveNames().contains("310_recipe");
     }
 
     public static boolean isDatapackRunning(MinecraftServer server) {
         return server.getCommandFunctionManager()
-                .getTag(new Identifier("load"))
-                .stream().anyMatch(function -> function.getId().equals(new Identifier("tooltrims", "load")));
+                .getTag(Identifier.ofVanilla("load"))
+                .stream().anyMatch(function -> function.id().equals(Identifier.of("tooltrims", "load")));
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
@@ -118,9 +122,8 @@ public class ToolTrimsDPCompat {
     }
 
     public static int getCustomModelData(ItemStack itemStack, int defaultValue) {
-        var nbt = itemStack.getNbt();
-        if (nbt == null) return defaultValue;
-        return nbt.getInt("CustomModelData");
+        var customModelData = itemStack.get(DataComponentTypes.CUSTOM_MODEL_DATA);
+        return customModelData == null ? defaultValue : customModelData.value();
     }
 
     public static int getCustomModelData(RegistryKey<ArmorTrimMaterial> material, RegistryKey<ArmorTrimPattern> pattern) {
@@ -165,15 +168,20 @@ public class ToolTrimsDPCompat {
         if (itemStack.isIn(ToolTrimsTags.TRIMMABLE_TOOLS)) {
             var customModelData = getCustomModelData(itemStack, 0);
             if (customModelData == 0) return null;
-            var itemNbt = itemStack.getOrCreateNbt();
-            var display = itemNbt.getCompound("display");
-            display.remove("Lore");
-            if (display.getSize() == 0) itemNbt.remove("display");
-            itemNbt.remove("trimmed_tool");
-            itemNbt.remove("combination");
-            itemNbt.remove("CustomModelData");
-            if (ArmorTrim.getTrim(world.getRegistryManager(), itemStack).isEmpty()) {
-                ArmorTrim.apply(world.getRegistryManager(), itemStack, getTrim(world, customModelData));
+            itemStack.set(DataComponentTypes.LORE, LoreComponent.DEFAULT);
+            itemStack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+            var customDataComponent = itemStack.get(DataComponentTypes.CUSTOM_DATA);
+            if (customDataComponent != null) {
+                var customData = customDataComponent.copyNbt();
+                customData.remove("combination");
+                customData.remove("trimmed_tool");
+                if (customData.isEmpty())
+                    itemStack.remove(DataComponentTypes.CUSTOM_DATA);
+                else
+                    itemStack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(customData));
+            }
+            if (itemStack.get(DataComponentTypes.TRIM) == null) {
+                itemStack.set(DataComponentTypes.TRIM, getTrim(world, customModelData));
             }
             return itemStack;
         }
@@ -186,7 +194,7 @@ public class ToolTrimsDPCompat {
         private boolean checkedForDP;
 
         @Override
-        public NbtCompound writeNbt(NbtCompound nbt) {
+        public NbtCompound writeNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
             nbt.putBoolean(CHECKED_NBT, checkedForDP);
             return nbt;
         }
@@ -200,16 +208,18 @@ public class ToolTrimsDPCompat {
             setDirty(true);
         }
 
-        public static State fromNbt(NbtCompound nbt) {
+        public static State fromNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
             var state = new State();
             state.checkedForDP = nbt.getBoolean(CHECKED_NBT);
             return state;
         }
 
+        private static final Type<State> TYPE = new Type<>(State::new, State::fromNbt, null);
+
         public static State ofServer(MinecraftServer server) {
             return Objects.requireNonNull(server.getWorld(World.OVERWORLD))
                     .getPersistentStateManager()
-                    .getOrCreate(State::fromNbt, State::new, ToolTrims.MOD_ID);
+                    .getOrCreate(TYPE, ToolTrims.MOD_ID);
         }
     }
 }
