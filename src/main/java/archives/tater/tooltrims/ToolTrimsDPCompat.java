@@ -99,7 +99,7 @@ public class ToolTrimsDPCompat {
     public static boolean isDatapackRunning(MinecraftServer server) {
         return server.getCommandFunctionManager()
                 .getTag(new Identifier("load"))
-                .stream().anyMatch(function -> function.getId().equals(new Identifier("tooltrims", "load")));
+                .stream().anyMatch(function -> function.id().equals(new Identifier("tooltrims", "load")));
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
