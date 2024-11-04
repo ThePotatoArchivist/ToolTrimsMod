@@ -49,7 +49,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                         Items.NETHERITE_AXE,
                         Items.NETHERITE_HOE,
                         Items.BOW,
-                        Items.CROSSBOW
+                        Items.CROSSBOW,
+                        Items.MACE
                 );
     }
 }

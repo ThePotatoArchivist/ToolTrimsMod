@@ -10,18 +10,22 @@ import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.AdvancementRequirements.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeCraftedCriterion;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterials;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class AdvancementGenerator extends FabricAdvancementProvider {
-    public AdvancementGenerator(FabricDataOutput output) {
-        super(output);
+    public AdvancementGenerator(FabricDataOutput output, CompletableFuture<WrapperLookup> wrapperLookup) {
+        super(output, wrapperLookup);
     }
 
     private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
@@ -37,12 +41,12 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     }
 
     @Override
-    public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
+    public void generateAdvancement(WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
         var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
-        var shinyToolsIconTrim = new NbtCompound();
-        shinyToolsIconTrim.putString("material", ArmorTrimMaterials.DIAMOND.getValue().toString());
-        shinyToolsIconTrim.putString("pattern", ToolTrimsPatterns.FROST.getValue().toString());
-        shinyToolsIcon.setSubNbt("Trim", shinyToolsIconTrim);
+        shinyToolsIcon.set(DataComponentTypes.TRIM, new ArmorTrim(
+                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(ArmorTrimMaterials.DIAMOND),
+                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
+        ));
 
         var shinyTools = createWithAllToolTrims()
                 .parent(new AdvancementEntry(new Identifier("adventure/root"), null)) // fake advancement

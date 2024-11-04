@@ -14,15 +14,17 @@ import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class LootTableGenerator extends SimpleFabricLootTableProvider {
 
-    public LootTableGenerator(FabricDataOutput output) {
-        super(output, LootContextTypes.GENERIC);
+    public LootTableGenerator(FabricDataOutput output, CompletableFuture<WrapperLookup> registryLookup) {
+        super(output, registryLookup, LootContextTypes.CHEST);
     }
 
     private static final LootNumberProvider ONE_OR_TWO = UniformLootNumberProvider.create(1, 2);
@@ -36,7 +38,7 @@ public class LootTableGenerator extends SimpleFabricLootTableProvider {
     }
 
     @Override
-    public void accept(BiConsumer<Identifier, LootTable.Builder> exporter) {
+    public void accept(WrapperLookup wrapperLookup, BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter) {
         exporter.accept(ToolTrimsLoot.TRAIL_RUINS_INJECT, singleton(ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO));
         exporter.accept(ToolTrimsLoot.PILLAGER_OUTPOST_INJECT, singleton(ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, TWO));
         exporter.accept(ToolTrimsLoot.ANCIENCT_CITY_INJECT, singleton(ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO));

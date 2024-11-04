@@ -19,7 +19,6 @@
   ],
   "result": {
     "count": 2,
-    "item": "tooltrims:charge_tool_trim_smithing_template"
-  },
-  "show_notification": true
+    "id": "tooltrims:charge_tool_trim_smithing_template"
+  }
 }

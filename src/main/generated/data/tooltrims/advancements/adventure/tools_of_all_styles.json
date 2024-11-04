@@ -27,16 +27,14 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.adventure.tools_of_all_styles.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
-      "item": "tooltrims:linear_tool_trim_smithing_template"
+      "count": 1,
+      "id": "tooltrims:linear_tool_trim_smithing_template"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.adventure.tools_of_all_styles.title"
     }
@@ -54,6 +52,5 @@
     [
       "tool_trimmed_tooltrims:frost"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

@@ -5,20 +5,21 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.LootTableEntry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class ToolTrimsLoot {
-    private static Identifier idInject(Identifier identifier) {
-        return  ToolTrims.id("inject/" + identifier.getNamespace() + "/" + identifier.getPath());
+    private static RegistryKey<LootTable> idInject(RegistryKey<LootTable> lootTable) {
+        return RegistryKey.of(lootTable.getRegistryRef(), ToolTrims.id("inject/" + lootTable.getValue().getNamespace() + "/" + lootTable.getValue().getPath()));
     }
 
-    public static final Identifier TRAIL_RUINS_INJECT = idInject(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY);
-    public static final Identifier PILLAGER_OUTPOST_INJECT = idInject(LootTables.PILLAGER_OUTPOST_CHEST);
-    public static final Identifier ANCIENCT_CITY_INJECT = idInject(LootTables.ANCIENT_CITY_CHEST);
-    public static final Identifier IGLOO_INJECT = idInject(LootTables.IGLOO_CHEST_CHEST);
+    public static final RegistryKey<LootTable> TRAIL_RUINS_INJECT = idInject(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY);
+    public static final RegistryKey<LootTable> PILLAGER_OUTPOST_INJECT = idInject(LootTables.PILLAGER_OUTPOST_CHEST);
+    public static final RegistryKey<LootTable> ANCIENCT_CITY_INJECT = idInject(LootTables.ANCIENT_CITY_CHEST);
+    public static final RegistryKey<LootTable> IGLOO_INJECT = idInject(LootTables.IGLOO_CHEST_CHEST);
 
     private static void modifyPool(LootTable.Builder tableBuilder, int index, Consumer<LootPool.Builder> modify) {
         AtomicInteger i = new AtomicInteger();
@@ -29,9 +30,9 @@ public class ToolTrimsLoot {
     }
 
     record InjectEntry(
-            Identifier targetTableId,
+            RegistryKey<LootTable> targetTable,
             int poolIndex,
-            Identifier injectTableId,
+            RegistryKey<LootTable> injectTable,
             int weight
     ) {}
 
@@ -43,13 +44,13 @@ public class ToolTrimsLoot {
 
     public static void register() {
 
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, builder, source) -> {
+        LootTableEvents.MODIFY.register((key, builder, source) -> {
             if (!source.isBuiltin()) return;
 
             for (var inject : injects) {
-                if (!(inject.targetTableId.equals(id))) continue;
+                if (!(inject.targetTable.getValue().equals(key.getValue()))) continue;
 
-                var entry = LootTableEntry.builder(inject.injectTableId);
+                var entry = LootTableEntry.builder(inject.injectTable);
 
                 if (inject.weight != 1)
                     entry.weight(inject.weight);
@@ -58,7 +59,7 @@ public class ToolTrimsLoot {
             }
 
             // Special case for igloo
-            if (LootTables.IGLOO_CHEST_CHEST.equals(id))
+            if (LootTables.IGLOO_CHEST_CHEST.getValue().equals(key.getValue()))
                 builder.pool(LootPool.builder()
                     .with(LootTableEntry.builder(IGLOO_INJECT)));
         });

@@ -10,15 +10,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class RecipeGenerator extends FabricRecipeProvider {
 
-    public RecipeGenerator(FabricDataOutput output) {
-        super(output);
+    public RecipeGenerator(FabricDataOutput output, CompletableFuture<WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
     }
 
     public static void offerToolTrimRecipe(RecipeExporter exporter, Item template, Identifier recipeId) {

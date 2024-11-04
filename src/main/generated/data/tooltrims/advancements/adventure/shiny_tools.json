@@ -27,17 +27,19 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.adventure.shiny_tools.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "minecraft:netherite_sword",
-      "nbt": "{Damage:0,Trim:{material:\"minecraft:diamond\",pattern:\"tooltrims:frost\"}}"
+      "components": {
+        "minecraft:trim": {
+          "material": "minecraft:diamond",
+          "pattern": "tooltrims:frost"
+        }
+      },
+      "count": 1,
+      "id": "minecraft:netherite_sword"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.adventure.shiny_tools.title"
     }
@@ -49,6 +51,5 @@
       "tool_trimmed_tooltrims:charge",
       "tool_trimmed_tooltrims:frost"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

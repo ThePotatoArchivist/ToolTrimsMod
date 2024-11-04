@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "minecraft:wooden_sword",
     "minecraft:wooden_shovel",
@@ -32,6 +31,7 @@
     "minecraft:netherite_axe",
     "minecraft:netherite_hoe",
     "minecraft:bow",
-    "minecraft:crossbow"
+    "minecraft:crossbow",
+    "minecraft:mace"
   ]
 }
