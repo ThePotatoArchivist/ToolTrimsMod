@@ -25,7 +25,7 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<ArmorTrimPatte
 
     private static ArmorTrimPattern of(Identifier id, Item templateItem) {
         return new ArmorTrimPattern(
-                new Identifier(""),
+                Identifier.of("c", "n"),
                 Registries.ITEM.getEntry(templateItem),
                 Text.translatable(Util.createTranslationKey("tool_trim_pattern", id)),
                 false

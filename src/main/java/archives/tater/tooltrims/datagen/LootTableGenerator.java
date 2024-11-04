@@ -38,7 +38,7 @@ public class LootTableGenerator extends SimpleFabricLootTableProvider {
     }
 
     @Override
-    public void accept(WrapperLookup wrapperLookup, BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter) {
+    public void accept(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter) {
         exporter.accept(ToolTrimsLoot.TRAIL_RUINS_INJECT, singleton(ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO));
         exporter.accept(ToolTrimsLoot.PILLAGER_OUTPOST_INJECT, singleton(ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, TWO));
         exporter.accept(ToolTrimsLoot.ANCIENCT_CITY_INJECT, singleton(ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE, ONE_OR_TWO));

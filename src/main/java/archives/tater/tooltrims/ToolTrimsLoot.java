@@ -1,12 +1,11 @@
 package archives.tater.tooltrims;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -44,7 +43,7 @@ public class ToolTrimsLoot {
 
     public static void register() {
 
-        LootTableEvents.MODIFY.register((key, builder, source) -> {
+        LootTableEvents.MODIFY.register((key, builder, source, wrapperLookup) -> {
             if (!source.isBuiltin()) return;
 
             for (var inject : injects) {

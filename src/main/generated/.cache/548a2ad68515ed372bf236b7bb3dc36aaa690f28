@@ -1,5 +1,5 @@
-// 1.20.5	2024-11-28T10:03:20.016982539	Tool Trims Mod/minecraft:chest Loot Table
-cc67190be4d063f9b874bd7d0f30691d2292b65e data/tooltrims/loot_tables/inject/minecraft/chests/igloo_chest.json
-60daeb61d203651289378c0c9d4592c2767627bf data/tooltrims/loot_tables/inject/minecraft/archaeology/trail_ruins_rare.json
-8cd5a19009cdf524030e72099f1bd4836da1c596 data/tooltrims/loot_tables/inject/minecraft/chests/ancient_city.json
-2b2b2557f846966e5acf4466eedc51c4cbc82cd9 data/tooltrims/loot_tables/inject/minecraft/chests/pillager_outpost.json
+// 1.21	2024-11-03T22:19:50.235264772	Tool Trims Fabric/minecraft:chest Loot Table
+8cd5a19009cdf524030e72099f1bd4836da1c596 data/tooltrims/loot_table/inject/minecraft/chests/ancient_city.json
+60daeb61d203651289378c0c9d4592c2767627bf data/tooltrims/loot_table/inject/minecraft/archaeology/trail_ruins_rare.json
+2b2b2557f846966e5acf4466eedc51c4cbc82cd9 data/tooltrims/loot_table/inject/minecraft/chests/pillager_outpost.json
+cc67190be4d063f9b874bd7d0f30691d2292b65e data/tooltrims/loot_table/inject/minecraft/chests/igloo_chest.json

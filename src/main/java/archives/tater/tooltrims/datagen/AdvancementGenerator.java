@@ -49,7 +49,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         ));
 
         var shinyTools = createWithAllToolTrims()
-                .parent(new AdvancementEntry(new Identifier("adventure/root"), null)) // fake advancement
+                .parent(new AdvancementEntry(Identifier.ofVanilla("adventure/root"), null)) // fake advancement
                 .display(shinyToolsIcon,
                         Text.translatable("advancements.adventure.shiny_tools.title"),
                         Text.translatable("advancements.adventure.shiny_tools.description"),

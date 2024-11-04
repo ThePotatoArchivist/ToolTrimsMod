@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = ModelLoader.class, priority = 900)
 public class ModelLoaderMixin {
     @Unique
-    private static final Identifier CROSSBOW = new Identifier("item/crossbow");
+    private static final Identifier CROSSBOW = Identifier.ofVanilla("item/crossbow");
 
     @Inject(method = "loadModelFromJson", at = @At("RETURN"), cancellable = true)
     private void preventCrossbowModification(Identifier id, CallbackInfoReturnable<JsonUnbakedModel> cir) {
