@@ -16,8 +16,8 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class ToolTrimsCommands {
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(literal("tooltrims")
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+                dispatcher.register(literal("tooltrims")
                     .then(literal("upgrade")
                             .executes(ctx -> {
                                 upgrade(ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getOffsetEntitySlotId(98));
@@ -31,8 +31,7 @@ public class ToolTrimsCommands {
                                 upgrade(ctx, EntityArgumentType.getPlayer(ctx, "target"), ItemSlotArgumentType.getItemSlot(ctx, "slot"));
                                 return 1;
                             }))))
-            );
-        });
+        ));
     }
 
     public static void upgrade(CommandContext<ServerCommandSource> ctx, @Nullable ServerPlayerEntity player, int slot) {

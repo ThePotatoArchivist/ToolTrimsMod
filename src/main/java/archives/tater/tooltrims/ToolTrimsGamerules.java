@@ -6,7 +6,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.GameRules.BooleanRule;
 
 public class ToolTrimsGamerules {
-    public static GameRules.Key<BooleanRule> DELETE_TOOLSMITHING_TABLES = GameRuleRegistry.register("tooltrims_deleteToolsmithingTable", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(false));
+    public static final GameRules.Key<BooleanRule> DELETE_TOOLSMITHING_TABLES = GameRuleRegistry.register("tooltrims_deleteToolsmithingTable", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(false));
 
     public static void register() {}
 }

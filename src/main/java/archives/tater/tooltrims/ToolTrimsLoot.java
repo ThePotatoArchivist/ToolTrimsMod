@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public class ToolTrimsLoot {
     private static Identifier idInject(Identifier identifier) {
-        return  new Identifier(ToolTrims.MOD_ID, "inject/" + identifier.getNamespace() + "/" + identifier.getPath());
+        return  ToolTrims.id("inject/" + identifier.getNamespace() + "/" + identifier.getPath());
     }
 
     public static final Identifier TRAIL_RUINS_INJECT = idInject(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY);

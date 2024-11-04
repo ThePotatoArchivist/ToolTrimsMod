@@ -41,7 +41,6 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         return new Advancement(identifier, null, null, AdvancementRewards.NONE, Map.of(), new String[][]{}, false);
     }
 
-
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer) {
         var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
@@ -61,7 +60,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                         true,
                         false)
                 .criteriaMerger(CriterionMerger.OR)
-                .build(consumer, new Identifier(ToolTrims.MOD_ID, "adventure/shiny_tools").toString());
+                .build(consumer, ToolTrims.id("adventure/shiny_tools").toString());
 
         createWithAllToolTrims()
                 .parent(shinyTools)
@@ -75,6 +74,6 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                         true,
                         false)
                 .criteriaMerger(CriterionMerger.AND)
-                .build(consumer, new Identifier(ToolTrims.MOD_ID, "adventure/tools_of_all_styles").toString());
+                .build(consumer, ToolTrims.id("adventure/tools_of_all_styles").toString());
     }
 }

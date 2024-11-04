@@ -1,5 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
+import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsDPCompat;
 import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.item.ToolTrimsItems;
@@ -22,7 +23,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static archives.tater.tooltrims.ToolTrims.MOD_ID;
 import static archives.tater.tooltrims.ToolTrimsPatterns.TRIM_PATTERN_PREDICATE;
 
 public class ModelGenerator extends FabricModelProvider {
@@ -65,11 +65,11 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_HOE
     );
 
-    private static final Model TEMPLATE_BOW = new Model(Optional.of(new Identifier(MOD_ID, "item/template_bow")), Optional.empty(), TextureKey.LAYER0);
-    private static final Model TEMPLATE_CROSSBOW = new Model(Optional.of(new Identifier(MOD_ID, "item/template_crossbow")), Optional.empty(), TextureKey.LAYER0);
+    private static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);
+    private static final Model TEMPLATE_CROSSBOW = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER0);
 
     private Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
-        return new Identifier(MOD_ID, "item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
+        return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
 
     private JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier toolId, Model model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
@@ -128,6 +128,10 @@ public class ModelGenerator extends FabricModelProvider {
         });
     }
 
+    private void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
+        upload(model, item, textureMap, writer, json -> json.add("overrides", overrides));
+    }
+
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 
@@ -142,9 +146,7 @@ public class ModelGenerator extends FabricModelProvider {
         for (var tool : standardTools) {
             var overrides = generateTrimmedOverrides(Registries.ITEM.getId(tool), Models.HANDHELD, itemModelGenerator.writer);
 
-            upload(Models.HANDHELD, tool, TextureMap.layer0(tool), itemModelGenerator.writer, json -> {
-                json.add("overrides", overrides);
-            });
+            upload(Models.HANDHELD, tool, TextureMap.layer0(tool), itemModelGenerator.writer, overrides);
         }
 
         var bowOverrides = new JsonArray();
@@ -153,9 +155,7 @@ public class ModelGenerator extends FabricModelProvider {
         generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_0"), TEMPLATE_BOW, Map.of("pulling", 1), true, itemModelGenerator.writer);
         generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_1"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.65f), true, itemModelGenerator.writer);
         generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_2"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.9f), true, itemModelGenerator.writer);
-        upload(TEMPLATE_BOW, Items.BOW, TextureMap.layer0(Items.BOW), itemModelGenerator.writer, json -> {
-            json.add("overrides", bowOverrides);
-        });
+        upload(TEMPLATE_BOW, Items.BOW, TextureMap.layer0(Items.BOW), itemModelGenerator.writer, bowOverrides);
 
         var crossbowOverrides = new JsonArray();
         var crossbowId = Registries.ITEM.getId(Items.CROSSBOW);
@@ -165,8 +165,6 @@ public class ModelGenerator extends FabricModelProvider {
         generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_pulling_2"), TEMPLATE_CROSSBOW, Map.of("pulling", 1, "pull", 1), true, itemModelGenerator.writer);
         generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_arrow"), TEMPLATE_CROSSBOW, Map.of("charged", 1), true, itemModelGenerator.writer);
         generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_firework"), TEMPLATE_CROSSBOW, Map.of("charged", 1, "firework", 1), true, itemModelGenerator.writer);
-        upload(TEMPLATE_CROSSBOW, Items.CROSSBOW, TextureMap.layer0(TextureMap.getId(Items.CROSSBOW).withSuffixedPath("_standby")), itemModelGenerator.writer, json -> {
-            json.add("overrides", crossbowOverrides);
-        });
+        upload(TEMPLATE_CROSSBOW, Items.CROSSBOW, TextureMap.layer0(TextureMap.getId(Items.CROSSBOW).withSuffixedPath("_standby")), itemModelGenerator.writer, crossbowOverrides);
     }
 }

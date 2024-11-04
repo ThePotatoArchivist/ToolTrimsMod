@@ -54,7 +54,7 @@ public class ToolTrimsDPCompat {
 
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
-        ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(ToolTrims.MOD_ID, "legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
+        ResourceManagerHelper.registerBuiltinResourcePack(ToolTrims.id("legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             var state = State.ofServer(server);

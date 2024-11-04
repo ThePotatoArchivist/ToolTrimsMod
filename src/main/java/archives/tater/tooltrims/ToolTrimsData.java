@@ -8,7 +8,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		var pack = fabricDataGenerator.createPack();
-		pack.addProvider((FabricDataGenerator.Pack.Factory<TrimPatternGenerator>) TrimPatternGenerator::new);
+		pack.addProvider(TrimPatternGenerator::new);
 		pack.addProvider(RecipeGenerator::new);
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(ModelGenerator::new);

@@ -2,19 +2,20 @@
 	"schemaVersion": 1,
 	"id": "tooltrims",
 	"version": "${version}",
-	"name": "Tool Trims Fabric",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Tool Trims Mod",
+	"description": "Fabric port of JoeFly's Tool Trims datapack",
 	"authors": [
-		"Me!"
+		"ThePotatoArchivist",
+		"JoeFly"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/tool-trims-mod/",
+		"sources": "https://github.com/JosiahFu/ToolTrimsMod"
 	},
 	"license": [
-            "ARR",
-            "LGPL-3.0-or-later"
-        ],
+		"ARR",
+		"LGPL-3.0-or-later"
+	],
 	"icon": "assets/tooltrims/icon.png",
 	"environment": "*",
 	"entrypoints": {

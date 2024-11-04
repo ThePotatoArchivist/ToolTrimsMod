@@ -13,27 +13,27 @@ public class ToolTrimsPatterns {
     }
 
     private static RegistryKey<ArmorTrimPattern> of(String path) {
-        return of(new Identifier(ToolTrims.MOD_ID, path));
+        return of(ToolTrims.id(path));
     }
 
-    public static RegistryKey<ArmorTrimPattern> LINEAR = of("linear");
-    public static RegistryKey<ArmorTrimPattern> TRACKS = of("tracks");
-    public static RegistryKey<ArmorTrimPattern> CHARGE = of("charge");
-    public static RegistryKey<ArmorTrimPattern> FROST = of("frost");
+    public static final RegistryKey<ArmorTrimPattern> LINEAR = of("linear");
+    public static final RegistryKey<ArmorTrimPattern> TRACKS = of("tracks");
+    public static final RegistryKey<ArmorTrimPattern> CHARGE = of("charge");
+    public static final RegistryKey<ArmorTrimPattern> FROST = of("frost");
 
-    public static List<RegistryKey<ArmorTrimPattern>> PATTERNS = List.of(LINEAR, TRACKS, CHARGE, FROST);
+    public static final List<RegistryKey<ArmorTrimPattern>> PATTERNS = List.of(LINEAR, TRACKS, CHARGE, FROST);
 
-    public static Identifier TRIM_PATTERN_PREDICATE = new Identifier(ToolTrims.MOD_ID, "trim_pattern");
+    public static final Identifier TRIM_PATTERN_PREDICATE = ToolTrims.id("trim_pattern");
 
     private static <T> boolean equals(RegistryKey<T> first, RegistryKey<T> second) {
         return first.getRegistry().equals(second.getRegistry()) && first.getValue().equals(second.getValue());
     }
 
     public static float getModelIndex(RegistryKey<ArmorTrimPattern> pattern) {
-        if (equals(pattern, ToolTrimsPatterns.LINEAR)) return 0.1f;
-        if (equals(pattern, ToolTrimsPatterns.TRACKS)) return 0.2f;
-        if (equals(pattern, ToolTrimsPatterns.CHARGE)) return 0.3f;
-        if (equals(pattern, ToolTrimsPatterns.FROST)) return 0.4f;
+        if (equals(pattern, LINEAR)) return 0.1f;
+        if (equals(pattern, TRACKS)) return 0.2f;
+        if (equals(pattern, CHARGE)) return 0.3f;
+        if (equals(pattern, FROST)) return 0.4f;
         return 0.0f;
     }
 
