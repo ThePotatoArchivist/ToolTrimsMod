@@ -52,15 +52,20 @@ public class ToolTrimsDPCompat {
 
     private static final String disableGamerule = "/gamerule " + ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES.getName() + " false";
 
+    private static boolean gameruleWasEnabled = false;
+
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
         ResourceManagerHelper.registerBuiltinResourcePack(ToolTrims.id("legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
+
+        gameruleWasEnabled = false;
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             var state = State.ofServer(server);
             if (!state.hasCheckedForDP()) {
                 if (wasDatapackUsed(server)) {
                     server.getGameRules().get(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES).set(true, server);
+                    gameruleWasEnabled = true;
                     ToolTrims.LOGGER.warn(Text.translatable("tooltrims.warning.auto_enable", disableGamerule).getString());
                 }
                 state.setCheckedForDP();
@@ -72,8 +77,7 @@ public class ToolTrimsDPCompat {
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (server.isHost(handler.player.getGameProfile())) {
-                var state = State.ofServer(server);
-                if (state.justEnabledGamerule()) {
+                if (gameruleWasEnabled) {
                     handler.player.sendMessage(Text.translatable("tooltrims.warning.auto_enable", disableGamerule));
                 }
                 if (isDatapackRunning(server)) {
@@ -174,7 +178,6 @@ public class ToolTrimsDPCompat {
     public static class State extends PersistentState {
         private static final String CHECKED_NBT = "CheckedForDP";
 
-        private boolean justEnabledGamerule = false;
         private boolean checkedForDP;
 
         @Override
@@ -189,12 +192,7 @@ public class ToolTrimsDPCompat {
 
         public void setCheckedForDP() {
             this.checkedForDP = true;
-            this.justEnabledGamerule = true;
             setDirty(true);
-        }
-
-        public boolean justEnabledGamerule() {
-            return justEnabledGamerule;
         }
 
         public static State fromNbt(NbtCompound nbt) {
