@@ -1,0 +1,18 @@
+
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:block/structure_block"
+    },
+    "property": "minecraft:custom_model_data",
+    "entries": [
+      {"model": {"type": "minecraft:model", "model": "tooltrims:item/empty"}, "threshold": 312001.0},
+      {"model": {"type": "minecraft:model", "model": "tooltrims:item/linear_tool_trim_smithing_template"}, "threshold": 313001.0},
+      {"model": {"type": "minecraft:model", "model": "tooltrims:item/tracks_tool_trim_smithing_template"}, "threshold": 313002.0},
+      {"model": {"type": "minecraft:model", "model": "tooltrims:item/charge_tool_trim_smithing_template"}, "threshold": 313003.0},
+      {"model": {"type": "minecraft:model", "model": "tooltrims:item/frost_tool_trim_smithing_template"}, "threshold": 313004.0}
+    ]
+  }
+}
