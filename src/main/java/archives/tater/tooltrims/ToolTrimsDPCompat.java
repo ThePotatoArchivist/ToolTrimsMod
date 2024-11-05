@@ -15,7 +15,7 @@ import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimMaterials;
 import net.minecraft.item.trim.ArmorTrimPattern;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
@@ -122,18 +122,18 @@ public class ToolTrimsDPCompat {
         return 311001 + ToolTrimsDPCompat.legacyPatternOrder.indexOf(pattern) * ToolTrimsDPCompat.legacyMaterialOrder.size() + ToolTrimsDPCompat.legacyMaterialOrder.indexOf(material);
     }
 
-    public static ArmorTrim getTrim(DynamicRegistryManager dynamicRegistryManager, int customModelData) {
+    public static ArmorTrim getTrim(RegistryLookup registryLookup, int customModelData) {
         var value = customModelData - 311001;
         var pattern = legacyPatternOrder.get(value / legacyMaterialOrder.size());
         var material = legacyMaterialOrder.get(value % legacyMaterialOrder.size());
         return new ArmorTrim(
-                dynamicRegistryManager.get(RegistryKeys.TRIM_MATERIAL).getEntry(material).orElseThrow(),
-                dynamicRegistryManager.get(RegistryKeys.TRIM_PATTERN).getEntry(pattern).orElseThrow()
+                registryLookup.getOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(material),
+                registryLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(pattern)
         );
     }
 
     public static ArmorTrim getTrim(World world, int customModelData) {
-        return getTrim(world.getRegistryManager(), customModelData);
+        return getTrim(world.getRegistryManager().createRegistryLookup(), customModelData);
     }
 
     public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable World world) {

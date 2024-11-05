@@ -36,10 +36,10 @@ public class ToolTrimsItems {
         ));
     }
 
-    public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = ToolTrimsItems.registerToolTemplate("linear");
-    public static final Item TRACKS_TOOL_TRIM_SMITHING_TEMPLATE = ToolTrimsItems.registerToolTemplate("tracks");
-    public static final Item CHARGE_TOOL_TRIM_SMITHING_TEMPLATE = ToolTrimsItems.registerToolTemplate("charge");
-    public static final Item FROST_TOOL_TRIM_SMITHING_TEMPLATE = ToolTrimsItems.registerToolTemplate("frost");
+    public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("linear");
+    public static final Item TRACKS_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("tracks");
+    public static final Item CHARGE_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("charge");
+    public static final Item FROST_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("frost");
 
     public static final Map<RegistryKey<ArmorTrimPattern>, Item> SMITHING_TEMPLATES = Map.of(
             ToolTrimsPatterns.LINEAR, LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
