@@ -13,8 +13,9 @@ import net.minecraft.advancement.criterion.RecipeCraftedCriterion;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterials;
+import net.minecraft.item.equipment.trim.ArmorTrim;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.text.Text;
@@ -31,7 +32,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             var id = pattern.getValue();
-            builder.criterion("tool_trimmed_" + id, RecipeCraftedCriterion.Conditions.create(id.withSuffixedPath("_tool_trim_smithing_template_smithing_trim")));
+            builder.criterion("tool_trimmed_" + id, RecipeCraftedCriterion.Conditions.create(RegistryKey.of(RegistryKeys.RECIPE, id.withSuffixedPath("_tool_trim_smithing_template_smithing_trim"))));
         }
         return builder;
     }
@@ -44,8 +45,8 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     public void generateAdvancement(WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
         var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
         shinyToolsIcon.set(DataComponentTypes.TRIM, new ArmorTrim(
-                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(ArmorTrimMaterials.DIAMOND),
-                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
+                wrapperLookup.getOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(ArmorTrimMaterials.DIAMOND),
+                wrapperLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
         ));
 
         var shinyTools = createWithAllToolTrims()

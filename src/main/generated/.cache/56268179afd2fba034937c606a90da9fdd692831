@@ -1,5 +1,5 @@
-// 1.21.1	2025-05-11T18:41:25.397255973	Tool Trims Mod/Trim Pattern Definitions
-97b0d054e909b91ec330b9c066a8a9f31a5da45c data/tooltrims/trim_pattern/charge.json
-05e40d21565cb4995a50820d0ffeb3ec1330c305 data/tooltrims/trim_pattern/frost.json
-6ea439989ab3c8876edb1576b36ae6560eedb5b0 data/tooltrims/trim_pattern/tracks.json
-1066d9ce1545b9d8c806eaef35d020dc81192c9f data/tooltrims/trim_pattern/linear.json
+// 1.21.9	-999999999-01-01T00:00:00	Tool Trims Mod/Trim Pattern Definitions
+dad1b09625ba0cf774c4d99ad2dacec1990321b1 data/tooltrims/trim_pattern/charge.json
+308f7da77a87d773754bc7832368874b6f51d671 data/tooltrims/trim_pattern/frost.json
+079abdb7fe2baf00ab93a51f8ed20e4dfaec36c5 data/tooltrims/trim_pattern/linear.json
+d62c74235ab1812a998ef63c66a3347cb76a09ff data/tooltrims/trim_pattern/tracks.json
