@@ -24,7 +24,7 @@ public abstract class ItemEntryMixin extends LeafEntry implements CopyWithWeight
     }
 
     @Invoker("<init>")
-    static ItemEntry newItemEntry(RegistryEntry<Item> item, int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
+    private static ItemEntry newItemEntry(RegistryEntry<Item> item, int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
         throw new AssertionError();
     }
 
