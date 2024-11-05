@@ -1,29 +1,29 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.ToolTrimsDPCompat;
-import archives.tater.tooltrims.ToolTrimsPatterns;
+import archives.tater.tooltrims.*;
 import archives.tater.tooltrims.item.ToolTrimsItems;
-import archives.tater.tooltrims.mixin.ItemModelGeneratorAccessor;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import archives.tater.tooltrims.mixin.client.ItemModelGeneratorAccessor;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
+import net.minecraft.client.render.item.property.numeric.CustomModelDataFloatProperty;
+import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
+import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
+import net.minecraft.client.render.item.property.select.DisplayContextProperty;
+import net.minecraft.client.render.item.property.select.TrimMaterialProperty;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.Items;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static archives.tater.tooltrims.ToolTrimsPatterns.TRIM_PATTERN_PREDICATE;
+import java.util.stream.Stream;
 
 public class ModelGenerator extends FabricModelProvider {
     public ModelGenerator(FabricDataOutput output) {
@@ -43,6 +43,11 @@ public class ModelGenerator extends FabricModelProvider {
             Items.STONE_PICKAXE,
             Items.STONE_AXE,
             Items.STONE_HOE,
+            Items.COPPER_SWORD,
+            Items.COPPER_SHOVEL,
+            Items.COPPER_PICKAXE,
+            Items.COPPER_AXE,
+            Items.COPPER_HOE,
             Items.GOLDEN_SWORD,
             Items.GOLDEN_SHOVEL,
             Items.GOLDEN_PICKAXE,
@@ -62,112 +67,54 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_SHOVEL,
             Items.NETHERITE_PICKAXE,
             Items.NETHERITE_AXE,
-            Items.NETHERITE_HOE,
-            Items.TRIDENT
+            Items.NETHERITE_HOE
     );
-
-    protected static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);
-    protected static final Model TEMPLATE_CROSSBOW = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER0);
 
     protected static Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
         return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier modelId, Identifier textureId, Model model, Map<String, Number> extraPredicates, boolean includeBase, boolean upload, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
-        if (includeBase) {
-            var override = new JsonObject();
-            var predicate = new JsonObject();
-            extraPredicates.forEach(predicate::addProperty);
-            override.add("predicate", predicate);
-            override.addProperty("model", modelId.withPrefixedPath("item/").toString());
-            overrides.add(override);
-        }
-
-        for (var pattern : ToolTrimsDPCompat.legacyPatternOrder) {
-            for (var material : ToolTrimsDPCompat.legacyMaterialOrder) {
-                var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.getValue().getPath());
-
-                var override = new JsonObject();
-                var predicate = new JsonObject();
-                extraPredicates.forEach(predicate::addProperty);
-                predicate.addProperty("custom_model_data", ToolTrimsDPCompat.getCustomModelData(material, pattern));
-                override.add("predicate", predicate);
-                override.addProperty("model", trimmedModelId.toString());
-                overrides.add(override);
-            }
-        }
-
-        for (var pattern : ToolTrimsPatterns.PATTERNS) {
-            for (var material : materials) {
-                var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.name());
-                var trimmedTextureId = getSuffixedModelId(textureId, pattern.getValue().getPath(), material.name());
-
-                if (upload) model.upload(trimmedModelId, TextureMap.layer0(trimmedTextureId), writer);
-
-                var override = new JsonObject();
-                var predicate = new JsonObject();
-                extraPredicates.forEach(predicate::addProperty);
-                predicate.addProperty("trim_type", material.itemModelIndex());
-                predicate.addProperty(TRIM_PATTERN_PREDICATE.toString(), ToolTrimsPatterns.getModelIndex(pattern));
-                override.add("predicate", predicate);
-                override.addProperty("model", trimmedModelId.toString());
-                overrides.add(override);
-            }
-        }
-
-        return overrides;
+    protected static ItemModel.Unbaked generateTrimmedToolModels(Identifier baseId, Model model, ItemModelGenerator modelGenerator) {
+        return generateTrimmedToolModels(baseId, baseId, model, modelGenerator);
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier toolId, Model model, Map<String, Number> extraPredicates, boolean includeBase, boolean upload, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(overrides, toolId, toolId, model, extraPredicates, includeBase, upload, writer);
+    protected static ItemModel.Unbaked generateTrimmedToolModels(Identifier modelId, Identifier textureId, Model model, ItemModelGenerator modelGenerator) {
+        return ItemModels.select(
+                TrimPatternProperty.INSTANCE,
+                // Legacy
+                ItemModels.rangeDispatch(
+                        new CustomModelDataFloatProperty(0),
+                        ItemModels.basic(modelId.withPrefixedPath("item/")),
+                        Stream.concat(
+                                ToolTrimsDPCompat.legacyPatternOrder.stream().flatMap(pattern ->
+                                        ToolTrimsDPCompat.legacyMaterialOrder.stream().map(material ->
+                                                ItemModels.rangeDispatchEntry(
+                                                        ItemModels.basic(getSuffixedModelId(modelId, pattern.getValue().getPath(), material.getValue().getPath())),
+                                                        ToolTrimsDPCompat.getCustomModelData(material, pattern)
+                                                )
+                                        )
+                                ),
+                                ToolTrimsDPCompat.legacyPatternOrder.stream().map(pattern ->
+                                        ItemModels.rangeDispatchEntry(
+                                                ItemModels.basic(getSuffixedModelId(modelId, pattern.getValue().getPath(), ArmorTrimMaterials.RESIN.getValue().getPath())),
+                                                ToolTrimsDPCompat.getCustomModelData(ArmorTrimMaterials.RESIN, pattern)
+                                        )
+                                )
+                        ).toList()),
+                // Normal
+                ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
+                        ItemModels.switchCase(pattern, ItemModels.select(new TrimMaterialProperty(), materials.stream().map(material -> {
+                            var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.materialKey().getValue().getPath());
+                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.getValue().getPath(), material.materialKey().getValue().getPath());
+                            model.upload(trimmedModelId, TextureMap.layer0(trimmedTextureId), modelGenerator.modelCollector);
+                            return ItemModels.switchCase(material.materialKey(), ItemModels.basic(trimmedModelId));
+                        }).toList()))
+                ).toList()
+        );
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier toolId, Model model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(overrides, toolId, toolId, model, extraPredicates, includeBase, true, writer);
-    }
-
-    protected static JsonArray generateTrimmedOverrides(Identifier toolId, Model model, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(new JsonArray(), toolId, model, Map.of(), false, true, writer);
-    }
-
-    protected static JsonArray generateTrimmedOverrides(Identifier modelId, Identifier textureId, Model model, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(new JsonArray(), modelId, textureId, model, Map.of(), false, true, writer);
-    }
-
-    protected static void upload(Model model, Identifier identifier, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
-        model.upload(identifier, textureMap, writer, (id, textures) -> {
-            var json = model.createJson(id, textures);
-            postProcessJson.accept(json);
-            return json;
-        });
-    }
-
-    protected static void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
-        upload(model, ModelIds.getItemModelId(item), textureMap, writer, postProcessJson);
-    }
-
-    protected static void upload(Model model, Identifier identifier, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
-        upload(model, identifier, textureMap, writer, json -> json.add("overrides", overrides));
-    }
-
-    protected static void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
-        upload(model, item, textureMap, writer, json -> json.add("overrides", overrides));
-    }
-
-    protected static JsonArray generateCrossbowOverrides(ItemModelGenerator itemModelGenerator, boolean upload) {
-        var crossbowOverrides = new JsonArray();
-        var crossbowId = Registries.ITEM.getId(Items.CROSSBOW);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId, TEMPLATE_CROSSBOW, Map.of(), false, upload, itemModelGenerator.writer);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_pulling_0"), TEMPLATE_CROSSBOW, Map.of("pulling", 1), true, upload, itemModelGenerator.writer);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_pulling_1"), TEMPLATE_CROSSBOW, Map.of("pulling", 1, "pull", 0.58f), true, upload, itemModelGenerator.writer);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_pulling_2"), TEMPLATE_CROSSBOW, Map.of("pulling", 1, "pull", 1), true, upload, itemModelGenerator.writer);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_arrow"), TEMPLATE_CROSSBOW, Map.of("charged", 1), true, upload, itemModelGenerator.writer);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffixedPath("_firework"), TEMPLATE_CROSSBOW, Map.of("charged", 1, "firework", 1), true, upload, itemModelGenerator.writer);
-        return crossbowOverrides;
-    }
-
-    protected static void uploadCrossbow(ItemModelGenerator itemModelGenerator, JsonArray crossbowOverrides) {
-        upload(TEMPLATE_CROSSBOW, Items.CROSSBOW, TextureMap.layer0(TextureMap.getId(Items.CROSSBOW).withSuffixedPath("_standby")), itemModelGenerator.writer, crossbowOverrides);
+    protected static void registerTrimmedTool(Item item, Model model, ItemModelGenerator modelGenerator) {
+        modelGenerator.output.accept(item, generateTrimmedToolModels(Registries.ITEM.getId(item), model, modelGenerator));
     }
 
     @Override
@@ -182,22 +129,52 @@ public class ModelGenerator extends FabricModelProvider {
         }
 
         for (var tool : standardTools) {
-            var overrides = generateTrimmedOverrides(Registries.ITEM.getId(tool), Models.HANDHELD, itemModelGenerator.writer);
-
-            upload(Models.HANDHELD, tool, TextureMap.layer0(tool), itemModelGenerator.writer, overrides);
+            registerTrimmedTool(tool, Models.HANDHELD, itemModelGenerator);
         }
 
-        upload(Models.HANDHELD_MACE, Items.MACE, TextureMap.layer0(Items.MACE), itemModelGenerator.writer,
-                generateTrimmedOverrides(Registries.ITEM.getId(Items.MACE), Models.HANDHELD_MACE, itemModelGenerator.writer));
+        registerTrimmedTool(Items.MACE, Models.HANDHELD_MACE, itemModelGenerator);
 
-        var bowOverrides = new JsonArray();
         var bowId = Registries.ITEM.getId(Items.BOW);
-        generateTrimmedOverrides(bowOverrides, bowId, TEMPLATE_BOW, Map.of(), false, itemModelGenerator.writer);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_0"), TEMPLATE_BOW, Map.of("pulling", 1), true, itemModelGenerator.writer);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_1"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.65f), true, itemModelGenerator.writer);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffixedPath("_pulling_2"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.9f), true, itemModelGenerator.writer);
-        upload(TEMPLATE_BOW, Items.BOW, TextureMap.layer0(Items.BOW), itemModelGenerator.writer, bowOverrides);
+        var bowModel = new Model(Optional.of(ModelIds.getItemModelId(Items.BOW)), Optional.empty(), TextureKey.LAYER0);
+        itemModelGenerator.output.accept(Items.BOW, ItemModels.condition(
+                ItemModels.usingItemProperty(),
+                ItemModels.rangeDispatch(
+                        new UseDurationProperty(false),
+                        0.05f,
+                        generateTrimmedToolModels(bowId.withSuffixedPath("_pulling_0"), bowModel, itemModelGenerator),
+                        ItemModels.rangeDispatchEntry(generateTrimmedToolModels(bowId.withSuffixedPath("_pulling_1"), bowModel, itemModelGenerator), 0.65f),
+                        ItemModels.rangeDispatchEntry(generateTrimmedToolModels(bowId.withSuffixedPath("_pulling_2"), bowModel, itemModelGenerator), 0.9f)
+                ),
+                generateTrimmedToolModels(bowId, bowModel, itemModelGenerator)
+        ));
 
-        uploadCrossbow(itemModelGenerator, generateCrossbowOverrides(itemModelGenerator, true));
+        var crossbowId = Registries.ITEM.getId(Items.CROSSBOW);
+        var crossbowModel = new Model(Optional.of(ModelIds.getItemModelId(Items.CROSSBOW)), Optional.empty(), TextureKey.LAYER0);
+        itemModelGenerator.output.accept(Items.CROSSBOW, ItemModels.select(
+                new ChargeTypeProperty(),
+                ItemModels.condition(
+                        ItemModels.usingItemProperty(),
+                        ItemModels.rangeDispatch(
+                                new CrossbowPullProperty(),
+                                generateTrimmedToolModels(crossbowId.withSuffixedPath("_pulling_0"), crossbowModel, itemModelGenerator),
+                                ItemModels.rangeDispatchEntry(generateTrimmedToolModels(crossbowId.withSuffixedPath("_pulling_1"), crossbowModel, itemModelGenerator), 0.58f),
+                                ItemModels.rangeDispatchEntry(generateTrimmedToolModels(crossbowId.withSuffixedPath("_pulling_2"), crossbowModel, itemModelGenerator), 1f)
+                        ),
+                        generateTrimmedToolModels(crossbowId, crossbowModel, itemModelGenerator)
+                ),
+                ItemModels.switchCase(CrossbowItem.ChargeType.ARROW, generateTrimmedToolModels(crossbowId.withSuffixedPath("_arrow"), crossbowModel, itemModelGenerator)),
+                ItemModels.switchCase(CrossbowItem.ChargeType.ROCKET, generateTrimmedToolModels(crossbowId.withSuffixedPath("_firework"), crossbowModel, itemModelGenerator))
+        ));
+
+        var tridentId = Registries.ITEM.getId(Items.TRIDENT);
+        itemModelGenerator.output.accept(Items.TRIDENT, ItemModels.select(
+                new DisplayContextProperty(),
+                ItemModels.condition(
+                        ItemModels.usingItemProperty(),
+                        ItemModels.special(tridentId.withPrefixedPath("item/").withSuffixedPath("_throwing"), new TrimmedTridentModelRenderer.Unbaked()),
+                        ItemModels.special(tridentId.withPrefixedPath("item/").withSuffixedPath("_in_hand"), new TrimmedTridentModelRenderer.Unbaked())
+                ),
+                ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), generateTrimmedToolModels(tridentId, Models.GENERATED, itemModelGenerator))
+        ));
     }
 }

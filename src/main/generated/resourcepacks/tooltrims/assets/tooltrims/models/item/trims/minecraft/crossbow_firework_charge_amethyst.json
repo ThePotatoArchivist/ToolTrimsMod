@@ -1,5 +1,5 @@
 {
-  "parent": "tooltrims:item/template_crossbow",
+  "parent": "minecraft:item/crossbow",
   "textures": {
     "layer0": "tooltrims:item/trims/minecraft/crossbow_firework_charge_amethyst"
   }

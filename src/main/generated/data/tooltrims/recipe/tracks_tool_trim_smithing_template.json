@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "minecraft:cobblestone"
-    },
-    "S": {
-      "item": "tooltrims:tracks_tool_trim_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "minecraft:cobblestone",
+    "S": "tooltrims:tracks_tool_trim_smithing_template"
   },
   "pattern": [
     "#S#",

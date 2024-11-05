@@ -3,9 +3,9 @@ package archives.tater.tooltrims;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterial;
-import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.item.equipment.trim.ArmorTrim;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -34,7 +34,7 @@ public class TridentTextures {
 
     public static @Nullable Identifier getTextureId(ArmorTrim trim) {
         if (trim == null) return null;
-        return getTextureId(trim.getPattern(), trim.getMaterial());
+        return getTextureId(trim.pattern(), trim.material());
     }
 
     public static @Nullable Identifier getTextureId(ItemStack stack) {

@@ -1,0 +1,2691 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:select",
+      "cases": [
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_quartz"
+                },
+                "when": "minecraft:quartz"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_iron"
+                },
+                "when": "minecraft:iron"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_netherite"
+                },
+                "when": "minecraft:netherite"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_redstone"
+                },
+                "when": "minecraft:redstone"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_copper"
+                },
+                "when": "minecraft:copper"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_gold"
+                },
+                "when": "minecraft:gold"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_emerald"
+                },
+                "when": "minecraft:emerald"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_diamond"
+                },
+                "when": "minecraft:diamond"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_lapis"
+                },
+                "when": "minecraft:lapis"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_amethyst"
+                },
+                "when": "minecraft:amethyst"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_linear_resin"
+                },
+                "when": "minecraft:resin"
+              }
+            ],
+            "property": "minecraft:trim_material"
+          },
+          "when": "tooltrims:linear"
+        },
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_quartz"
+                },
+                "when": "minecraft:quartz"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_iron"
+                },
+                "when": "minecraft:iron"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_netherite"
+                },
+                "when": "minecraft:netherite"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_redstone"
+                },
+                "when": "minecraft:redstone"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_copper"
+                },
+                "when": "minecraft:copper"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_gold"
+                },
+                "when": "minecraft:gold"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_emerald"
+                },
+                "when": "minecraft:emerald"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_diamond"
+                },
+                "when": "minecraft:diamond"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_lapis"
+                },
+                "when": "minecraft:lapis"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_amethyst"
+                },
+                "when": "minecraft:amethyst"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_tracks_resin"
+                },
+                "when": "minecraft:resin"
+              }
+            ],
+            "property": "minecraft:trim_material"
+          },
+          "when": "tooltrims:tracks"
+        },
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_quartz"
+                },
+                "when": "minecraft:quartz"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_iron"
+                },
+                "when": "minecraft:iron"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_netherite"
+                },
+                "when": "minecraft:netherite"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_redstone"
+                },
+                "when": "minecraft:redstone"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_copper"
+                },
+                "when": "minecraft:copper"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_gold"
+                },
+                "when": "minecraft:gold"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_emerald"
+                },
+                "when": "minecraft:emerald"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_diamond"
+                },
+                "when": "minecraft:diamond"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_lapis"
+                },
+                "when": "minecraft:lapis"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_amethyst"
+                },
+                "when": "minecraft:amethyst"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_charge_resin"
+                },
+                "when": "minecraft:resin"
+              }
+            ],
+            "property": "minecraft:trim_material"
+          },
+          "when": "tooltrims:charge"
+        },
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_quartz"
+                },
+                "when": "minecraft:quartz"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_iron"
+                },
+                "when": "minecraft:iron"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_netherite"
+                },
+                "when": "minecraft:netherite"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_redstone"
+                },
+                "when": "minecraft:redstone"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_copper"
+                },
+                "when": "minecraft:copper"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_gold"
+                },
+                "when": "minecraft:gold"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_emerald"
+                },
+                "when": "minecraft:emerald"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_diamond"
+                },
+                "when": "minecraft:diamond"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_lapis"
+                },
+                "when": "minecraft:lapis"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_amethyst"
+                },
+                "when": "minecraft:amethyst"
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model": "tooltrims:item/trims/minecraft/bow_frost_resin"
+                },
+                "when": "minecraft:resin"
+              }
+            ],
+            "property": "minecraft:trim_material"
+          },
+          "when": "tooltrims:frost"
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:range_dispatch",
+        "entries": [
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_amethyst"
+            },
+            "threshold": 311001.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_copper"
+            },
+            "threshold": 311002.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_diamond"
+            },
+            "threshold": 311003.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_emerald"
+            },
+            "threshold": 311004.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_gold"
+            },
+            "threshold": 311005.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_iron"
+            },
+            "threshold": 311006.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_lapis"
+            },
+            "threshold": 311007.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_netherite"
+            },
+            "threshold": 311008.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_quartz"
+            },
+            "threshold": 311009.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_redstone"
+            },
+            "threshold": 311010.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_amethyst"
+            },
+            "threshold": 311011.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_copper"
+            },
+            "threshold": 311012.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_diamond"
+            },
+            "threshold": 311013.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_emerald"
+            },
+            "threshold": 311014.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_gold"
+            },
+            "threshold": 311015.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_iron"
+            },
+            "threshold": 311016.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_lapis"
+            },
+            "threshold": 311017.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_netherite"
+            },
+            "threshold": 311018.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_quartz"
+            },
+            "threshold": 311019.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_redstone"
+            },
+            "threshold": 311020.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_amethyst"
+            },
+            "threshold": 311021.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_copper"
+            },
+            "threshold": 311022.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_diamond"
+            },
+            "threshold": 311023.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_emerald"
+            },
+            "threshold": 311024.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_gold"
+            },
+            "threshold": 311025.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_iron"
+            },
+            "threshold": 311026.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_lapis"
+            },
+            "threshold": 311027.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_netherite"
+            },
+            "threshold": 311028.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_quartz"
+            },
+            "threshold": 311029.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_redstone"
+            },
+            "threshold": 311030.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_amethyst"
+            },
+            "threshold": 311031.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_copper"
+            },
+            "threshold": 311032.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_diamond"
+            },
+            "threshold": 311033.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_emerald"
+            },
+            "threshold": 311034.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_gold"
+            },
+            "threshold": 311035.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_iron"
+            },
+            "threshold": 311036.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_lapis"
+            },
+            "threshold": 311037.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_netherite"
+            },
+            "threshold": 311038.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_quartz"
+            },
+            "threshold": 311039.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_redstone"
+            },
+            "threshold": 311040.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_linear_resin"
+            },
+            "threshold": 311041.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_tracks_resin"
+            },
+            "threshold": 311042.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_charge_resin"
+            },
+            "threshold": 311043.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "tooltrims:item/trims/minecraft/bow_frost_resin"
+            },
+            "threshold": 311044.0
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/bow"
+        },
+        "property": "minecraft:custom_model_data"
+      },
+      "property": "tooltrims:trim_pattern"
+    },
+    "on_true": {
+      "type": "minecraft:range_dispatch",
+      "entries": [
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:linear"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:tracks"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:charge"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:frost"
+              }
+            ],
+            "fallback": {
+              "type": "minecraft:range_dispatch",
+              "entries": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_amethyst"
+                  },
+                  "threshold": 311001.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_copper"
+                  },
+                  "threshold": 311002.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_diamond"
+                  },
+                  "threshold": 311003.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_emerald"
+                  },
+                  "threshold": 311004.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_gold"
+                  },
+                  "threshold": 311005.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_iron"
+                  },
+                  "threshold": 311006.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_lapis"
+                  },
+                  "threshold": 311007.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_netherite"
+                  },
+                  "threshold": 311008.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_quartz"
+                  },
+                  "threshold": 311009.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_redstone"
+                  },
+                  "threshold": 311010.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_amethyst"
+                  },
+                  "threshold": 311011.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_copper"
+                  },
+                  "threshold": 311012.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_diamond"
+                  },
+                  "threshold": 311013.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_emerald"
+                  },
+                  "threshold": 311014.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_gold"
+                  },
+                  "threshold": 311015.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_iron"
+                  },
+                  "threshold": 311016.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_lapis"
+                  },
+                  "threshold": 311017.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_netherite"
+                  },
+                  "threshold": 311018.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_quartz"
+                  },
+                  "threshold": 311019.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_redstone"
+                  },
+                  "threshold": 311020.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_amethyst"
+                  },
+                  "threshold": 311021.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_copper"
+                  },
+                  "threshold": 311022.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_diamond"
+                  },
+                  "threshold": 311023.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_emerald"
+                  },
+                  "threshold": 311024.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_gold"
+                  },
+                  "threshold": 311025.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_iron"
+                  },
+                  "threshold": 311026.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_lapis"
+                  },
+                  "threshold": 311027.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_netherite"
+                  },
+                  "threshold": 311028.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_quartz"
+                  },
+                  "threshold": 311029.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_redstone"
+                  },
+                  "threshold": 311030.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_amethyst"
+                  },
+                  "threshold": 311031.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_copper"
+                  },
+                  "threshold": 311032.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_diamond"
+                  },
+                  "threshold": 311033.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_emerald"
+                  },
+                  "threshold": 311034.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_gold"
+                  },
+                  "threshold": 311035.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_iron"
+                  },
+                  "threshold": 311036.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_lapis"
+                  },
+                  "threshold": 311037.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_netherite"
+                  },
+                  "threshold": 311038.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_quartz"
+                  },
+                  "threshold": 311039.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_redstone"
+                  },
+                  "threshold": 311040.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_linear_resin"
+                  },
+                  "threshold": 311041.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_tracks_resin"
+                  },
+                  "threshold": 311042.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_charge_resin"
+                  },
+                  "threshold": 311043.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_resin"
+                  },
+                  "threshold": 311044.0
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "minecraft:item/bow_pulling_1"
+              },
+              "property": "minecraft:custom_model_data"
+            },
+            "property": "tooltrims:trim_pattern"
+          },
+          "threshold": 0.65
+        },
+        {
+          "model": {
+            "type": "minecraft:select",
+            "cases": [
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:linear"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:tracks"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:charge"
+              },
+              {
+                "model": {
+                  "type": "minecraft:select",
+                  "cases": [
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_quartz"
+                      },
+                      "when": "minecraft:quartz"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_iron"
+                      },
+                      "when": "minecraft:iron"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_netherite"
+                      },
+                      "when": "minecraft:netherite"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_redstone"
+                      },
+                      "when": "minecraft:redstone"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_copper"
+                      },
+                      "when": "minecraft:copper"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_gold"
+                      },
+                      "when": "minecraft:gold"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_emerald"
+                      },
+                      "when": "minecraft:emerald"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_diamond"
+                      },
+                      "when": "minecraft:diamond"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_lapis"
+                      },
+                      "when": "minecraft:lapis"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_amethyst"
+                      },
+                      "when": "minecraft:amethyst"
+                    },
+                    {
+                      "model": {
+                        "type": "minecraft:model",
+                        "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_resin"
+                      },
+                      "when": "minecraft:resin"
+                    }
+                  ],
+                  "property": "minecraft:trim_material"
+                },
+                "when": "tooltrims:frost"
+              }
+            ],
+            "fallback": {
+              "type": "minecraft:range_dispatch",
+              "entries": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_amethyst"
+                  },
+                  "threshold": 311001.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_copper"
+                  },
+                  "threshold": 311002.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_diamond"
+                  },
+                  "threshold": 311003.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_emerald"
+                  },
+                  "threshold": 311004.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_gold"
+                  },
+                  "threshold": 311005.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_iron"
+                  },
+                  "threshold": 311006.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_lapis"
+                  },
+                  "threshold": 311007.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_netherite"
+                  },
+                  "threshold": 311008.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_quartz"
+                  },
+                  "threshold": 311009.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_redstone"
+                  },
+                  "threshold": 311010.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_amethyst"
+                  },
+                  "threshold": 311011.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_copper"
+                  },
+                  "threshold": 311012.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_diamond"
+                  },
+                  "threshold": 311013.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_emerald"
+                  },
+                  "threshold": 311014.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_gold"
+                  },
+                  "threshold": 311015.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_iron"
+                  },
+                  "threshold": 311016.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_lapis"
+                  },
+                  "threshold": 311017.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_netherite"
+                  },
+                  "threshold": 311018.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_quartz"
+                  },
+                  "threshold": 311019.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_redstone"
+                  },
+                  "threshold": 311020.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_amethyst"
+                  },
+                  "threshold": 311021.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_copper"
+                  },
+                  "threshold": 311022.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_diamond"
+                  },
+                  "threshold": 311023.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_emerald"
+                  },
+                  "threshold": 311024.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_gold"
+                  },
+                  "threshold": 311025.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_iron"
+                  },
+                  "threshold": 311026.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_lapis"
+                  },
+                  "threshold": 311027.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_netherite"
+                  },
+                  "threshold": 311028.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_quartz"
+                  },
+                  "threshold": 311029.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_redstone"
+                  },
+                  "threshold": 311030.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_amethyst"
+                  },
+                  "threshold": 311031.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_copper"
+                  },
+                  "threshold": 311032.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_diamond"
+                  },
+                  "threshold": 311033.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_emerald"
+                  },
+                  "threshold": 311034.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_gold"
+                  },
+                  "threshold": 311035.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_iron"
+                  },
+                  "threshold": 311036.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_lapis"
+                  },
+                  "threshold": 311037.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_netherite"
+                  },
+                  "threshold": 311038.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_quartz"
+                  },
+                  "threshold": 311039.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_redstone"
+                  },
+                  "threshold": 311040.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_linear_resin"
+                  },
+                  "threshold": 311041.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_tracks_resin"
+                  },
+                  "threshold": 311042.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_charge_resin"
+                  },
+                  "threshold": 311043.0
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_2_frost_resin"
+                  },
+                  "threshold": 311044.0
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "minecraft:item/bow_pulling_2"
+              },
+              "property": "minecraft:custom_model_data"
+            },
+            "property": "tooltrims:trim_pattern"
+          },
+          "threshold": 0.9
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:select",
+        "cases": [
+          {
+            "model": {
+              "type": "minecraft:select",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_quartz"
+                  },
+                  "when": "minecraft:quartz"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_iron"
+                  },
+                  "when": "minecraft:iron"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_netherite"
+                  },
+                  "when": "minecraft:netherite"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_redstone"
+                  },
+                  "when": "minecraft:redstone"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_copper"
+                  },
+                  "when": "minecraft:copper"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_gold"
+                  },
+                  "when": "minecraft:gold"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_emerald"
+                  },
+                  "when": "minecraft:emerald"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_diamond"
+                  },
+                  "when": "minecraft:diamond"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_lapis"
+                  },
+                  "when": "minecraft:lapis"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_amethyst"
+                  },
+                  "when": "minecraft:amethyst"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_resin"
+                  },
+                  "when": "minecraft:resin"
+                }
+              ],
+              "property": "minecraft:trim_material"
+            },
+            "when": "tooltrims:linear"
+          },
+          {
+            "model": {
+              "type": "minecraft:select",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_quartz"
+                  },
+                  "when": "minecraft:quartz"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_iron"
+                  },
+                  "when": "minecraft:iron"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_netherite"
+                  },
+                  "when": "minecraft:netherite"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_redstone"
+                  },
+                  "when": "minecraft:redstone"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_copper"
+                  },
+                  "when": "minecraft:copper"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_gold"
+                  },
+                  "when": "minecraft:gold"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_emerald"
+                  },
+                  "when": "minecraft:emerald"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_diamond"
+                  },
+                  "when": "minecraft:diamond"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_lapis"
+                  },
+                  "when": "minecraft:lapis"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_amethyst"
+                  },
+                  "when": "minecraft:amethyst"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_resin"
+                  },
+                  "when": "minecraft:resin"
+                }
+              ],
+              "property": "minecraft:trim_material"
+            },
+            "when": "tooltrims:tracks"
+          },
+          {
+            "model": {
+              "type": "minecraft:select",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_quartz"
+                  },
+                  "when": "minecraft:quartz"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_iron"
+                  },
+                  "when": "minecraft:iron"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_netherite"
+                  },
+                  "when": "minecraft:netherite"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_redstone"
+                  },
+                  "when": "minecraft:redstone"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_copper"
+                  },
+                  "when": "minecraft:copper"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_gold"
+                  },
+                  "when": "minecraft:gold"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_emerald"
+                  },
+                  "when": "minecraft:emerald"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_diamond"
+                  },
+                  "when": "minecraft:diamond"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_lapis"
+                  },
+                  "when": "minecraft:lapis"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_amethyst"
+                  },
+                  "when": "minecraft:amethyst"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_resin"
+                  },
+                  "when": "minecraft:resin"
+                }
+              ],
+              "property": "minecraft:trim_material"
+            },
+            "when": "tooltrims:charge"
+          },
+          {
+            "model": {
+              "type": "minecraft:select",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_quartz"
+                  },
+                  "when": "minecraft:quartz"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_iron"
+                  },
+                  "when": "minecraft:iron"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_netherite"
+                  },
+                  "when": "minecraft:netherite"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_redstone"
+                  },
+                  "when": "minecraft:redstone"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_copper"
+                  },
+                  "when": "minecraft:copper"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_gold"
+                  },
+                  "when": "minecraft:gold"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_emerald"
+                  },
+                  "when": "minecraft:emerald"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_diamond"
+                  },
+                  "when": "minecraft:diamond"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_lapis"
+                  },
+                  "when": "minecraft:lapis"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_amethyst"
+                  },
+                  "when": "minecraft:amethyst"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_resin"
+                  },
+                  "when": "minecraft:resin"
+                }
+              ],
+              "property": "minecraft:trim_material"
+            },
+            "when": "tooltrims:frost"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:range_dispatch",
+          "entries": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_amethyst"
+              },
+              "threshold": 311001.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_copper"
+              },
+              "threshold": 311002.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_diamond"
+              },
+              "threshold": 311003.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_emerald"
+              },
+              "threshold": 311004.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_gold"
+              },
+              "threshold": 311005.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_iron"
+              },
+              "threshold": 311006.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_lapis"
+              },
+              "threshold": 311007.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_netherite"
+              },
+              "threshold": 311008.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_quartz"
+              },
+              "threshold": 311009.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_redstone"
+              },
+              "threshold": 311010.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_amethyst"
+              },
+              "threshold": 311011.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_copper"
+              },
+              "threshold": 311012.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_diamond"
+              },
+              "threshold": 311013.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_emerald"
+              },
+              "threshold": 311014.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_gold"
+              },
+              "threshold": 311015.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_iron"
+              },
+              "threshold": 311016.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_lapis"
+              },
+              "threshold": 311017.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_netherite"
+              },
+              "threshold": 311018.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_quartz"
+              },
+              "threshold": 311019.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_redstone"
+              },
+              "threshold": 311020.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_amethyst"
+              },
+              "threshold": 311021.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_copper"
+              },
+              "threshold": 311022.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_diamond"
+              },
+              "threshold": 311023.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_emerald"
+              },
+              "threshold": 311024.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_gold"
+              },
+              "threshold": 311025.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_iron"
+              },
+              "threshold": 311026.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_lapis"
+              },
+              "threshold": 311027.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_netherite"
+              },
+              "threshold": 311028.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_quartz"
+              },
+              "threshold": 311029.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_redstone"
+              },
+              "threshold": 311030.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_amethyst"
+              },
+              "threshold": 311031.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_copper"
+              },
+              "threshold": 311032.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_diamond"
+              },
+              "threshold": 311033.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_emerald"
+              },
+              "threshold": 311034.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_gold"
+              },
+              "threshold": 311035.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_iron"
+              },
+              "threshold": 311036.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_lapis"
+              },
+              "threshold": 311037.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_netherite"
+              },
+              "threshold": 311038.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_quartz"
+              },
+              "threshold": 311039.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_redstone"
+              },
+              "threshold": 311040.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_linear_resin"
+              },
+              "threshold": 311041.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_tracks_resin"
+              },
+              "threshold": 311042.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_charge_resin"
+              },
+              "threshold": 311043.0
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "tooltrims:item/trims/minecraft/bow_pulling_0_frost_resin"
+              },
+              "threshold": 311044.0
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/bow_pulling_0"
+          },
+          "property": "minecraft:custom_model_data"
+        },
+        "property": "tooltrims:trim_pattern"
+      },
+      "property": "minecraft:use_duration",
+      "scale": 0.05
+    },
+    "property": "minecraft:using_item"
+  }
+}

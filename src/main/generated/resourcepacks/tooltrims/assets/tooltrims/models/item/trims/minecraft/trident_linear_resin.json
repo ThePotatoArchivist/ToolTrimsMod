@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/trident_linear_resin"
+  }
+}

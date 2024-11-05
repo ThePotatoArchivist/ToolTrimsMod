@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "minecraft:cobbled_deepslate"
-    },
-    "S": {
-      "item": "tooltrims:charge_tool_trim_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "minecraft:cobbled_deepslate",
+    "S": "tooltrims:charge_tool_trim_smithing_template"
   },
   "pattern": [
     "#S#",

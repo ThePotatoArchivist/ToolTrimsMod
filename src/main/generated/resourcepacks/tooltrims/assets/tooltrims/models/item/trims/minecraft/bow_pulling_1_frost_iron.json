@@ -1,5 +1,5 @@
 {
-  "parent": "tooltrims:item/template_bow",
+  "parent": "minecraft:item/bow",
   "textures": {
     "layer0": "tooltrims:item/trims/minecraft/bow_pulling_1_frost_iron"
   }

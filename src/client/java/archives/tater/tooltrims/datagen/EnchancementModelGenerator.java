@@ -2,13 +2,16 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureKey;
-import net.minecraft.data.client.TextureMap;
+import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.client.data.Model;
+import net.minecraft.client.data.TextureKey;
+import net.minecraft.client.data.TextureMap;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class EnchancementModelGenerator extends ModelGenerator {
@@ -23,8 +26,14 @@ public class EnchancementModelGenerator extends ModelGenerator {
     private record CrossbowModel(
             String path,
             String predicate,
-            float predicateValue
+            float predicateValue,
+            Item fakeItem
     ) {
+        public CrossbowModel(String path, String predicate, float predicateValue) {
+            this(path, predicate, predicateValue,
+                    Items.register(RegistryKey.of(RegistryKeys.ITEM, enchancementId(path)), Item::new, new Item.Settings()));
+        }
+
         public CrossbowModel(String path, String predicate) {
             this(path, predicate, 1);
         }
@@ -41,19 +50,30 @@ public class EnchancementModelGenerator extends ModelGenerator {
             new CrossbowModel("crossbow_brimstone_5", "brimstone", 1f)
     };
 
+    // Needed to register fake items
+    public static void register() {}
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         var twoLayersTemplate = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER1);
 
         var crossbowPullId = Identifier.ofVanilla("crossbow_pulling_2");
-        var crossbowOverrides = generateCrossbowOverrides(itemModelGenerator, false);
+
         for (var model : crossbowModels) {
             var templateModelId = ToolTrims.id(model.path).withPrefixedPath("item/enchancement/");
-            twoLayersTemplate.upload(templateModelId, new TextureMap().put(TextureKey.LAYER1, templateModelId), itemModelGenerator.writer);
+            twoLayersTemplate.upload(templateModelId, new TextureMap().put(TextureKey.LAYER1, templateModelId), itemModelGenerator.modelCollector);
             var templateModel = new Model(Optional.of(templateModelId), Optional.empty(), TextureKey.LAYER0);
-            generateTrimmedOverrides(crossbowOverrides, enchancementId(model.path), crossbowPullId, templateModel, Map.of("charged", 1, enchancementId(model.predicate).toString(), model.predicateValue), true, true, itemModelGenerator.writer);
+            itemModelGenerator.output.accept(model.fakeItem, generateTrimmedToolModels(enchancementId(model.path), crossbowPullId, templateModel, itemModelGenerator));
         }
 
-        uploadCrossbow(itemModelGenerator, crossbowOverrides);
+//        var crossbowOverrides = generateCrossbowOverrides(itemModelGenerator, false);
+//        for (var model : crossbowModels) {
+//            var templateModelId = ToolTrims.id(model.path).withPrefixedPath("item/enchancement/");
+//            twoLayersTemplate.upload(templateModelId, new TextureMap().put(TextureKey.LAYER1, templateModelId), itemModelGenerator.modelCollector);
+//            var templateModel = new Model(Optional.of(templateModelId), Optional.empty(), TextureKey.LAYER0);
+//            registerTrimmedTool(crossbowOverrides, enchancementId(model.path), crossbowPullId, templateModel, Map.of("charged", 1, enchancementId(model.predicate).toString(), model.predicateValue), true, true, itemModelGenerator.modelCollector);
+//        }
+//
+//        uploadCrossbow(itemModelGenerator, crossbowOverrides);
     }
 }
