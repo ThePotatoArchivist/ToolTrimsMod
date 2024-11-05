@@ -4,11 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ArmorStandEntityMixin",
-    "DrownedEntityMixin",
     "EmptyEntryMixin",
     "ItemEntityMixin",
     "ItemEntryMixin",
-    "ItemModelGeneratorAccessor",
     "LootPoolAccessor",
     "LootTableBuilderMixin",
     "TridentEntityMixin"

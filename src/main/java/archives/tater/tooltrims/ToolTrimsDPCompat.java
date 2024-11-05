@@ -1,6 +1,8 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -13,20 +15,20 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterial;
-import net.minecraft.item.trim.ArmorTrimMaterials;
-import net.minecraft.item.trim.ArmorTrimPattern;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.item.equipment.trim.ArmorTrim;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,6 +48,7 @@ public class ToolTrimsDPCompat {
             ArmorTrimMaterials.QUARTZ,
             ArmorTrimMaterials.REDSTONE
     );
+    // Resin patterns is after all of the normal order of patterns
 
     public static final List<RegistryKey<ArmorTrimPattern>> legacyPatternOrder = List.of(
             ToolTrimsPatterns.LINEAR,
@@ -107,7 +110,7 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
-        return armorStand.getWorld().getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
+        return !armorStand.getWorld().isClient && Objects.requireNonNull(armorStand.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
                 (armorStand.getCommandTags().contains("310_toolsmithing_table") || armorStand.getCommandTags().contains("310_place_toolsmithing_table")) &&
                         armorStand.getWorld().getClosestPlayer(armorStand, 6) != null;
     }
@@ -116,24 +119,37 @@ public class ToolTrimsDPCompat {
         if (armorStand.getCommandTags().contains("310_toolsmithing_table") && armorStand.getWorld().getBlockState(armorStand.getBlockPos()).isOf(Blocks.BARREL)) {
             armorStand.getWorld().breakBlock(armorStand.getBlockPos(), false);
         }
-        armorStand.dropStack(new ItemStack(Items.OAK_PLANKS, 4));
-        armorStand.dropStack(new ItemStack(Items.COPPER_INGOT, 2));
+        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.OAK_PLANKS, 4));
+        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.COPPER_INGOT, 2));
         armorStand.discard();
     }
 
     public static int getCustomModelData(ItemStack itemStack, int defaultValue) {
         var customModelData = itemStack.get(DataComponentTypes.CUSTOM_MODEL_DATA);
-        return customModelData == null ? defaultValue : customModelData.value();
+        if (customModelData == null) return defaultValue;
+        var floatValue = customModelData.getFloat(0);
+        if (floatValue == null) return defaultValue;
+        return floatValue.intValue();
     }
 
     public static int getCustomModelData(RegistryKey<ArmorTrimMaterial> material, RegistryKey<ArmorTrimPattern> pattern) {
+        if (material.equals(ArmorTrimMaterials.RESIN)) // For legacy reasons
+            return 311041 + ToolTrimsDPCompat.legacyPatternOrder.indexOf(pattern);
         return 311001 + ToolTrimsDPCompat.legacyPatternOrder.indexOf(pattern) * ToolTrimsDPCompat.legacyMaterialOrder.size() + ToolTrimsDPCompat.legacyMaterialOrder.indexOf(material);
     }
 
     public static ArmorTrim getTrim(RegistryLookup registryLookup, int customModelData) {
-        var value = customModelData - 311001;
-        var pattern = legacyPatternOrder.get(value / legacyMaterialOrder.size());
-        var material = legacyMaterialOrder.get(value % legacyMaterialOrder.size());
+        RegistryKey<ArmorTrimPattern> pattern;
+        RegistryKey<ArmorTrimMaterial> material;
+        if (customModelData >= 311041) { // Resin case
+            var value = customModelData - 311041;
+            pattern = legacyPatternOrder.get(value);
+            material = ArmorTrimMaterials.RESIN;
+        } else {
+            var value = customModelData - 311001;
+            pattern = legacyPatternOrder.get(value / legacyMaterialOrder.size());
+            material = legacyMaterialOrder.get(value % legacyMaterialOrder.size());
+        }
         return new ArmorTrim(
                 registryLookup.getOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(material),
                 registryLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(pattern)
@@ -141,11 +157,11 @@ public class ToolTrimsDPCompat {
     }
 
     public static ArmorTrim getTrim(World world, int customModelData) {
-        return getTrim(world.getRegistryManager().createRegistryLookup(), customModelData);
+        return getTrim(world.getRegistryManager(), customModelData);
     }
 
     public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable World world) {
-        if (world != null && !world.getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
+        if (world != null && !Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
         if (!itemStack.isOf(Items.STRUCTURE_BLOCK)) return false;
         var customModelData = getCustomModelData(itemStack, 0);
         return 312001 <= customModelData && customModelData <= 312021;
@@ -190,13 +206,18 @@ public class ToolTrimsDPCompat {
 
     public static class State extends PersistentState {
         private static final String CHECKED_NBT = "CheckedForDP";
+        public static final Codec<State> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.BOOL.fieldOf("CheckedForDP").forGetter(State::hasCheckedForDP)
+        ).apply(instance, State::new));
 
         private boolean checkedForDP;
 
-        @Override
-        public NbtCompound writeNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
-            nbt.putBoolean(CHECKED_NBT, checkedForDP);
-            return nbt;
+        public State() {
+            checkedForDP = false;
+        }
+
+        public State(boolean checkedForDP) {
+            this.checkedForDP = checkedForDP;
         }
 
         public boolean hasCheckedForDP() {
@@ -208,18 +229,12 @@ public class ToolTrimsDPCompat {
             setDirty(true);
         }
 
-        public static State fromNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
-            var state = new State();
-            state.checkedForDP = nbt.getBoolean(CHECKED_NBT);
-            return state;
-        }
-
-        private static final Type<State> TYPE = new Type<>(State::new, State::fromNbt, null);
+        private static final PersistentStateType<State> TYPE = new PersistentStateType<>(ToolTrims.MOD_ID, State::new, CODEC, null);
 
         public static State ofServer(MinecraftServer server) {
             return Objects.requireNonNull(server.getWorld(World.OVERWORLD))
                     .getPersistentStateManager()
-                    .getOrCreate(TYPE, ToolTrims.MOD_ID);
+                    .getOrCreate(TYPE);
         }
     }
 }

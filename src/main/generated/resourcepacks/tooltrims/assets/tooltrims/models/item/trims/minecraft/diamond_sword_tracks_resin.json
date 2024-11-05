@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/diamond_sword_tracks_resin"
+  }
+}
