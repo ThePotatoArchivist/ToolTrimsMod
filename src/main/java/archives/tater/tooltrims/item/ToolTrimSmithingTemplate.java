@@ -1,6 +1,8 @@
 package archives.tater.tooltrims.item;
 
 import archives.tater.tooltrims.ToolTrims;
+import net.minecraft.item.Item;
+import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -39,6 +41,17 @@ public class ToolTrimSmithingTemplate {
     public static final Identifier EMPTY_SLOT_DIAMOND_TEXTURE = Identifier.ofVanilla("item/empty_slot_diamond");
     public static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("item/empty_slot_lapis_lazuli");
     public static final Identifier EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = Identifier.ofVanilla("item/empty_slot_amethyst_shard");
+
+    public static SmithingTemplateItem of(Item.Settings settings) {
+        return new SmithingTemplateItem(APPLIES_TO_TEXT,
+                INGREDIENTS_TEXT,
+                BASE_SLOT_DESCRIPTION_TEXT,
+                ADDITIONS_SLOT_DESCRIPTION_TEXT,
+                getEmptyBaseSlotTextures(),
+                getEmptyAdditionsSlotTextures(),
+                settings
+        );
+    }
 
     public static List<Identifier> getEmptyAdditionsSlotTextures() {
         return List.of(

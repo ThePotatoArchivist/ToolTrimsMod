@@ -3,7 +3,7 @@ package archives.tater.tooltrims;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.registry.entry.RegistryEntry;
 
 import static archives.tater.tooltrims.ToolTrimsPatterns.TRIM_PATTERN_PREDICATE;
@@ -17,7 +17,7 @@ public class ToolTrimsClient implements ClientModInitializer {
             if (world == null) return 0.0F;
 			var trim = stack.get(DataComponentTypes.TRIM);
 			if (trim == null) return 0.0F;
-			return ToolTrimsPatterns.getModelIndex(((RegistryEntry.Reference<ArmorTrimPattern>) trim.getPattern()).registryKey());
+			return ToolTrimsPatterns.getModelIndex(((RegistryEntry.Reference<ArmorTrimPattern>) trim.pattern()).registryKey());
         });
     }
 }

@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
 import net.minecraft.data.DataOutput;
 import net.minecraft.item.Item;
-import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
@@ -41,7 +41,7 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<ArmorTrimPatte
     @Override
     protected void configure(BiConsumer<Identifier, ArmorTrimPattern> biConsumer, WrapperLookup wrapperLookup) {
         ToolTrimsPatterns.PATTERNS.forEach(pattern ->
-                biConsumer.accept(pattern.getValue(), wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(pattern).value())
+                biConsumer.accept(pattern.getValue(), wrapperLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(pattern).value())
         );
     }
 

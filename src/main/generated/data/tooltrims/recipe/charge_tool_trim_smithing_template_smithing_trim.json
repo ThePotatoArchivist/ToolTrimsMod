@@ -1,12 +1,6 @@
 {
   "type": "minecraft:smithing_trim",
-  "addition": {
-    "tag": "minecraft:trim_materials"
-  },
-  "base": {
-    "tag": "tooltrims:trimmable_tools"
-  },
-  "template": {
-    "item": "tooltrims:charge_tool_trim_smithing_template"
-  }
+  "addition": "#minecraft:trim_materials",
+  "base": "#tooltrims:trimmable_tools",
+  "template": "tooltrims:charge_tool_trim_smithing_template"
 }
