@@ -3,9 +3,8 @@
   "package": "archives.tater.tooltrims.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ModelLoaderMixin"
+    "ItemModelGeneratorAccessor"
   ],
-  "plugin": "archives.tater.tooltrims.EnchancementMixinPlugin",
   "injectors": {
     "defaultRequire": 1
 	}

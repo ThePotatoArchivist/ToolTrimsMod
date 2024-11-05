@@ -13,16 +13,17 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterial;
-import net.minecraft.item.trim.ArmorTrimMaterials;
-import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.item.equipment.trim.ArmorTrim;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -46,6 +47,7 @@ public class ToolTrimsDPCompat {
             ArmorTrimMaterials.QUARTZ,
             ArmorTrimMaterials.REDSTONE
     );
+    // Resin patterns is after all of the normal order of patterns
 
     public static final List<RegistryKey<ArmorTrimPattern>> legacyPatternOrder = List.of(
             ToolTrimsPatterns.LINEAR,
@@ -107,7 +109,7 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
-        return armorStand.getWorld().getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
+        return !armorStand.getWorld().isClient && Objects.requireNonNull(armorStand.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
                 (armorStand.getCommandTags().contains("310_toolsmithing_table") || armorStand.getCommandTags().contains("310_place_toolsmithing_table")) &&
                         armorStand.getWorld().getClosestPlayer(armorStand, 6) != null;
     }
@@ -116,24 +118,37 @@ public class ToolTrimsDPCompat {
         if (armorStand.getCommandTags().contains("310_toolsmithing_table") && armorStand.getWorld().getBlockState(armorStand.getBlockPos()).isOf(Blocks.BARREL)) {
             armorStand.getWorld().breakBlock(armorStand.getBlockPos(), false);
         }
-        armorStand.dropStack(new ItemStack(Items.OAK_PLANKS, 4));
-        armorStand.dropStack(new ItemStack(Items.COPPER_INGOT, 2));
+        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.OAK_PLANKS, 4));
+        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.COPPER_INGOT, 2));
         armorStand.discard();
     }
 
     public static int getCustomModelData(ItemStack itemStack, int defaultValue) {
         var customModelData = itemStack.get(DataComponentTypes.CUSTOM_MODEL_DATA);
-        return customModelData == null ? defaultValue : customModelData.value();
+        if (customModelData == null) return defaultValue;
+        var floatValue = customModelData.getFloat(0);
+        if (floatValue == null) return defaultValue;
+        return floatValue.intValue();
     }
 
     public static int getCustomModelData(RegistryKey<ArmorTrimMaterial> material, RegistryKey<ArmorTrimPattern> pattern) {
+        if (material.equals(ArmorTrimMaterials.RESIN)) // For legacy reasons
+            return 311041 + ToolTrimsDPCompat.legacyPatternOrder.indexOf(pattern);
         return 311001 + ToolTrimsDPCompat.legacyPatternOrder.indexOf(pattern) * ToolTrimsDPCompat.legacyMaterialOrder.size() + ToolTrimsDPCompat.legacyMaterialOrder.indexOf(material);
     }
 
     public static ArmorTrim getTrim(RegistryLookup registryLookup, int customModelData) {
-        var value = customModelData - 311001;
-        var pattern = legacyPatternOrder.get(value / legacyMaterialOrder.size());
-        var material = legacyMaterialOrder.get(value % legacyMaterialOrder.size());
+        RegistryKey<ArmorTrimPattern> pattern;
+        RegistryKey<ArmorTrimMaterial> material;
+        if (customModelData >= 311041) { // Resin case
+            var value = customModelData - 311041;
+            pattern = legacyPatternOrder.get(value);
+            material = ArmorTrimMaterials.RESIN;
+        } else {
+            var value = customModelData - 311001;
+            pattern = legacyPatternOrder.get(value / legacyMaterialOrder.size());
+            material = legacyMaterialOrder.get(value % legacyMaterialOrder.size());
+        }
         return new ArmorTrim(
                 registryLookup.getOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(material),
                 registryLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(pattern)
@@ -141,11 +156,11 @@ public class ToolTrimsDPCompat {
     }
 
     public static ArmorTrim getTrim(World world, int customModelData) {
-        return getTrim(world.getRegistryManager().createRegistryLookup(), customModelData);
+        return getTrim(world.getRegistryManager(), customModelData);
     }
 
     public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable World world) {
-        if (world != null && !world.getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
+        if (world != null && !Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
         if (!itemStack.isOf(Items.STRUCTURE_BLOCK)) return false;
         var customModelData = getCustomModelData(itemStack, 0);
         return 312001 <= customModelData && customModelData <= 312021;
