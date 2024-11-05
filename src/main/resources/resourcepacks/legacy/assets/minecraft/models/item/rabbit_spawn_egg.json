@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/template_spawn_egg",
-  "overrides": [
-    {"predicate": { "custom_model_data": 314001}, "model": "tooltrims:item/display_toolsmithing_table"}
-  ]
-}

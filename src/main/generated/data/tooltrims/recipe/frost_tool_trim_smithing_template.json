@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "minecraft:snow_block"
-    },
-    "S": {
-      "item": "tooltrims:frost_tool_trim_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "minecraft:snow_block",
+    "S": "tooltrims:frost_tool_trim_smithing_template"
   },
   "pattern": [
     "#S#",

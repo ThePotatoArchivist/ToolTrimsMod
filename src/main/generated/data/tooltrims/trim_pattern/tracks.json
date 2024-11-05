@@ -3,6 +3,5 @@
   "decal": false,
   "description": {
     "translate": "tool_trim_pattern.tooltrims.tracks"
-  },
-  "template_item": "tooltrims:tracks_tool_trim_smithing_template"
+  }
 }

@@ -22,7 +22,7 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
             method = {
                     "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;)V",
                     "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V",
-                    "readCustomDataFromNbt"
+                    "readCustomData"
             },
             at = @At("TAIL")
     )
