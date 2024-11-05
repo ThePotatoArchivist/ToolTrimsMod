@@ -1,0 +1,6 @@
+{
+  "parent": "tooltrims:item/template_crossbow",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/crossbow_arrow_linear_resin"
+  }
+}

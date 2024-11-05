@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ArmorStandEntityMixin",
-    "ItemEntityMixin",
-    "ItemModelGeneratorAccessor"
+    "ItemEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,12 +1,6 @@
 {
   "type": "minecraft:smithing_trim",
-  "addition": {
-    "tag": "tooltrims:tool_trim_materials"
-  },
-  "base": {
-    "tag": "tooltrims:trimmable_tools"
-  },
-  "template": {
-    "item": "tooltrims:linear_tool_trim_smithing_template"
-  }
+  "addition": "#tooltrims:tool_trim_materials",
+  "base": "#tooltrims:trimmable_tools",
+  "template": "tooltrims:linear_tool_trim_smithing_template"
 }
