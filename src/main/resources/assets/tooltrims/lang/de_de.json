@@ -5,6 +5,7 @@
     "advancements.adventure.tools_of_all_styles.title": "Werkzeuge aller art",
     "advancements.adventure.tools_of_all_styles.description": "Verwende jede Schmiedevorlage mindestens einmal",
     "item.tooltrims.smithing_template.tool_trim.applies_to": "Waffen & Werkzeuge",
+    "item.tooltrims.smithing_template.tool_trim.base_slot_description": "Füge eine Waffe oder ein Werkzeug hinzu",
     "tool_trim_pattern.tooltrims.linear": "Linear-Werkzeugvorlage",
     "tool_trim_pattern.tooltrims.tracks": "Tracks-Werkzeugvorlage",
     "tool_trim_pattern.tooltrims.charge": "Charge-Werkzeugvorlage",
@@ -23,5 +24,13 @@
     "trim_material.tooltrims.lapis": "Lapislazuli",
     "trim_material.tooltrims.netherite": "Netherit",
     "trim_material.tooltrims.quartz": "Quartz",
-    "trim_material.tooltrims.redstone": "Redstone"
+    "trim_material.tooltrims.redstone": "Redstone",
+    "commands.tooltrims.upgrade.success": "Erfolgreich den legacy Gegegenstand %s verbessert.",
+    "commands.tooltrims.upgrade.error.noplayer": "Diese Aktion muss von einem Spieler ausgeführt werden!",
+    "commands.tooltrims.upgrade.error.fail": "Das Werkzeug %s konnte nicht verbessert werden.",
+    "gamerule.tooltrims_deleteToolsmithingTable": "[Tool Trims] Lösche den Werkzeugschmiedetisch.",
+    "gamerule.tooltrims_deleteToolsmithingTable.description": "Nur benötigt, wenn das Datenpaket in der Welt zuvor genutzt wurde.",
+    "tooltrims.warning.auto_enable": "[Tool Trims] Datenpaket entdeckt, aktiviere die Lösch Werkzeugschmiedetisch Spielregel. Zum deaktivieren verwende %s",
+    "tooltrims.warning.datapack_running": "[Tool Trims] Achtung: Du solltest nicht die Modifikation oder das Datenpaket gleichzeitig nutzen! Bitte entferne die Modifikation oder das Datenpaket.",
+    "tag.item.tooltrims.trimmable_tools": "Anpassbare Werkzeuge"
 }  
