@@ -65,42 +65,43 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_HOE
     );
 
-    private static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);
-    private static final Model TEMPLATE_CROSSBOW = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER0);
+    protected static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);
+    protected static final Model TEMPLATE_CROSSBOW = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER0);
 
-    private Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
+    protected static Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
         return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
 
-    private JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier toolId, Model model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
+    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier modelId, Identifier textureId, Model model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
         if (includeBase) {
             var override = new JsonObject();
             var predicate = new JsonObject();
             extraPredicates.forEach(predicate::addProperty);
             override.add("predicate", predicate);
-            override.addProperty("model", toolId.withPrefixedPath("item/").toString());
+            override.addProperty("model", modelId.withPrefixedPath("item/").toString());
             overrides.add(override);
         }
 
         for (var pattern : ToolTrimsDPCompat.legacyPatternOrder) {
             for (var material : ToolTrimsDPCompat.legacyMaterialOrder) {
-                var trimmedId = getSuffixedModelId(toolId, pattern.getValue().getPath(), material.getValue().getPath());
+                var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.getValue().getPath());
 
                 var override = new JsonObject();
                 var predicate = new JsonObject();
                 extraPredicates.forEach(predicate::addProperty);
                 predicate.addProperty("custom_model_data", ToolTrimsDPCompat.getCustomModelData(material, pattern));
                 override.add("predicate", predicate);
-                override.addProperty("model", trimmedId.toString());
+                override.addProperty("model", trimmedModelId.toString());
                 overrides.add(override);
             }
         }
 
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             for (var material : materials) {
-                var trimmedId = getSuffixedModelId(toolId, pattern.getValue().getPath(), material.name());
+                var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.name());
+                var trimmedTextureId = getSuffixedModelId(textureId, pattern.getValue().getPath(), material.name());
 
-                model.upload(trimmedId, TextureMap.layer0(trimmedId), writer);
+                model.upload(trimmedModelId, TextureMap.layer0(trimmedTextureId), writer);
 
                 var override = new JsonObject();
                 var predicate = new JsonObject();
@@ -108,7 +109,7 @@ public class ModelGenerator extends FabricModelProvider {
                 predicate.addProperty("trim_type", material.itemModelIndex());
                 predicate.addProperty(TRIM_PATTERN_PREDICATE.toString(), ToolTrimsPatterns.getModelIndex(pattern));
                 override.add("predicate", predicate);
-                override.addProperty("model", trimmedId.toString());
+                override.addProperty("model", trimmedModelId.toString());
                 overrides.add(override);
             }
         }
@@ -116,19 +117,35 @@ public class ModelGenerator extends FabricModelProvider {
         return overrides;
     }
 
-    private JsonArray generateTrimmedOverrides(Identifier toolId, Model model, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
+    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, Identifier toolId, Model model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
+        return generateTrimmedOverrides(overrides, toolId, toolId, model, extraPredicates, includeBase, writer);
+    }
+
+    protected static JsonArray generateTrimmedOverrides(Identifier toolId, Model model, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
         return generateTrimmedOverrides(new JsonArray(), toolId, model, Map.of(), false, writer);
     }
 
-    private void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
-        model.upload(ModelIds.getItemModelId(item), textureMap, writer, (id, textures) -> {
+    protected static JsonArray generateTrimmedOverrides(Identifier modelId, Identifier textureId, Model model, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
+        return generateTrimmedOverrides(new JsonArray(), modelId, textureId, model, Map.of(), false, writer);
+    }
+
+    protected static void upload(Model model, Identifier identifier, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
+        model.upload(identifier, textureMap, writer, (id, textures) -> {
             var json = model.createJson(id, textures);
             postProcessJson.accept(json);
             return json;
         });
     }
 
-    private void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
+    protected static void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
+        upload(model, ModelIds.getItemModelId(item), textureMap, writer, postProcessJson);
+    }
+
+    protected static void upload(Model model, Identifier identifier, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
+        upload(model, identifier, textureMap, writer, json -> json.add("overrides", overrides));
+    }
+
+    protected static void upload(Model model, Item item, TextureMap textureMap, BiConsumer<Identifier, Supplier<JsonElement>> writer, JsonArray overrides) {
         upload(model, item, textureMap, writer, json -> json.add("overrides", overrides));
     }
 

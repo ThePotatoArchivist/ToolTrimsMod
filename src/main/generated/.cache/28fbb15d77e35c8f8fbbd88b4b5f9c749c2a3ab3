@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-03T01:19:15.256654069	Tool Trims Fabric/Model Definitions
+// 1.20.1	2024-11-27T00:37:57.814374206	Tool Trims Mod/Model Definitions
 570619397c4261623941c5d14d24b122f9de7cb8 assets/tooltrims/models/item/trims/minecraft/crossbow_pulling_1_charge_diamond.json
 6b3850f66de38135ee60f5c28855b4b5c7708fd8 assets/tooltrims/models/item/trims/minecraft/netherite_pickaxe_tracks_netherite.json
 6929b56d32baa7fd2ece3e35aae970e7068717e2 assets/tooltrims/models/item/trims/minecraft/wooden_axe_charge_amethyst.json
@@ -691,8 +691,8 @@ bdcd40b4d24bf63650ce869522c49deba9239c58 assets/tooltrims/models/item/trims/mine
 478545f8a15853f58b916f555e874968f043b9c5 assets/minecraft/models/item/wooden_pickaxe.json
 cc855a9afa764060ce46bcbe3e14d04941aa874f assets/tooltrims/models/item/trims/minecraft/iron_pickaxe_tracks_copper.json
 71df058454e15558eb1ba028b50ffaf32cbd3fe3 assets/tooltrims/models/item/trims/minecraft/crossbow_pulling_0_linear_diamond.json
-51f145e77fc16f3cde98094bab3e861044aa09a9 assets/tooltrims/models/item/trims/minecraft/stone_pickaxe_frost_copper.json
 ce6452d035c6b00636a9540fda5cf9bd561d7a34 assets/tooltrims/models/item/trims/minecraft/diamond_sword_frost_amethyst.json
+51f145e77fc16f3cde98094bab3e861044aa09a9 assets/tooltrims/models/item/trims/minecraft/stone_pickaxe_frost_copper.json
 973e60fd8beca4ce2a0aac739faef0c267fca046 assets/tooltrims/models/item/trims/minecraft/wooden_hoe_charge_copper.json
 62d9275f89a7462ab32b1c67c1d19d18ec155db7 assets/tooltrims/models/item/trims/minecraft/stone_pickaxe_charge_quartz.json
 40681ddd21bf143ae268fd5250e91b2cb30c527f assets/tooltrims/models/item/trims/minecraft/bow_linear_emerald.json
