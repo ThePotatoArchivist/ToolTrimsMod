@@ -56,7 +56,12 @@ public class ToolTrimsDPCompat {
 
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
-        ResourceManagerHelper.registerBuiltinResourcePack(ToolTrims.id("legacy"), FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(), ResourcePackActivationType.NORMAL);
+        ResourceManagerHelper.registerBuiltinResourcePack(
+                ToolTrims.id("legacy"),
+                FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
+                Text.literal("Tool Trims Legacy"),
+                ResourcePackActivationType.NORMAL
+        );
 
         gameruleWasEnabled = false;
 

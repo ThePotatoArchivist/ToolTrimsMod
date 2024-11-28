@@ -11,7 +11,6 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.Optional;
 
-// https://github.com/MoriyaShiine/enchancement/tree/8b3cf533f60c95663b1e9be365ec082ff793b6c3
 public class EnchancementModelGenerator extends ModelGenerator {
     public EnchancementModelGenerator(FabricDataOutput output) {
         super(output);

@@ -2,6 +2,6 @@
   "pack": {
     "pack_format": 15,
     "supported_formats": [15,48],
-    "description": "Resourcepack to support datapack backwards compatability"
+    "description": "Tool Trims backwards compatability with the datapack"
   }
 }

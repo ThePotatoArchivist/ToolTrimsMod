@@ -2,6 +2,6 @@
   "pack": {
     "pack_format": 15,
     "supported_formats": [15,48],
-    "description": "Resourcepack for Enchancement compat"
+    "description": "Enchancement compat with Tool Trims"
   }
 }

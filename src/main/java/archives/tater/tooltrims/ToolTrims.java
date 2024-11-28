@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,11 @@ public class ToolTrims implements ModInitializer {
 
 		if (ToolTrimsModCompat.isEnchancementLoaded)
             //noinspection OptionalGetWithoutIsPresent
-            ResourceManagerHelper.registerBuiltinResourcePack(ToolTrims.id("enchancement"),
-				FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
-				ResourcePackActivationType.ALWAYS_ENABLED);
+            ResourceManagerHelper.registerBuiltinResourcePack(
+					ToolTrims.id("enchancement"),
+					FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
+					Text.literal("Enchancement x Tool Trims"),
+					ResourcePackActivationType.ALWAYS_ENABLED
+			);
 	}
 }
