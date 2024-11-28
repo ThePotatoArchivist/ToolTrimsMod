@@ -1,0 +1,6 @@
+{
+  "parent": "tooltrims:item/enchancement/crossbow_amethyst",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/crossbow_pulling_2_tracks_iron"
+  }
+}

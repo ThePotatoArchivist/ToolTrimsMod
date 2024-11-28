@@ -1,0 +1,6 @@
+{
+  "parent": "tooltrims:item/template_crossbow",
+  "textures": {
+    "layer1": "tooltrims:item/enchancement/crossbow_torch"
+  }
+}

@@ -2,6 +2,9 @@ package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,5 +33,11 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsGamerules.register();
 		ToolTrimsCommands.register();
 		ToolTrimsDPCompat.register();
+
+		if (ToolTrimsModCompat.isEnchancementLoaded)
+            //noinspection OptionalGetWithoutIsPresent
+            ResourceManagerHelper.registerBuiltinResourcePack(ToolTrims.id("enchancement"),
+				FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
+				ResourcePackActivationType.ALWAYS_ENABLED);
 	}
 }

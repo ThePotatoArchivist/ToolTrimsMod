@@ -1,0 +1,6 @@
+{
+  "parent": "tooltrims:item/enchancement/crossbow_brimstone_5",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/crossbow_pulling_2_tracks_redstone"
+  }
+}

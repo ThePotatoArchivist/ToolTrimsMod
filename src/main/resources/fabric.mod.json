@@ -44,5 +44,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
+		"enchancement": "*"
 	}
 }
