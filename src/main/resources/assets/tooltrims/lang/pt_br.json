@@ -5,6 +5,7 @@
     "advancements.adventure.tools_of_all_styles.title": "Ferramentas de todos os estilos",
     "advancements.adventure.tools_of_all_styles.description": "Aplica todos os modelos de ferraria para ferramentas pelo menos uma vez",
     "item.tooltrims.smithing_template.tool_trim.applies_to": "Armas e Ferramentas",
+    "item.tooltrims.smithing_template.tool_trim.base_slot_description": "Adiciona uma arma ou uma ferramenta",
     "tool_trim_pattern.tooltrims.linear": "Revestimento de linha",
     "tool_trim_pattern.tooltrims.tracks": "Revestimento de faixas",
     "tool_trim_pattern.tooltrims.charge": "Revestimento de carga",
@@ -14,6 +15,7 @@
     "item.tooltrims.smithing_template.tool_trim.ingredients": "Barras e cristais",
     "item.tooltrims.smithing_template.ingredients": "Ingredientes:",
     "item.tooltrims.smithing_template.upgrade": "Melhorias: ",
+    "tag.item.tooltrims.trimmable_tools": "Trimmable Tools",
     "trim_material.tooltrims.amethyst": "Material de ametista",
     "trim_material.tooltrims.copper": "Material de cobre",
     "trim_material.tooltrims.diamond": "Material de diamante",
@@ -23,5 +25,12 @@
     "trim_material.tooltrims.lapis": "Material de lápis-lazuli",
     "trim_material.tooltrims.netherite": "Material de netherite",
     "trim_material.tooltrims.quartz": "Material de quartzo",
-    "trim_material.tooltrims.redstone": "Material de redstone"
-}  
+    "trim_material.tooltrims.redstone": "Material de redstone",
+    "commands.tooltrims.upgrade.success": "Item do Tool Trims atualizado com sucesso: %s",
+    "commands.tooltrims.upgrade.error.noplayer": "Deverá ser executado por um jogador",
+    "commands.tooltrims.upgrade.error.fail": "O item %s não pode ser utilizado.",
+    "gamerule.tooltrims_deleteToolsmithingTable": "[Tool Trims] Remover Mesas de ferramentas",
+    "gamerule.tooltrims_deleteToolsmithingTable.description": "Só é preciso se o pacote de dados do Tool zTrims foi utilizado no mundo anteriormente.",
+    "tooltrims.warning.auto_enable": "[Tool Trims] , enabling Delete Toolsmithing Tables gamerule. To disable this use %s",
+    "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time, please remove one"
+}

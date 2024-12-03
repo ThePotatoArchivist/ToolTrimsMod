@@ -14,6 +14,8 @@
     "item.tooltrims.smithing_template.tool_trim.ingredients": "Lingots et cristaux",
     "item.tooltrims.smithing_template.ingredients": "Ingrédients:",
     "item.tooltrims.smithing_template.upgrade": "Amélioration : ",
+    "item.tooltrims.smithing_template.tool_trim.base_slot_description": "Ajouter une arme ou un outil",
+    "tag.item.tooltrims.trimmable_tools": "outils pour ornements",
     "trim_material.tooltrims.amethyst": "En améthyste",
     "trim_material.tooltrims.copper": "En cuivre",
     "trim_material.tooltrims.diamond": "En diamant",
@@ -23,5 +25,12 @@
     "trim_material.tooltrims.lapis": "En lapis-lazuli",
     "trim_material.tooltrims.netherite": "En Netherite",
     "trim_material.tooltrims.quartz": "En quartz",
-    "trim_material.tooltrims.redstone": "En redstone"
+    "trim_material.tooltrims.redstone": "En redstone",
+    "commands.tooltrims.upgrade.success": "Mise à niveau réussie de l'élément hérité Tool Trims %s",
+    "commands.tooltrims.upgrade.error.noplayer": "Doit être exécuté par un joueur",
+    "commands.tooltrims.upgrade.error.fail": "Impossible de mettre à niveau %s",
+    "gamerule.tooltrims_deleteToolsmithingTable": "[Tool Trims] Supprimer les tables d'outils",
+    "gamerule.tooltrims_deleteToolsmithingTable.description": "Nécessaire uniquement si le datapack Tool Trims a été utilisé dans le monde précédemment",
+    "tooltrims.warning.auto_enable": "[Tool Trims] Datapack détecté, activation de la règle de jeu Supprimer les tables d'outils. Pour désactiver cela, utilisez %s",
+    "tooltrims.warning.datapack_running": "[Tool Trims] Avertissement : vous ne devez pas exécuter le mod et le datapack en même temps, veuillez en supprimer un"
 }   
