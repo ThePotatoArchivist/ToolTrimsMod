@@ -24,7 +24,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
     public static void offerToolTrimRecipe(Consumer<RecipeJsonProvider> exporter, Item template, Identifier recipeId) {
         SmithingTrimRecipeJsonBuilder.create(
-                        Ingredient.ofItems(template), Ingredient.fromTag(ToolTrimsTags.TRIMMABLE_TOOLS), Ingredient.fromTag(ItemTags.TRIM_MATERIALS), RecipeCategory.MISC
+                        Ingredient.ofItems(template), Ingredient.fromTag(ToolTrimsTags.TRIMMABLE_TOOLS), Ingredient.fromTag(ToolTrimsTags.TOOL_TRIM_MATERIALS), RecipeCategory.MISC
                 )
                 .criterion("has_smithing_trim_template", conditionsFromItem(template))
                 .offerTo(exporter, recipeId);

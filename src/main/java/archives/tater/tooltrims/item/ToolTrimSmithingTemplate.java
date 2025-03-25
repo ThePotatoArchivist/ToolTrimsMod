@@ -21,7 +21,7 @@ public class ToolTrimSmithingTemplate {
             Util.createTranslationKey("item", ToolTrims.id("smithing_template.tool_trim.base_slot_description"))
     );
     public static final Text ADDITIONS_SLOT_DESCRIPTION_TEXT = Text.translatable(
-            Util.createTranslationKey("item", new Identifier("smithing_template.applies_to"))
+            Util.createTranslationKey("item", new Identifier("smithing_template.armor_trim.additions_slot_description"))
     );
     public static final Identifier EMPTY_SLOT_HOE_TEXTURE = new Identifier("item/empty_slot_hoe");
     public static final Identifier EMPTY_SLOT_AXE_TEXTURE = new Identifier("item/empty_slot_axe");
