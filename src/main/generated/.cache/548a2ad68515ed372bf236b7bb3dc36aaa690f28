@@ -1,4 +1,4 @@
-// 1.21.4	-999999999-01-01T00:00:00	Tool Trims Mod/minecraft:chest Loot Table
+// 1.21.5 Release Candidate 2	-999999999-01-01T00:00:00	Tool Trims Mod/minecraft:chest Loot Table
 60daeb61d203651289378c0c9d4592c2767627bf data/tooltrims/loot_table/inject/minecraft/archaeology/trail_ruins_rare.json
 8cd5a19009cdf524030e72099f1bd4836da1c596 data/tooltrims/loot_table/inject/minecraft/chests/ancient_city.json
 cc67190be4d063f9b874bd7d0f30691d2292b65e data/tooltrims/loot_table/inject/minecraft/chests/igloo_chest.json

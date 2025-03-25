@@ -2,5 +2,6 @@
   "type": "minecraft:smithing_trim",
   "addition": "#tooltrims:tool_trim_materials",
   "base": "#tooltrims:trimmable_tools",
+  "pattern": "tooltrims:frost",
   "template": "tooltrims:frost_tool_trim_smithing_template"
 }

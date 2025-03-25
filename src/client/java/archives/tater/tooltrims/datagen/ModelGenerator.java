@@ -105,8 +105,8 @@ public class ModelGenerator extends FabricModelProvider {
                 // Normal
                 ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
                         ItemModels.switchCase(pattern, ItemModels.select(new TrimMaterialProperty(), materials.stream().map(material -> {
-                            var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.name());
-                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.getValue().getPath(), material.name());
+                            var trimmedModelId = getSuffixedModelId(modelId, pattern.getValue().getPath(), material.materialKey().getValue().getPath());
+                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.getValue().getPath(), material.materialKey().getValue().getPath());
                             model.upload(trimmedModelId, TextureMap.layer0(trimmedTextureId), modelGenerator.modelCollector);
                             return ItemModels.switchCase(material.materialKey(), ItemModels.basic(trimmedModelId));
                         }).toList()))

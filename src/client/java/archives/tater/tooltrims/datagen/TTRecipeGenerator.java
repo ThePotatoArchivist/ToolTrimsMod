@@ -9,12 +9,14 @@ import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.data.recipe.SmithingTrimRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -25,9 +27,9 @@ public class TTRecipeGenerator extends RecipeGenerator {
         super(registries, exporter);
     }
 
-    public void offerToolTrimRecipe(Item template, RegistryKey<Recipe<?>> registryKey) {
+    public void offerToolTrimRecipe(Item template, RegistryEntry<ArmorTrimPattern> pattern, RegistryKey<Recipe<?>> registryKey) {
         SmithingTrimRecipeJsonBuilder.create(
-                        Ingredient.ofItems(template), ingredientFromTag(ToolTrimsTags.TRIMMABLE_TOOLS), ingredientFromTag(ToolTrimsTags.TOOL_TRIM_MATERIALS), RecipeCategory.MISC
+                        Ingredient.ofItems(template), ingredientFromTag(ToolTrimsTags.TRIMMABLE_TOOLS), ingredientFromTag(ToolTrimsTags.TOOL_TRIM_MATERIALS), pattern, RecipeCategory.MISC
                 )
                 .criterion("has_smithing_trim_template", conditionsFromItem(template))
                 .offerTo(exporter, registryKey);
@@ -42,7 +44,7 @@ public class TTRecipeGenerator extends RecipeGenerator {
                 ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE, Items.SNOW_BLOCK
         );
         ToolTrimsItems.SMITHING_TEMPLATES.forEach((entry, templateItem) -> {
-            offerToolTrimRecipe(templateItem, RegistryKey.of(RegistryKeys.RECIPE, entry.getValue().withSuffixedPath("_tool_trim_smithing_template_smithing_trim")));
+            offerToolTrimRecipe(templateItem, registries.getOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(entry), RegistryKey.of(RegistryKeys.RECIPE, entry.getValue().withSuffixedPath("_tool_trim_smithing_template_smithing_trim")));
             offerSmithingTemplateCopyingRecipe(templateItem, materials.get(templateItem));
         });
     }

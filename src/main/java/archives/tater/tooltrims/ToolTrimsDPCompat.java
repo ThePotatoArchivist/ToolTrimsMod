@@ -1,6 +1,8 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -17,17 +19,16 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -205,13 +206,18 @@ public class ToolTrimsDPCompat {
 
     public static class State extends PersistentState {
         private static final String CHECKED_NBT = "CheckedForDP";
+        public static final Codec<State> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.BOOL.fieldOf("CheckedForDP").forGetter(State::hasCheckedForDP)
+        ).apply(instance, State::new));
 
         private boolean checkedForDP;
 
-        @Override
-        public NbtCompound writeNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
-            nbt.putBoolean(CHECKED_NBT, checkedForDP);
-            return nbt;
+        public State() {
+            checkedForDP = false;
+        }
+
+        public State(boolean checkedForDP) {
+            this.checkedForDP = checkedForDP;
         }
 
         public boolean hasCheckedForDP() {
@@ -223,18 +229,12 @@ public class ToolTrimsDPCompat {
             setDirty(true);
         }
 
-        public static State fromNbt(NbtCompound nbt, WrapperLookup wrapperLookup) {
-            var state = new State();
-            state.checkedForDP = nbt.getBoolean(CHECKED_NBT);
-            return state;
-        }
-
-        private static final Type<State> TYPE = new Type<>(State::new, State::fromNbt, null);
+        private static final PersistentStateType<State> TYPE = new PersistentStateType<>(ToolTrims.MOD_ID, State::new, CODEC, null);
 
         public static State ofServer(MinecraftServer server) {
             return Objects.requireNonNull(server.getWorld(World.OVERWORLD))
                     .getPersistentStateManager()
-                    .getOrCreate(TYPE, ToolTrims.MOD_ID);
+                    .getOrCreate(TYPE);
         }
     }
 }

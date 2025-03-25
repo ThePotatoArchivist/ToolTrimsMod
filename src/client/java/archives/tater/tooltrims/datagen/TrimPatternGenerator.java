@@ -23,18 +23,17 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<ArmorTrimPatte
         super(output, registriesFuture, DataOutput.OutputType.DATA_PACK, "trim_pattern", ArmorTrimPattern.CODEC);
     }
 
-    private static ArmorTrimPattern of(Identifier id, Item templateItem) {
+    private static ArmorTrimPattern of(Identifier id) {
         return new ArmorTrimPattern(
                 Identifier.of("c", "n"),
-                Registries.ITEM.getEntry(templateItem),
                 Text.translatable(Util.createTranslationKey("tool_trim_pattern", id)),
                 false
         );
     }
 
     public static void boostrap(Registerable<ArmorTrimPattern> registry) {
-        ToolTrimsItems.SMITHING_TEMPLATES.forEach((pattern, template) -> {
-            registry.register(pattern, of(pattern.getValue(), template));
+        ToolTrimsPatterns.PATTERNS.forEach(pattern -> {
+            registry.register(pattern, of(pattern.getValue()));
         });
     }
 
