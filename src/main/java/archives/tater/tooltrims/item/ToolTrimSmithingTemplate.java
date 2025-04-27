@@ -30,6 +30,7 @@ public class ToolTrimSmithingTemplate {
     public static final Identifier EMPTY_SLOT_PICKAXE_TEXTURE = new Identifier("item/empty_slot_pickaxe");
     public static final Identifier EMPTY_SLOT_BOW_TEXTURE = ToolTrims.id("item/empty_slot_bow");
     public static final Identifier EMPTY_SLOT_CROSSBOW_TEXTURE = ToolTrims.id("item/empty_slot_crossbow");
+    public static final Identifier EMPTY_SLOT_TRIDENT_TEXTURE = ToolTrims.id("item/empty_slot_trident");
 
     public static final Identifier EMPTY_SLOT_INGOT_TEXTURE = new Identifier("item/empty_slot_ingot");
     public static final Identifier EMPTY_SLOT_REDSTONE_DUST_TEXTURE = new Identifier("item/empty_slot_redstone_dust");
@@ -59,7 +60,8 @@ public class ToolTrimSmithingTemplate {
                 EMPTY_SLOT_HOE_TEXTURE,
                 EMPTY_SLOT_SHOVEL_TEXTURE,
                 EMPTY_SLOT_BOW_TEXTURE,
-                EMPTY_SLOT_CROSSBOW_TEXTURE
+                EMPTY_SLOT_CROSSBOW_TEXTURE,
+                EMPTY_SLOT_TRIDENT_TEXTURE
         );
     }
 

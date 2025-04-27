@@ -62,7 +62,8 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_SHOVEL,
             Items.NETHERITE_PICKAXE,
             Items.NETHERITE_AXE,
-            Items.NETHERITE_HOE
+            Items.NETHERITE_HOE,
+            Items.TRIDENT
     );
 
     protected static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);

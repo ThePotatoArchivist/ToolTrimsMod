@@ -5,8 +5,10 @@
   "mixins": [
     "ArmorStandEntityMixin",
     "ArmorTrimMixin",
+    "EntityTrackerEntryMixin",
     "ItemEntityMixin",
-    "ItemModelGeneratorAccessor"
+    "ItemModelGeneratorAccessor",
+    "TridentEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

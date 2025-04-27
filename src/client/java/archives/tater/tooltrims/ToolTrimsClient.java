@@ -20,5 +20,6 @@ public class ToolTrimsClient implements ClientModInitializer {
                     .map(ToolTrimsPatterns::getModelIndex)
                     .orElse(0.0F);
         });
+        TridentTextures.register();
     }
 }

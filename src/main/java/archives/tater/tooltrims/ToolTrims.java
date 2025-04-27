@@ -43,5 +43,12 @@ public class ToolTrims implements ModInitializer {
 					Text.literal("Enchancement x Tool Trims"),
 					ResourcePackActivationType.ALWAYS_ENABLED
 			);
+		//noinspection OptionalGetWithoutIsPresent
+		ResourceManagerHelper.registerBuiltinResourcePack(
+				ToolTrims.id("tooltrims"),
+				FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
+				Text.literal("Tool Trims"),
+				ResourcePackActivationType.ALWAYS_ENABLED
+		);
 	}
 }
