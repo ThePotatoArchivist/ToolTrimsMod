@@ -50,22 +50,6 @@ public class TridentTextures {
         return getTextureId(armorTrim.getPattern(), armorTrim.getMaterial());
     }
 
-    private static Map<RegistryEntry<ArmorTrimPattern>, Map<RegistryEntry<ArmorTrimMaterial>, Identifier>> getTextureIds(RegistryWrapper.WrapperLookup wrapperLookup) {
-        var materialRegistry = wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
-        return wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_PATTERN).streamEntries().collect(Collectors.toUnmodifiableMap(
-                pattern -> pattern,
-                pattern -> materialRegistry.streamEntries().collect(Collectors.toUnmodifiableMap(
-                        material -> material,
-                        material -> ToolTrims.id("textures/entity/trident/trident_"
-                                + pattern.getKey().map(it -> it.getValue().getPath()).orElse("missingno")
-                                + "_"
-                                + material.getKey().map(it -> it.getValue().getPath()).orElse("missingno")
-                                + ".png"
-                        )
-                ))
-        ));
-    }
-
     public static void register() {
         ClientPlayNetworking.registerGlobalReceiver(TridentTrimPacket.TYPE, (packet, player, responseSender) -> {
             var entity = player.getWorld().getEntityById(packet.tridentId());
