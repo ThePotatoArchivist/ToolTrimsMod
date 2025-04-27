@@ -5,6 +5,7 @@
   "mixins": [
     "ArmorStandEntityMixin",
     "ArmorTrimMixin",
+    "DrownedEntityMixin",
     "EntityTrackerEntryMixin",
     "ItemEntityMixin",
     "ItemModelGeneratorAccessor",
