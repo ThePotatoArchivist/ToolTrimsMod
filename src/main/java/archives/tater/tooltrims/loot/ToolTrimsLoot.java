@@ -1,6 +1,6 @@
-package archives.tater.tooltrims;
+package archives.tater.tooltrims.loot;
 
-import archives.tater.tooltrims.mixin.LootPoolBuilderAccessor;
+import archives.tater.tooltrims.ToolTrims;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -102,29 +102,24 @@ public class ToolTrimsLoot {
 
             if (!needsModification) return;
 
-            var poolIndex = new AtomicInteger(0);
-
-            builder.modifyPools(pool -> {
+            ((ReplaceablePools) builder).tooltrims$modifyPoolEntries((entries, index) -> {
                 for (var entry : MODIFY_ENTRIES) {
                     if (!(entry.targetTableId().equals(id))) continue;
-                    if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != poolIndex.get()) continue;
+                    if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != index) continue;
 
                     if (entry instanceof AddEntry addEntry) {
                         var lootEntry = LootTableEntry.builder(addEntry.injectTableId);
                         if (addEntry.weight != 1)
                             lootEntry.weight(addEntry.weight);
-                        pool.with(lootEntry);
+                        entries.add(lootEntry.build());
                     } else if (entry instanceof DeleteEntry deleteEntry) {
-                        ((LootPoolBuilderAccessor) pool).getEntries().remove(deleteEntry.entryIndex);
+                        entries.remove(deleteEntry.entryIndex);
                     } else if (entry instanceof ChangeWeightEntry changeWeightEntry) {
-                        var entries = ((LootPoolBuilderAccessor) pool).getEntries();
-                        if (entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copiableEntry) {
-                            entries.set(changeWeightEntry.entryIndex, (LootPoolEntry) copiableEntry.tooltrims$copy(changeWeightEntry.weightChange));
+                        if (entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry) {
+                            entries.set(changeWeightEntry.entryIndex, (LootPoolEntry) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
                         }
                     }
                 }
-
-                poolIndex.incrementAndGet();
             });
         });
     }

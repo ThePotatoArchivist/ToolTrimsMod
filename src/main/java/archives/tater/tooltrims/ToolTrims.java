@@ -1,6 +1,7 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
+import archives.tater.tooltrims.loot.ToolTrimsLoot;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;

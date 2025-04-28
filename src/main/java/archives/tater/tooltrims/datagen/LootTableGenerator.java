@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.ToolTrimsLoot;
+import archives.tater.tooltrims.loot.ToolTrimsLoot;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;

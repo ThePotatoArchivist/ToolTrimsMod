@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.mixin;
 
-import archives.tater.tooltrims.CopyWithWeight;
+import archives.tater.tooltrims.loot.CopyWithWeight;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.entry.EmptyEntry;
 import net.minecraft.loot.entry.LeafEntry;

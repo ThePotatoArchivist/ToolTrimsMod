@@ -10,7 +10,8 @@
     "EntityTrackerEntryMixin",
     "ItemEntityMixin",
     "ItemModelGeneratorAccessor",
-    "LootPoolBuilderAccessor",
+    "LootPoolAccessor",
+    "LootTableBuilderMixin",
     "TridentEntityAccessor"
   ],
   "injectors": {
