@@ -9,6 +9,7 @@
     "EmptyEntryMixin",
     "EntityTrackerEntryMixin",
     "ItemEntityMixin",
+    "ItemEntryMixin",
     "ItemModelGeneratorAccessor",
     "LootPoolAccessor",
     "LootTableBuilderMixin",

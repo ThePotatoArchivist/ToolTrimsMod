@@ -3,14 +3,10 @@ package archives.tater.tooltrims.loot;
 import archives.tater.tooltrims.ToolTrims;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.util.Identifier;
-
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 public class ToolTrimsLoot {
     private static Identifier idInject(Identifier identifier) {
@@ -23,14 +19,6 @@ public class ToolTrimsLoot {
     public static final Identifier IGLOO_INJECT = idInject(LootTables.IGLOO_CHEST_CHEST);
     public static final Identifier MINESHAFT_INJECT = idInject(LootTables.ABANDONED_MINESHAFT_CHEST);
     public static final Identifier MANSION_INJECT = idInject(LootTables.WOODLAND_MANSION_CHEST);
-
-    private static void modifyPool(LootTable.Builder tableBuilder, int index, Consumer<LootPool.Builder> modify) {
-        AtomicInteger i = new AtomicInteger();
-        tableBuilder.modifyPools(pool -> {
-            if (index == i.get()) modify.accept(pool);
-            i.getAndIncrement();
-        });
-    }
 
     sealed interface LootModifyEntry {
         Identifier targetTableId();
