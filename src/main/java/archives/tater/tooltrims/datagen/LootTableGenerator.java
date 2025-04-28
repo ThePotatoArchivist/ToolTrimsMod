@@ -45,5 +45,7 @@ public class LootTableGenerator extends SimpleFabricLootTableProvider {
                     .with(ItemEntry.builder(ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE).weight(2))
                     .with(EmptyEntry.builder().weight(3))
         ));
+        exporter.accept(ToolTrimsLoot.MINESHAFT_INJECT, singleton(ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, null));
+        exporter.accept(ToolTrimsLoot.MANSION_INJECT, singleton(ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, null));
     }
 }

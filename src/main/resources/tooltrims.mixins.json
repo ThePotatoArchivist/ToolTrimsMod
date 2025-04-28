@@ -6,9 +6,11 @@
     "ArmorStandEntityMixin",
     "ArmorTrimMixin",
     "DrownedEntityMixin",
+    "EmptyEntryMixin",
     "EntityTrackerEntryMixin",
     "ItemEntityMixin",
     "ItemModelGeneratorAccessor",
+    "LootPoolBuilderAccessor",
     "TridentEntityAccessor"
   ],
   "injectors": {
