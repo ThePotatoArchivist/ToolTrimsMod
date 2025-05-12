@@ -63,8 +63,7 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_PICKAXE,
             Items.NETHERITE_AXE,
             Items.NETHERITE_HOE,
-            Items.TRIDENT,
-            Items.MACE
+            Items.TRIDENT
     );
 
     protected static final Model TEMPLATE_BOW = new Model(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureKey.LAYER0);
@@ -187,6 +186,9 @@ public class ModelGenerator extends FabricModelProvider {
 
             upload(Models.HANDHELD, tool, TextureMap.layer0(tool), itemModelGenerator.writer, overrides);
         }
+
+        upload(Models.HANDHELD_MACE, Items.MACE, TextureMap.layer0(Items.MACE), itemModelGenerator.writer,
+                generateTrimmedOverrides(Registries.ITEM.getId(Items.MACE), Models.HANDHELD_MACE, itemModelGenerator.writer));
 
         var bowOverrides = new JsonArray();
         var bowId = Registries.ITEM.getId(Items.BOW);
