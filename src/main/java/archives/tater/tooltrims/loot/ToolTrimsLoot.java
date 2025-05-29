@@ -105,7 +105,7 @@ public class ToolTrimsLoot {
                         }
                         case DeleteEntry deleteEntry -> entries.remove(deleteEntry.entryIndex);
                         case ChangeWeightEntry changeWeightEntry -> {
-                            if (entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry)
+                            if (changeWeightEntry.entryIndex < entries.size() && entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry)
                                 entries.set(changeWeightEntry.entryIndex, (LootPoolEntry) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
                         }
                         default -> {
