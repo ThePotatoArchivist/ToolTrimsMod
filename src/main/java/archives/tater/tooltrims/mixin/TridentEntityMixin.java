@@ -28,6 +28,8 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
     )
     private void syncTrim(CallbackInfo ci) {
         if (getWorld().isClient) return;
-        setAttached(ToolTrimsDataAttachment.TRIDENT_TRIM, getItemStack().get(DataComponentTypes.TRIM));
+        var trim = getItemStack().get(DataComponentTypes.TRIM);
+        if (trim != null)
+            setAttached(ToolTrimsDataAttachment.TRIDENT_TRIM, trim);
     }
 }
