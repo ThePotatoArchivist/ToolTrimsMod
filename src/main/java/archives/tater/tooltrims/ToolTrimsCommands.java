@@ -64,7 +64,7 @@ public class ToolTrimsCommands {
         if (player == null) throw ERROR_NOPLAYER.create();
         var stackReference = player.getStackReference(slot);
         var currentStack = stackReference.get();
-        var newStack = reverse ? ToolTrimsDPCompat.demigrateItem(player.getWorld(), registries, currentStack) : ToolTrimsDPCompat.migrateItem(player.getWorld(), currentStack);
+        var newStack = reverse ? ToolTrimsDPCompat.demigrateItem(player.getEntityWorld(), registries, currentStack) : ToolTrimsDPCompat.migrateItem(player.getEntityWorld(), currentStack);
         if (newStack == null)
             throw (reverse ? DEMIGRATE_FAIL : MIGRATE_FAIL).create(currentStack.toHoverableText());
         stackReference.set(newStack);

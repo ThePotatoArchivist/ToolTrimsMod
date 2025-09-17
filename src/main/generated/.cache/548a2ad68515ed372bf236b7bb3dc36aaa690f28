@@ -1,4 +1,4 @@
-// 1.21.5	-999999999-01-01T00:00:00	Tool Trims Mod/minecraft:chest Loot Table
+// 1.21.9-pre1	-999999999-01-01T00:00:00	Tool Trims Mod/minecraft:chest Loot Table
 e41c8b8b9190f8ba8e3d94d60a4ca65f6c17906f data/tooltrims/loot_table/inject/minecraft/archaeology/trail_ruins_rare.json
 e41c8b8b9190f8ba8e3d94d60a4ca65f6c17906f data/tooltrims/loot_table/inject/minecraft/chests/abandoned_mineshaft.json
 a7d35aafded3e679c50517c3bea9b62a2d62dda7 data/tooltrims/loot_table/inject/minecraft/chests/ancient_city.json

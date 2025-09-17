@@ -123,17 +123,17 @@ public class ToolTrimsDPCompat {
     }
 
     public static boolean shouldDeleteToolsmithingTable(ArmorStandEntity armorStand) {
-        return !armorStand.getWorld().isClient && Objects.requireNonNull(armorStand.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
+        return !armorStand.getEntityWorld().isClient() && Objects.requireNonNull(armorStand.getEntityWorld().getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
                 (armorStand.getCommandTags().contains("310_toolsmithing_table") || armorStand.getCommandTags().contains("310_place_toolsmithing_table")) &&
-                        armorStand.getWorld().getClosestPlayer(armorStand, 6) != null;
+                        armorStand.getEntityWorld().getClosestPlayer(armorStand, 6) != null;
     }
 
     public static void deleteToolsmithingTable(ArmorStandEntity armorStand) {
-        if (armorStand.getCommandTags().contains("310_toolsmithing_table") && armorStand.getWorld().getBlockState(armorStand.getBlockPos()).isOf(Blocks.BARREL)) {
-            armorStand.getWorld().breakBlock(armorStand.getBlockPos(), false);
+        if (armorStand.getCommandTags().contains("310_toolsmithing_table") && armorStand.getEntityWorld().getBlockState(armorStand.getBlockPos()).isOf(Blocks.BARREL)) {
+            armorStand.getEntityWorld().breakBlock(armorStand.getBlockPos(), false);
         }
-        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.OAK_PLANKS, 4));
-        armorStand.dropStack((ServerWorld) armorStand.getWorld(), new ItemStack(Items.COPPER_INGOT, 2));
+        armorStand.dropStack((ServerWorld) armorStand.getEntityWorld(), new ItemStack(Items.OAK_PLANKS, 4));
+        armorStand.dropStack((ServerWorld) armorStand.getEntityWorld(), new ItemStack(Items.COPPER_INGOT, 2));
         armorStand.discard();
     }
 

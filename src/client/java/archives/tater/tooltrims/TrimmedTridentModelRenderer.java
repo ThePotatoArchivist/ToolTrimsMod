@@ -3,11 +3,9 @@ package archives.tater.tooltrims;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.TridentEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
@@ -33,20 +31,10 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
     }
 
     @Override
-    public void render(@Nullable ArmorTrim data, ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
+    public void render(@Nullable ArmorTrim data, ItemDisplayContext displayContext, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, boolean glint, int i) {
         matrices.push();
         matrices.scale(1.0F, -1.0F, -1.0F);
-        this.model.render(
-                matrices,
-                ItemRenderer.getItemGlintConsumer(
-                        vertexConsumers,
-                        this.model.getLayer(Objects.requireNonNullElse(TridentTextures.getTextureId(data), TridentEntityModel.TEXTURE)),
-                        false,
-                        glint
-                ),
-                light,
-                overlay
-        );
+        queue.submitModelPart(this.model.getRootPart(), matrices, this.model.getLayer(Objects.requireNonNullElse(TridentTextures.getTextureId(data), TridentEntityModel.TEXTURE)), light, overlay, null, false, glint, -1, null, i);
         matrices.pop();
     }
 
@@ -65,8 +53,9 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
             return CODEC;
         }
 
-        public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
-            return new TrimmedTridentModelRenderer(new TridentEntityModel(entityModels.getModelPart(EntityModelLayers.TRIDENT)));
+        @Override
+        public SpecialModelRenderer<?> bake(BakeContext context) {
+            return new TrimmedTridentModelRenderer(new TridentEntityModel(context.entityModelSet().getModelPart(EntityModelLayers.TRIDENT)));
         }
     }
 }

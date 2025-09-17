@@ -1,0 +1,13 @@
+- [x] bow & crossbow
+- [x]️ chest loot
+- [x]️ advancements
+- [x]️ backwards compatibility with datapack stuff
+- [x]️ port to later versions
+- [x] make loot injects data-driven
+- [x] Update fabric.mod.json
+- [x] Fix bug with persistent state
+- [x] fix unnecessary namespaced static function (ToolTrimsItem)
+- [x] Fix identifiers
+- [x] tag translation
+- [x] [1.21] Check item registration is still correct
+- [x] [1.20.6-] Check WrapperLookup
