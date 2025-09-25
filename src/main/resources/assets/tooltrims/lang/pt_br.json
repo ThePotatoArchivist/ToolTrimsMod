@@ -36,5 +36,5 @@
     "gamerule.tooltrims_deleteToolsmithingTable": "[Tool Trims] Remover Mesas de ferramentas",
     "gamerule.tooltrims_deleteToolsmithingTable.description": "Só é preciso se o pacote de dados do Tool zTrims foi utilizado no mundo anteriormente.",
     "tooltrims.warning.auto_enable": "[Tool Trims] , enabling Delete Toolsmithing Tables gamerule. To disable this use %s",
-    "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time, please remove one"
+    "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time unless you are demigrating, otherwise please remove one"
 }

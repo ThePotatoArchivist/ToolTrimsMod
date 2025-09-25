@@ -32,5 +32,5 @@
     "gamerule.tooltrims_deleteToolsmithingTable": "[Tool Trims] Delete Toolsmithing Tables",
     "gamerule.tooltrims_deleteToolsmithingTable.description": "Only needed if the Tool Trims datapack was used in the world previously",
     "tooltrims.warning.auto_enable": "[Tool Trims] Datapack detected, enabling Delete Toolsmithing Tables gamerule. To disable this use %s",
-    "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time, please remove one"
+    "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time unless you are demigrating, otherwise please remove one"
 }

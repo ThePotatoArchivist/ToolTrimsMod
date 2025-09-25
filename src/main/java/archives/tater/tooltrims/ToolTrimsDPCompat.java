@@ -1,11 +1,13 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
+
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
@@ -17,21 +19,27 @@ import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimMaterials;
 import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryEntryLookup.RegistryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ToolTrimsDPCompat {
     public static final List<RegistryKey<ArmorTrimMaterial>> legacyMaterialOrder = List.of(
@@ -85,7 +93,7 @@ public class ToolTrimsDPCompat {
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            if (server.isHost(handler.player.getGameProfile())) {
+            if (!server.isRemote()) {
                 if (gameruleWasEnabled) {
                     handler.player.sendMessage(Text.translatable("tooltrims.warning.auto_enable", disableGamerule));
                 }
@@ -151,7 +159,7 @@ public class ToolTrimsDPCompat {
         return 312001 <= customModelData && customModelData <= 312021;
     }
 
-    public static @Nullable ItemStack upgradeItem(World world, ItemStack itemStack) {
+    public static @Nullable ItemStack migrateItem(World world, ItemStack itemStack) {
         if (itemStack.isOf(Items.STRUCTURE_BLOCK)) {
             var customModelData = getCustomModelData(itemStack, 0);
             if (312001 <= customModelData && customModelData <= 312021) return ItemStack.EMPTY;
@@ -184,6 +192,24 @@ public class ToolTrimsDPCompat {
                 itemStack.set(DataComponentTypes.TRIM, getTrim(world, customModelData));
             }
             return itemStack;
+        }
+        return null;
+    }
+
+    public static @Nullable ItemStack demigrateItem(ServerWorld world, WrapperLookup registries, ItemStack stack) {
+        try {
+            if (stack.isIn(ToolTrimsTags.TRIMMABLE_TOOLS)) {
+                var trim = stack.get(DataComponentTypes.TRIM);
+                if (trim == null) return null;
+                var id = Identifier.of("tooltrims", "trims/" + trim.getPattern().getKey().orElseThrow().getValue().getPath() + "_" + trim.getMaterial().getKey().orElseThrow().getValue().getPath());
+                var modifier = registries.getWrapperOrThrow(RegistryKeys.ITEM_MODIFIER).getOptional(RegistryKey.of(RegistryKeys.ITEM_MODIFIER, id));
+                if (modifier.isEmpty()) return null;
+                modifier.get().value().apply(stack, new LootContext.Builder(new LootContextParameterSet.Builder(world).build(LootContextTypes.EMPTY)).build(Optional.empty()));
+                stack.remove(DataComponentTypes.TRIM);
+                return stack;
+            }
+        } catch (Exception e) {
+            ToolTrims.LOGGER.error("demigration error:", e);
         }
         return null;
     }
