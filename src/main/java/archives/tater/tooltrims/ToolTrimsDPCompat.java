@@ -225,7 +225,11 @@ public class ToolTrimsDPCompat {
         if (templateLootTable != null) {
             var stacks = world.getServer().getReloadableRegistries().getLootTable(templateLootTable)
                     .generateLoot(new LootContextParameterSet.Builder(world).build(LootContextTypes.EMPTY));
-            return stacks.isEmpty() ? null : stacks.getFirst();
+            if (stacks.isEmpty()) return null;
+            var newStack = stacks.getFirst();
+            newStack.setCount(stack.getCount());
+            newStack.applyChanges(stack.getComponentChanges());
+            return newStack;
         }
         return null;
     }
