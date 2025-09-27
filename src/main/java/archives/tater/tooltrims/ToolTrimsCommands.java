@@ -23,6 +23,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class ToolTrimsCommands {
 
     private static final SimpleCommandExceptionType ERROR_NOPLAYER = new SimpleCommandExceptionType(Text.translatable("commands.tooltrims.error.noplayer"));
+    private static final SimpleCommandExceptionType ERROR_MISSING_DATAPACK = new SimpleCommandExceptionType(Text.translatable("commands.tooltrims.error.demigrate.missing_datapack"));
     private static final DynamicCommandExceptionType MIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Text.translatable("commands.tooltrims.migrate.error.fail", itemText));
     private static final DynamicCommandExceptionType DEMIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Text.translatable("commands.tooltrims.demigrate.error.fail", itemText));
 
@@ -59,6 +60,7 @@ public class ToolTrimsCommands {
     }
 
     public static void migrate(CommandRegistryAccess registries, CommandContext<ServerCommandSource> ctx, @Nullable ServerPlayerEntity player, int slot, boolean reverse) throws CommandSyntaxException {
+        if (!ToolTrimsDPCompat.isDatapackRunning(ctx.getSource().getServer())) throw ERROR_MISSING_DATAPACK.create();
         if (player == null) throw ERROR_NOPLAYER.create();
         var stackReference = player.getStackReference(slot);
         var currentStack = stackReference.get();
