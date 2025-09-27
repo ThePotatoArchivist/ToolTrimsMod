@@ -13,12 +13,14 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimMaterials;
 import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextTypes;
@@ -38,6 +40,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -60,6 +63,17 @@ public class ToolTrimsDPCompat {
             ToolTrimsPatterns.TRACKS,
             ToolTrimsPatterns.CHARGE,
             ToolTrimsPatterns.FROST
+    );
+
+    private static RegistryKey<LootTable> templateLootTable(String trim) {
+        return RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("tooltrims", "items/" + trim + "_smithing_template"));
+    }
+
+    private static final Map<Item, RegistryKey<LootTable>> TEMPLATE_LOOT_TABLES = Map.of(
+            ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE, templateLootTable("linear"),
+            ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE, templateLootTable("tracks"),
+            ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE, templateLootTable("charge"),
+            ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE, templateLootTable("frost")
     );
 
     private static final String disableGamerule = "/gamerule " + ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES.getName() + " false";
@@ -197,19 +211,21 @@ public class ToolTrimsDPCompat {
     }
 
     public static @Nullable ItemStack demigrateItem(ServerWorld world, WrapperLookup registries, ItemStack stack) {
-        try {
-            if (stack.isIn(ToolTrimsTags.TRIMMABLE_TOOLS)) {
-                var trim = stack.get(DataComponentTypes.TRIM);
-                if (trim == null) return null;
-                var id = Identifier.of("tooltrims", "trims/" + trim.getPattern().getKey().orElseThrow().getValue().getPath() + "_" + trim.getMaterial().getKey().orElseThrow().getValue().getPath());
-                var modifier = registries.getWrapperOrThrow(RegistryKeys.ITEM_MODIFIER).getOptional(RegistryKey.of(RegistryKeys.ITEM_MODIFIER, id));
-                if (modifier.isEmpty()) return null;
-                modifier.get().value().apply(stack, new LootContext.Builder(new LootContextParameterSet.Builder(world).build(LootContextTypes.EMPTY)).build(Optional.empty()));
-                stack.remove(DataComponentTypes.TRIM);
-                return stack;
-            }
-        } catch (Exception e) {
-            ToolTrims.LOGGER.error("demigration error:", e);
+        if (stack.isIn(ToolTrimsTags.TRIMMABLE_TOOLS)) {
+            var trim = stack.get(DataComponentTypes.TRIM);
+            if (trim == null) return null;
+            var id = Identifier.of("tooltrims", "trims/" + trim.getPattern().getKey().orElseThrow().getValue().getPath() + "_" + trim.getMaterial().getKey().orElseThrow().getValue().getPath());
+            var modifier = registries.getWrapperOrThrow(RegistryKeys.ITEM_MODIFIER).getOptional(RegistryKey.of(RegistryKeys.ITEM_MODIFIER, id));
+            if (modifier.isEmpty()) return null;
+            modifier.get().value().apply(stack, new LootContext.Builder(new LootContextParameterSet.Builder(world).build(LootContextTypes.EMPTY)).build(Optional.empty()));
+            stack.remove(DataComponentTypes.TRIM);
+            return stack;
+        }
+        var templateLootTable = TEMPLATE_LOOT_TABLES.get(stack.getItem());
+        if (templateLootTable != null) {
+            var stacks = world.getServer().getReloadableRegistries().getLootTable(templateLootTable)
+                    .generateLoot(new LootContextParameterSet.Builder(world).build(LootContextTypes.EMPTY));
+            return stacks.isEmpty() ? null : stacks.getFirst();
         }
         return null;
     }
