@@ -58,7 +58,7 @@ public class ToolTrimsLoot {
             new AddEntry(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY, 0, TRAIL_RUINS_INJECT, 1),
 
             new ChangeWeightEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, 1, 1),
-            new AddEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, PILLAGER_OUTPOST_INJECT, 1),
+            new AddEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, PILLAGER_OUTPOST_INJECT, 3),
 
             new ChangeWeightEntry(LootTables.ANCIENT_CITY_CHEST, 1, 0, -4),
             new AddEntry(LootTables.ANCIENT_CITY_CHEST, 1, ANCIENCT_CITY_INJECT, 4),
