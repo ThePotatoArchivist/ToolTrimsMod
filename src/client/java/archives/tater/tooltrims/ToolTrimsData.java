@@ -1,8 +1,10 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.datagen.*;
+
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 
