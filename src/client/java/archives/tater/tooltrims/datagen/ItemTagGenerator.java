@@ -15,7 +15,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        getOrCreateTagBuilder(ToolTrimsTags.TRIMMABLE_TOOLS).add(
+        valueLookupBuilder(ToolTrimsTags.TRIMMABLE_TOOLS).add(
                 Items.WOODEN_SWORD,
                 Items.WOODEN_SHOVEL,
                 Items.WOODEN_PICKAXE,
@@ -26,6 +26,11 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.STONE_PICKAXE,
                 Items.STONE_AXE,
                 Items.STONE_HOE,
+                Items.COPPER_SWORD,
+                Items.COPPER_SHOVEL,
+                Items.COPPER_PICKAXE,
+                Items.COPPER_AXE,
+                Items.COPPER_HOE,
                 Items.GOLDEN_SWORD,
                 Items.GOLDEN_SHOVEL,
                 Items.GOLDEN_PICKAXE,
@@ -51,7 +56,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.TRIDENT,
                 Items.MACE
         );
-        getOrCreateTagBuilder(ToolTrimsTags.TOOL_TRIM_MATERIALS).add(
+        valueLookupBuilder(ToolTrimsTags.TOOL_TRIM_MATERIALS).add(
                 Items.IRON_INGOT,
                 Items.COPPER_INGOT,
                 Items.GOLD_INGOT,
@@ -61,7 +66,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.NETHERITE_INGOT,
                 Items.REDSTONE,
                 Items.QUARTZ,
-                Items.AMETHYST_SHARD
+                Items.AMETHYST_SHARD,
+                Items.RESIN_BRICK
         );
     }
 }

@@ -24,7 +24,7 @@ public abstract class ItemEntryMixin extends LootPoolSingletonContainer implemen
     }
 
     @Invoker("<init>")
-    static LootItem newItemEntry(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
+    private static LootItem newItemEntry(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         throw new AssertionError();
     }
 

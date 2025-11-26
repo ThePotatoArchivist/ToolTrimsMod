@@ -1,2 +1,2 @@
 accessWidener	v2	named
-accessible	class	net/minecraft/data/models/ItemModelGenerators$TrimModelData
+accessible	class	net/minecraft/client/data/models/ItemModelGenerators$TrimMaterialData

@@ -4,7 +4,7 @@ import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.armortrim.TrimPattern;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
 
 public class ToolTrimsPatterns {
     private static ResourceKey<TrimPattern> of(ResourceLocation id) {
@@ -21,8 +21,6 @@ public class ToolTrimsPatterns {
     public static final ResourceKey<TrimPattern> FROST = of("frost");
 
     public static final List<ResourceKey<TrimPattern>> PATTERNS = List.of(LINEAR, TRACKS, CHARGE, FROST);
-
-    public static final ResourceLocation TRIM_PATTERN_PREDICATE = ToolTrims.id("trim_pattern");
 
     private static <T> boolean equals(ResourceKey<T> first, ResourceKey<T> second) {
         return first.registry().equals(second.registry()) && first.location().equals(second.location());

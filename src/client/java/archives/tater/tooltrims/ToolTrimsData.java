@@ -18,7 +18,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		var pack = fabricDataGenerator.createPack();
 		pack.addProvider(TrimPatternGenerator::new);
-		pack.addProvider(RecipeGenerator::new);
+		pack.addProvider(TTRecipeGenerator.Provider::new);
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(AdvancementGenerator::new);
 		pack.addProvider(LootTableGenerator::new);

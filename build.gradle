@@ -17,8 +17,8 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven {
-		name = 'ParchmentMC'
-		url = 'https://maven.parchmentmc.org'
+	    name = 'ParchmentMC'
+	    url = 'https://maven.parchmentmc.org'
 	}
 }
 
@@ -45,8 +45,8 @@ dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered() {
-		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_mappings}@zip")
+	    officialMojangMappings()
+	    parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_mappings}@zip")
 	}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 

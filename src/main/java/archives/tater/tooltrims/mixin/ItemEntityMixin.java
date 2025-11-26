@@ -27,6 +27,6 @@ public abstract class ItemEntityMixin extends Entity {
             at = @At("TAIL")
     )
     private void checkDeletion(Level world, double x, double y, double z, ItemStack stack, double velocityX, double velocityY, double velocityZ, CallbackInfo ci) {
-        if (!world.isClientSide && shouldDeleteItem(stack, world)) setItem(ItemStack.EMPTY);
+        if (!world.isClientSide() && shouldDeleteItem(stack, world)) setItem(ItemStack.EMPTY);
     }
 }

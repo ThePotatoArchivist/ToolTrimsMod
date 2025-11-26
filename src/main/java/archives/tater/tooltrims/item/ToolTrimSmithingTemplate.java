@@ -6,6 +6,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SmithingTemplateItem;
 
 public class ToolTrimSmithingTemplate {
     private ToolTrimSmithingTemplate() {} // Static utility class without instances
@@ -22,23 +24,34 @@ public class ToolTrimSmithingTemplate {
     public static final Component ADDITIONS_SLOT_DESCRIPTION_TEXT = Component.translatable(
             Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.armor_trim.additions_slot_description"))
     );
-    public static final ResourceLocation EMPTY_SLOT_HOE_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_hoe");
-    public static final ResourceLocation EMPTY_SLOT_AXE_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_axe");
-    public static final ResourceLocation EMPTY_SLOT_SWORD_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_sword");
-    public static final ResourceLocation EMPTY_SLOT_SHOVEL_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_shovel");
-    public static final ResourceLocation EMPTY_SLOT_PICKAXE_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
-    public static final ResourceLocation EMPTY_SLOT_BOW_TEXTURE = ToolTrims.id("item/empty_slot_bow");
-    public static final ResourceLocation EMPTY_SLOT_CROSSBOW_TEXTURE = ToolTrims.id("item/empty_slot_crossbow");
-    public static final ResourceLocation EMPTY_SLOT_TRIDENT_TEXTURE = ToolTrims.id("item/empty_slot_trident");
-    public static final ResourceLocation EMPTY_SLOT_MACE_TEXTURE = ToolTrims.id("item/empty_slot_mace");
+    public static final ResourceLocation EMPTY_SLOT_HOE_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/hoe");
+    public static final ResourceLocation EMPTY_SLOT_AXE_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/axe");
+    public static final ResourceLocation EMPTY_SLOT_SWORD_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/sword");
+    public static final ResourceLocation EMPTY_SLOT_SHOVEL_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/shovel");
+    public static final ResourceLocation EMPTY_SLOT_PICKAXE_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/pickaxe");
+    public static final ResourceLocation EMPTY_SLOT_BOW_TEXTURE = ToolTrims.id("container/slot/bow");
+    public static final ResourceLocation EMPTY_SLOT_CROSSBOW_TEXTURE = ToolTrims.id("container/slot/crossbow");
+    public static final ResourceLocation EMPTY_SLOT_TRIDENT_TEXTURE = ToolTrims.id("container/slot/trident");
+    public static final ResourceLocation EMPTY_SLOT_MACE_TEXTURE = ToolTrims.id("container/slot/mace");
 
-    public static final ResourceLocation EMPTY_SLOT_INGOT_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_ingot");
-    public static final ResourceLocation EMPTY_SLOT_REDSTONE_DUST_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_redstone_dust");
-    public static final ResourceLocation EMPTY_SLOT_QUARTZ_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_quartz");
-    public static final ResourceLocation EMPTY_SLOT_EMERALD_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_emerald");
-    public static final ResourceLocation EMPTY_SLOT_DIAMOND_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_diamond");
-    public static final ResourceLocation EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_lapis_lazuli");
-    public static final ResourceLocation EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_amethyst_shard");
+    public static final ResourceLocation EMPTY_SLOT_INGOT_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/ingot");
+    public static final ResourceLocation EMPTY_SLOT_REDSTONE_DUST_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/redstone_dust");
+    public static final ResourceLocation EMPTY_SLOT_QUARTZ_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/quartz");
+    public static final ResourceLocation EMPTY_SLOT_EMERALD_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/emerald");
+    public static final ResourceLocation EMPTY_SLOT_DIAMOND_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/diamond");
+    public static final ResourceLocation EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/lapis_lazuli");
+    public static final ResourceLocation EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/amethyst_shard");
+
+    public static SmithingTemplateItem of(Item.Properties settings) {
+        return new SmithingTemplateItem(APPLIES_TO_TEXT,
+                INGREDIENTS_TEXT,
+                BASE_SLOT_DESCRIPTION_TEXT,
+                ADDITIONS_SLOT_DESCRIPTION_TEXT,
+                getEmptyBaseSlotTextures(),
+                getEmptyAdditionsSlotTextures(),
+                settings
+        );
+    }
 
     public static List<ResourceLocation> getEmptyAdditionsSlotTextures() {
         return List.of(

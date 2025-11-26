@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "tooltrims:item/trims/minecraft/copper_sword_linear_redstone"
+  }
+}

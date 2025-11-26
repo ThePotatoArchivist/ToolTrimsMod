@@ -14,11 +14,12 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.armortrim.ArmorTrim;
-import net.minecraft.world.item.armortrim.TrimMaterials;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -30,7 +31,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             var id = pattern.location();
-            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(id.withSuffix("_tool_trim_smithing_template_smithing_trim")));
+            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(ResourceKey.create(Registries.RECIPE, id.withSuffix("_tool_trim_smithing_template_smithing_trim"))));
         }
         return builder;
     }

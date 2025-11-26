@@ -3,42 +3,31 @@ package archives.tater.tooltrims.item;
 import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsPatterns;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.Util;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SmithingTemplateItem;
-import net.minecraft.world.item.armortrim.TrimPattern;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-
-import static archives.tater.tooltrims.item.ToolTrimSmithingTemplate.*;
+import java.util.function.Function;
 
 public class ToolTrimsItems {
 
-    private static Item register(String path, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, ToolTrims.id(path), item);
+    private static Item register(String path, Function<Item.Properties, Item> factory, Item.Properties settings) {
+        return Items.registerItem(ResourceKey.create(Registries.ITEM, ToolTrims.id(path)), factory, settings);
     }
 
-    private static Item registerToolTemplate(String name) {
-        return register(name + "_tool_trim_smithing_template", new SmithingTemplateItem(
-                APPLIES_TO_TEXT,
-                INGREDIENTS_TEXT,
-                Component.translatable(Util.makeDescriptionId("tool_trim_pattern", ToolTrims.id(name))).withStyle(ToolTrimSmithingTemplate.TITLE_FORMATTING),
-                BASE_SLOT_DESCRIPTION_TEXT,
-                ADDITIONS_SLOT_DESCRIPTION_TEXT,
-                getEmptyBaseSlotTextures(),
-                getEmptyAdditionsSlotTextures()
-        ));
+    private static Item registerToolTemplate(String name, Rarity rarity) {
+        return register(name + "_tool_trim_smithing_template", ToolTrimSmithingTemplate::of, new Item.Properties().rarity(rarity));
     }
 
-    public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("linear");
-    public static final Item TRACKS_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("tracks");
-    public static final Item CHARGE_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("charge");
-    public static final Item FROST_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("frost");
+    public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("linear", Rarity.UNCOMMON);
+    public static final Item TRACKS_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("tracks", Rarity.UNCOMMON);
+    public static final Item CHARGE_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("charge", Rarity.EPIC);
+    public static final Item FROST_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("frost", Rarity.UNCOMMON);
 
     public static final Map<ResourceKey<TrimPattern>, Item> SMITHING_TEMPLATES = Map.of(
             ToolTrimsPatterns.LINEAR, LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
@@ -55,5 +44,15 @@ public class ToolTrimsItems {
                     CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,
                     FROST_TOOL_TRIM_SMITHING_TEMPLATE)
         );
+
+        if (System.getProperty("fabric-api.datagen") != null) {
+            try {
+                var enchancementClass = Class.forName("archives.tater.tooltrims.datagen.EnchancementModelGenerator");
+                enchancementClass.getMethod("register").invoke(null);
+            } catch (NoSuchMethodException | ClassNotFoundException | IllegalAccessException |
+                     InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

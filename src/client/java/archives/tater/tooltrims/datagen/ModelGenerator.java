@@ -1,41 +1,40 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.ToolTrimsDPCompat;
-import archives.tater.tooltrims.ToolTrimsPatterns;
+import archives.tater.tooltrims.*;
 import archives.tater.tooltrims.item.ToolTrimsItems;
-import archives.tater.tooltrims.mixin.ItemModelGeneratorAccessor;
+import archives.tater.tooltrims.mixin.client.ItemModelGeneratorAccessor;
 
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
+import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
+import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
+import net.minecraft.client.renderer.item.properties.select.Charge;
+import net.minecraft.client.renderer.item.properties.select.DisplayContext;
+import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.Items;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static archives.tater.tooltrims.ToolTrimsPatterns.TRIM_PATTERN_PREDICATE;
+import java.util.stream.Stream;
 
 public class ModelGenerator extends FabricModelProvider {
     public ModelGenerator(FabricDataOutput output) {
         super(output);
     }
 
-    private static final List<ItemModelGenerators.TrimModelData> materials = ItemModelGeneratorAccessor.TRIM_MATERIALS();
+    private static final List<ItemModelGenerators.TrimMaterialData> materials = ItemModelGeneratorAccessor.TRIM_MATERIALS();
 
     private static final List<Item> standardTools = List.of(
             Items.WOODEN_SWORD,
@@ -48,6 +47,11 @@ public class ModelGenerator extends FabricModelProvider {
             Items.STONE_PICKAXE,
             Items.STONE_AXE,
             Items.STONE_HOE,
+            Items.COPPER_SWORD,
+            Items.COPPER_SHOVEL,
+            Items.COPPER_PICKAXE,
+            Items.COPPER_AXE,
+            Items.COPPER_HOE,
             Items.GOLDEN_SWORD,
             Items.GOLDEN_SHOVEL,
             Items.GOLDEN_PICKAXE,
@@ -67,112 +71,54 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_SHOVEL,
             Items.NETHERITE_PICKAXE,
             Items.NETHERITE_AXE,
-            Items.NETHERITE_HOE,
-            Items.TRIDENT
+            Items.NETHERITE_HOE
     );
-
-    protected static final ModelTemplate TEMPLATE_BOW = new ModelTemplate(Optional.of(ToolTrims.id("item/template_bow")), Optional.empty(), TextureSlot.LAYER0);
-    protected static final ModelTemplate TEMPLATE_CROSSBOW = new ModelTemplate(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureSlot.LAYER0);
 
     protected static ResourceLocation getSuffixedModelId(ResourceLocation itemId, String pattern, String material) {
         return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, ResourceLocation modelId, ResourceLocation textureId, ModelTemplate model, Map<String, Number> extraPredicates, boolean includeBase, boolean upload, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer) {
-        if (includeBase) {
-            var override = new JsonObject();
-            var predicate = new JsonObject();
-            extraPredicates.forEach(predicate::addProperty);
-            override.add("predicate", predicate);
-            override.addProperty("model", modelId.withPrefix("item/").toString());
-            overrides.add(override);
-        }
-
-        for (var pattern : ToolTrimsDPCompat.legacyPatternOrder) {
-            for (var material : ToolTrimsDPCompat.legacyMaterialOrder) {
-                var trimmedModelId = getSuffixedModelId(modelId, pattern.location().getPath(), material.location().getPath());
-
-                var override = new JsonObject();
-                var predicate = new JsonObject();
-                extraPredicates.forEach(predicate::addProperty);
-                predicate.addProperty("custom_model_data", ToolTrimsDPCompat.getCustomModelData(material, pattern));
-                override.add("predicate", predicate);
-                override.addProperty("model", trimmedModelId.toString());
-                overrides.add(override);
-            }
-        }
-
-        for (var pattern : ToolTrimsPatterns.PATTERNS) {
-            for (var material : materials) {
-                var trimmedModelId = getSuffixedModelId(modelId, pattern.location().getPath(), material.name());
-                var trimmedTextureId = getSuffixedModelId(textureId, pattern.location().getPath(), material.name());
-
-                if (upload) model.create(trimmedModelId, TextureMapping.layer0(trimmedTextureId), writer);
-
-                var override = new JsonObject();
-                var predicate = new JsonObject();
-                extraPredicates.forEach(predicate::addProperty);
-                predicate.addProperty("trim_type", material.itemModelIndex());
-                predicate.addProperty(TRIM_PATTERN_PREDICATE.toString(), ToolTrimsPatterns.getModelIndex(pattern));
-                override.add("predicate", predicate);
-                override.addProperty("model", trimmedModelId.toString());
-                overrides.add(override);
-            }
-        }
-
-        return overrides;
+    protected static ItemModel.Unbaked generateTrimmedToolModels(ResourceLocation baseId, ModelTemplate model, ItemModelGenerators modelGenerator) {
+        return generateTrimmedToolModels(baseId, baseId, model, modelGenerator);
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, ResourceLocation toolId, ModelTemplate model, Map<String, Number> extraPredicates, boolean includeBase, boolean upload, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(overrides, toolId, toolId, model, extraPredicates, includeBase, upload, writer);
+    protected static ItemModel.Unbaked generateTrimmedToolModels(ResourceLocation modelId, ResourceLocation textureId, ModelTemplate model, ItemModelGenerators modelGenerator) {
+        return ItemModelUtils.select(
+                TrimPatternProperty.INSTANCE,
+                // Legacy
+                ItemModelUtils.rangeSelect(
+                        new CustomModelDataProperty(0),
+                        ItemModelUtils.plainModel(modelId.withPrefix("item/")),
+                        Stream.concat(
+                                ToolTrimsDPCompat.legacyPatternOrder.stream().flatMap(pattern ->
+                                        ToolTrimsDPCompat.legacyMaterialOrder.stream().map(material ->
+                                                ItemModelUtils.override(
+                                                        ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.location().getPath(), material.location().getPath())),
+                                                        ToolTrimsDPCompat.getCustomModelData(material, pattern)
+                                                )
+                                        )
+                                ),
+                                ToolTrimsDPCompat.legacyPatternOrder.stream().map(pattern ->
+                                        ItemModelUtils.override(
+                                                ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.location().getPath(), TrimMaterials.RESIN.location().getPath())),
+                                                ToolTrimsDPCompat.getCustomModelData(TrimMaterials.RESIN, pattern)
+                                        )
+                                )
+                        ).toList()),
+                // Normal
+                ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
+                        ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), materials.stream().map(material -> {
+                            var trimmedModelId = getSuffixedModelId(modelId, pattern.location().getPath(), material.materialKey().location().getPath());
+                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.location().getPath(), material.materialKey().location().getPath());
+                            model.create(trimmedModelId, TextureMapping.layer0(trimmedTextureId), modelGenerator.modelOutput);
+                            return ItemModelUtils.when(material.materialKey(), ItemModelUtils.plainModel(trimmedModelId));
+                        }).toList()))
+                ).toList()
+        );
     }
 
-    protected static JsonArray generateTrimmedOverrides(JsonArray overrides, ResourceLocation toolId, ModelTemplate model, Map<String, Number> extraPredicates, boolean includeBase, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(overrides, toolId, toolId, model, extraPredicates, includeBase, true, writer);
-    }
-
-    protected static JsonArray generateTrimmedOverrides(ResourceLocation toolId, ModelTemplate model, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(new JsonArray(), toolId, model, Map.of(), false, true, writer);
-    }
-
-    protected static JsonArray generateTrimmedOverrides(ResourceLocation modelId, ResourceLocation textureId, ModelTemplate model, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer) {
-        return generateTrimmedOverrides(new JsonArray(), modelId, textureId, model, Map.of(), false, true, writer);
-    }
-
-    protected static void upload(ModelTemplate model, ResourceLocation identifier, TextureMapping textureMap, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
-        model.create(identifier, textureMap, writer, (id, textures) -> {
-            var json = model.createBaseTemplate(id, textures);
-            postProcessJson.accept(json);
-            return json;
-        });
-    }
-
-    protected static void upload(ModelTemplate model, Item item, TextureMapping textureMap, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer, Consumer<JsonObject> postProcessJson) {
-        upload(model, ModelLocationUtils.getModelLocation(item), textureMap, writer, postProcessJson);
-    }
-
-    protected static void upload(ModelTemplate model, ResourceLocation identifier, TextureMapping textureMap, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer, JsonArray overrides) {
-        upload(model, identifier, textureMap, writer, json -> json.add("overrides", overrides));
-    }
-
-    protected static void upload(ModelTemplate model, Item item, TextureMapping textureMap, BiConsumer<ResourceLocation, Supplier<JsonElement>> writer, JsonArray overrides) {
-        upload(model, item, textureMap, writer, json -> json.add("overrides", overrides));
-    }
-
-    protected static JsonArray generateCrossbowOverrides(ItemModelGenerators itemModelGenerator, boolean upload) {
-        var crossbowOverrides = new JsonArray();
-        var crossbowId = BuiltInRegistries.ITEM.getKey(Items.CROSSBOW);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId, TEMPLATE_CROSSBOW, Map.of(), false, upload, itemModelGenerator.output);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffix("_pulling_0"), TEMPLATE_CROSSBOW, Map.of("pulling", 1), true, upload, itemModelGenerator.output);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffix("_pulling_1"), TEMPLATE_CROSSBOW, Map.of("pulling", 1, "pull", 0.58f), true, upload, itemModelGenerator.output);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffix("_pulling_2"), TEMPLATE_CROSSBOW, Map.of("pulling", 1, "pull", 1), true, upload, itemModelGenerator.output);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffix("_arrow"), TEMPLATE_CROSSBOW, Map.of("charged", 1), true, upload, itemModelGenerator.output);
-        generateTrimmedOverrides(crossbowOverrides, crossbowId.withSuffix("_firework"), TEMPLATE_CROSSBOW, Map.of("charged", 1, "firework", 1), true, upload, itemModelGenerator.output);
-        return crossbowOverrides;
-    }
-
-    protected static void uploadCrossbow(ItemModelGenerators itemModelGenerator, JsonArray crossbowOverrides) {
-        upload(TEMPLATE_CROSSBOW, Items.CROSSBOW, TextureMapping.layer0(TextureMapping.getItemTexture(Items.CROSSBOW).withSuffix("_standby")), itemModelGenerator.output, crossbowOverrides);
+    protected static void registerTrimmedTool(Item item, ModelTemplate model, ItemModelGenerators modelGenerator) {
+        modelGenerator.itemModelOutput.accept(item, generateTrimmedToolModels(BuiltInRegistries.ITEM.getKey(item), model, modelGenerator));
     }
 
     @Override
@@ -187,22 +133,52 @@ public class ModelGenerator extends FabricModelProvider {
         }
 
         for (var tool : standardTools) {
-            var overrides = generateTrimmedOverrides(BuiltInRegistries.ITEM.getKey(tool), ModelTemplates.FLAT_HANDHELD_ITEM, itemModelGenerator.output);
-
-            upload(ModelTemplates.FLAT_HANDHELD_ITEM, tool, TextureMapping.layer0(tool), itemModelGenerator.output, overrides);
+            registerTrimmedTool(tool, ModelTemplates.FLAT_HANDHELD_ITEM, itemModelGenerator);
         }
 
-        upload(ModelTemplates.FLAT_HANDHELD_MACE_ITEM, Items.MACE, TextureMapping.layer0(Items.MACE), itemModelGenerator.output,
-                generateTrimmedOverrides(BuiltInRegistries.ITEM.getKey(Items.MACE), ModelTemplates.FLAT_HANDHELD_MACE_ITEM, itemModelGenerator.output));
+        registerTrimmedTool(Items.MACE, ModelTemplates.FLAT_HANDHELD_MACE_ITEM, itemModelGenerator);
 
-        var bowOverrides = new JsonArray();
         var bowId = BuiltInRegistries.ITEM.getKey(Items.BOW);
-        generateTrimmedOverrides(bowOverrides, bowId, TEMPLATE_BOW, Map.of(), false, itemModelGenerator.output);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffix("_pulling_0"), TEMPLATE_BOW, Map.of("pulling", 1), true, itemModelGenerator.output);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffix("_pulling_1"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.65f), true, itemModelGenerator.output);
-        generateTrimmedOverrides(bowOverrides, bowId.withSuffix("_pulling_2"), TEMPLATE_BOW, Map.of("pulling", 1, "pull", 0.9f), true, itemModelGenerator.output);
-        upload(TEMPLATE_BOW, Items.BOW, TextureMapping.layer0(Items.BOW), itemModelGenerator.output, bowOverrides);
+        var bowModel = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(Items.BOW)), Optional.empty(), TextureSlot.LAYER0);
+        itemModelGenerator.itemModelOutput.accept(Items.BOW, ItemModelUtils.conditional(
+                ItemModelUtils.isUsingItem(),
+                ItemModelUtils.rangeSelect(
+                        new UseDuration(false),
+                        0.05f,
+                        generateTrimmedToolModels(bowId.withSuffix("_pulling_0"), bowModel, itemModelGenerator),
+                        ItemModelUtils.override(generateTrimmedToolModels(bowId.withSuffix("_pulling_1"), bowModel, itemModelGenerator), 0.65f),
+                        ItemModelUtils.override(generateTrimmedToolModels(bowId.withSuffix("_pulling_2"), bowModel, itemModelGenerator), 0.9f)
+                ),
+                generateTrimmedToolModels(bowId, bowModel, itemModelGenerator)
+        ));
 
-        uploadCrossbow(itemModelGenerator, generateCrossbowOverrides(itemModelGenerator, true));
+        var crossbowId = BuiltInRegistries.ITEM.getKey(Items.CROSSBOW);
+        var crossbowModel = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(Items.CROSSBOW)), Optional.empty(), TextureSlot.LAYER0);
+        itemModelGenerator.itemModelOutput.accept(Items.CROSSBOW, ItemModelUtils.select(
+                new Charge(),
+                ItemModelUtils.conditional(
+                        ItemModelUtils.isUsingItem(),
+                        ItemModelUtils.rangeSelect(
+                                new CrossbowPull(),
+                                generateTrimmedToolModels(crossbowId.withSuffix("_pulling_0"), crossbowModel, itemModelGenerator),
+                                ItemModelUtils.override(generateTrimmedToolModels(crossbowId.withSuffix("_pulling_1"), crossbowModel, itemModelGenerator), 0.58f),
+                                ItemModelUtils.override(generateTrimmedToolModels(crossbowId.withSuffix("_pulling_2"), crossbowModel, itemModelGenerator), 1f)
+                        ),
+                        generateTrimmedToolModels(crossbowId, crossbowModel, itemModelGenerator)
+                ),
+                ItemModelUtils.when(CrossbowItem.ChargeType.ARROW, generateTrimmedToolModels(crossbowId.withSuffix("_arrow"), crossbowModel, itemModelGenerator)),
+                ItemModelUtils.when(CrossbowItem.ChargeType.ROCKET, generateTrimmedToolModels(crossbowId.withSuffix("_firework"), crossbowModel, itemModelGenerator))
+        ));
+
+        var tridentId = BuiltInRegistries.ITEM.getKey(Items.TRIDENT);
+        itemModelGenerator.itemModelOutput.accept(Items.TRIDENT, ItemModelUtils.select(
+                new DisplayContext(),
+                ItemModelUtils.conditional(
+                        ItemModelUtils.isUsingItem(),
+                        ItemModelUtils.specialModel(tridentId.withPrefix("item/").withSuffix("_throwing"), new TrimmedTridentModelRenderer.Unbaked()),
+                        ItemModelUtils.specialModel(tridentId.withPrefix("item/").withSuffix("_in_hand"), new TrimmedTridentModelRenderer.Unbaked())
+                ),
+                ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), generateTrimmedToolModels(tridentId, ModelTemplates.FLAT_ITEM, itemModelGenerator))
+        ));
     }
 }
