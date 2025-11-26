@@ -2,12 +2,11 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureKey;
-import net.minecraft.data.client.TextureMap;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelTemplate;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.resources.ResourceLocation;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,8 +15,8 @@ public class EnchancementModelGenerator extends ModelGenerator {
         super(output);
     }
 
-    public static Identifier enchancementId(String path) {
-        return Identifier.of("enchancement", path);
+    public static ResourceLocation enchancementId(String path) {
+        return ResourceLocation.fromNamespaceAndPath("enchancement", path);
     }
 
     private record CrossbowModel(
@@ -42,16 +41,16 @@ public class EnchancementModelGenerator extends ModelGenerator {
     };
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        var twoLayersTemplate = new Model(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureKey.LAYER1);
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        var twoLayersTemplate = new ModelTemplate(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureSlot.LAYER1);
 
-        var crossbowPullId = Identifier.ofVanilla("crossbow_pulling_2");
+        var crossbowPullId = ResourceLocation.withDefaultNamespace("crossbow_pulling_2");
         var crossbowOverrides = generateCrossbowOverrides(itemModelGenerator, false);
         for (var model : crossbowModels) {
-            var templateModelId = ToolTrims.id(model.path).withPrefixedPath("item/enchancement/");
-            twoLayersTemplate.upload(templateModelId, new TextureMap().put(TextureKey.LAYER1, templateModelId), itemModelGenerator.writer);
-            var templateModel = new Model(Optional.of(templateModelId), Optional.empty(), TextureKey.LAYER0);
-            generateTrimmedOverrides(crossbowOverrides, enchancementId(model.path), crossbowPullId, templateModel, Map.of("charged", 1, enchancementId(model.predicate).toString(), model.predicateValue), true, true, itemModelGenerator.writer);
+            var templateModelId = ToolTrims.id(model.path).withPrefix("item/enchancement/");
+            twoLayersTemplate.create(templateModelId, new TextureMapping().put(TextureSlot.LAYER1, templateModelId), itemModelGenerator.output);
+            var templateModel = new ModelTemplate(Optional.of(templateModelId), Optional.empty(), TextureSlot.LAYER0);
+            generateTrimmedOverrides(crossbowOverrides, enchancementId(model.path), crossbowPullId, templateModel, Map.of("charged", 1, enchancementId(model.predicate).toString(), model.predicateValue), true, true, itemModelGenerator.output);
         }
 
         uploadCrossbow(itemModelGenerator, crossbowOverrides);

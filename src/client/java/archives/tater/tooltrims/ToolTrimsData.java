@@ -4,15 +4,14 @@ import archives.tater.tooltrims.datagen.*;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 public class ToolTrimsData implements DataGeneratorEntrypoint {
 	@Override
-	public void buildRegistry(RegistryBuilder registryBuilder) {
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-		registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, TrimPatternGenerator::boostrap);
+		registryBuilder.add(Registries.TRIM_PATTERN, TrimPatternGenerator::boostrap);
 	}
 
 	@Override

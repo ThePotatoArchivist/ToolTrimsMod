@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-11T18:41:25.39708233	Tool Trims Mod/minecraft:chest Loot Table
+// 1.21.1	2025-11-26T02:34:36.796182175	Tool Trims Mod/minecraft:chest Loot Table
 cc67190be4d063f9b874bd7d0f30691d2292b65e data/tooltrims/loot_table/inject/minecraft/chests/igloo_chest.json
 e41c8b8b9190f8ba8e3d94d60a4ca65f6c17906f data/tooltrims/loot_table/inject/minecraft/chests/abandoned_mineshaft.json
 a7d35aafded3e679c50517c3bea9b62a2d62dda7 data/tooltrims/loot_table/inject/minecraft/chests/ancient_city.json

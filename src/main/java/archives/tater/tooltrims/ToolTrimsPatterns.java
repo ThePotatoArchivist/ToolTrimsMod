@@ -1,35 +1,34 @@
 package archives.tater.tooltrims;
 
-import net.minecraft.item.trim.ArmorTrimPattern;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.armortrim.TrimPattern;
 
 public class ToolTrimsPatterns {
-    private static RegistryKey<ArmorTrimPattern> of(Identifier id) {
-        return RegistryKey.of(RegistryKeys.TRIM_PATTERN, id);
+    private static ResourceKey<TrimPattern> of(ResourceLocation id) {
+        return ResourceKey.create(Registries.TRIM_PATTERN, id);
     }
 
-    private static RegistryKey<ArmorTrimPattern> of(String path) {
+    private static ResourceKey<TrimPattern> of(String path) {
         return of(ToolTrims.id(path));
     }
 
-    public static final RegistryKey<ArmorTrimPattern> LINEAR = of("linear");
-    public static final RegistryKey<ArmorTrimPattern> TRACKS = of("tracks");
-    public static final RegistryKey<ArmorTrimPattern> CHARGE = of("charge");
-    public static final RegistryKey<ArmorTrimPattern> FROST = of("frost");
+    public static final ResourceKey<TrimPattern> LINEAR = of("linear");
+    public static final ResourceKey<TrimPattern> TRACKS = of("tracks");
+    public static final ResourceKey<TrimPattern> CHARGE = of("charge");
+    public static final ResourceKey<TrimPattern> FROST = of("frost");
 
-    public static final List<RegistryKey<ArmorTrimPattern>> PATTERNS = List.of(LINEAR, TRACKS, CHARGE, FROST);
+    public static final List<ResourceKey<TrimPattern>> PATTERNS = List.of(LINEAR, TRACKS, CHARGE, FROST);
 
-    public static final Identifier TRIM_PATTERN_PREDICATE = ToolTrims.id("trim_pattern");
+    public static final ResourceLocation TRIM_PATTERN_PREDICATE = ToolTrims.id("trim_pattern");
 
-    private static <T> boolean equals(RegistryKey<T> first, RegistryKey<T> second) {
-        return first.getRegistry().equals(second.getRegistry()) && first.getValue().equals(second.getValue());
+    private static <T> boolean equals(ResourceKey<T> first, ResourceKey<T> second) {
+        return first.registry().equals(second.registry()) && first.location().equals(second.location());
     }
 
-    public static float getModelIndex(RegistryKey<ArmorTrimPattern> pattern) {
+    public static float getModelIndex(ResourceKey<TrimPattern> pattern) {
         if (equals(pattern, LINEAR)) return 0.1f;
         if (equals(pattern, TRACKS)) return 0.2f;
         if (equals(pattern, CHARGE)) return 0.3f;

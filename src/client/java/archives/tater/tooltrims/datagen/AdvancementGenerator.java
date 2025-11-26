@@ -5,74 +5,73 @@ import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRequirements.CriterionMerger;
-import net.minecraft.advancement.criterion.RecipeCraftedCriterion;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterials;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper.WrapperLookup;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements.Strategy;
+import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.critereon.RecipeCraftedTrigger;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.armortrim.TrimMaterials;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class AdvancementGenerator extends FabricAdvancementProvider {
-    public AdvancementGenerator(FabricDataOutput output, CompletableFuture<WrapperLookup> wrapperLookup) {
+    public AdvancementGenerator(FabricDataOutput output, CompletableFuture<Provider> wrapperLookup) {
         super(output, wrapperLookup);
     }
 
     private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
-            var id = pattern.getValue();
-            builder.criterion("tool_trimmed_" + id, RecipeCraftedCriterion.Conditions.create(id.withSuffixedPath("_tool_trim_smithing_template_smithing_trim")));
+            var id = pattern.location();
+            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(id.withSuffix("_tool_trim_smithing_template_smithing_trim")));
         }
         return builder;
     }
 
     private static Advancement.Builder createWithAllToolTrims() {
-        return requireAllToolTrims(Advancement.Builder.createUntelemetered());
+        return requireAllToolTrims(Advancement.Builder.recipeAdvancement());
     }
 
     @Override
-    public void generateAdvancement(WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
+    public void generateAdvancement(Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
         var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
-        shinyToolsIcon.set(DataComponentTypes.TRIM, new ArmorTrim(
-                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL).getOrThrow(ArmorTrimMaterials.DIAMOND),
-                wrapperLookup.getWrapperOrThrow(RegistryKeys.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
+        shinyToolsIcon.set(DataComponents.TRIM, new ArmorTrim(
+                wrapperLookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(TrimMaterials.DIAMOND),
+                wrapperLookup.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
         ));
 
         var shinyTools = createWithAllToolTrims()
-                .parent(new AdvancementEntry(Identifier.ofVanilla("adventure/root"), null)) // fake advancement
+                .parent(new AdvancementHolder(ResourceLocation.withDefaultNamespace("adventure/root"), null)) // fake advancement
                 .display(shinyToolsIcon,
-                        Text.translatable("advancements.adventure.shiny_tools.title"),
-                        Text.translatable("advancements.adventure.shiny_tools.description"),
+                        Component.translatable("advancements.adventure.shiny_tools.title"),
+                        Component.translatable("advancements.adventure.shiny_tools.description"),
                         null,
-                        AdvancementFrame.TASK,
+                        AdvancementType.TASK,
                         true,
                         true,
                         false)
-                .criteriaMerger(CriterionMerger.OR)
-                .build(consumer, ToolTrims.id("adventure/shiny_tools").toString());
+                .requirements(Strategy.OR)
+                .save(consumer, ToolTrims.id("adventure/shiny_tools").toString());
 
         createWithAllToolTrims()
                 .parent(shinyTools)
                 .display(
                         ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
-                        Text.translatable("advancements.adventure.tools_of_all_styles.title"),
-                        Text.translatable("advancements.adventure.tools_of_all_styles.description"),
+                        Component.translatable("advancements.adventure.tools_of_all_styles.title"),
+                        Component.translatable("advancements.adventure.tools_of_all_styles.description"),
                         null,
-                        AdvancementFrame.CHALLENGE,
+                        AdvancementType.CHALLENGE,
                         true,
                         true,
                         false)
-                .criteriaMerger(CriterionMerger.AND)
-                .build(consumer, ToolTrims.id("adventure/tools_of_all_styles").toString());
+                .requirements(Strategy.AND)
+                .save(consumer, ToolTrims.id("adventure/tools_of_all_styles").toString());
     }
 }

@@ -1,35 +1,35 @@
 package archives.tater.tooltrims.mixin;
 
 import archives.tater.tooltrims.loot.CopyWithWeight;
-import net.minecraft.item.Item;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.function.LootFunction;
-import net.minecraft.registry.entry.RegistryEntry;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.List;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-@Mixin(ItemEntry.class)
-public abstract class ItemEntryMixin extends LeafEntry implements CopyWithWeight<ItemEntry> {
+@Mixin(LootItem.class)
+public abstract class ItemEntryMixin extends LootPoolSingletonContainer implements CopyWithWeight<LootItem> {
     @Shadow @Final
-    private RegistryEntry<Item> item;
+    private Holder<Item> item;
 
-    protected ItemEntryMixin(int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
+    protected ItemEntryMixin(int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         super(weight, quality, conditions, functions);
     }
 
     @Invoker("<init>")
-    static ItemEntry newItemEntry(RegistryEntry<Item> item, int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
+    static LootItem newItemEntry(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         throw new AssertionError();
     }
 
     @Override
-    public ItemEntry tooltrims$copy(int weightChange) {
+    public LootItem tooltrims$copy(int weightChange) {
         return newItemEntry(item, weight + weightChange, quality, conditions, functions);
     }
 }

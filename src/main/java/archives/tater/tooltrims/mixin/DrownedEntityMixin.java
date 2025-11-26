@@ -1,31 +1,31 @@
 package archives.tater.tooltrims.mixin;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.DrownedEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(DrownedEntity.class)
-public abstract class DrownedEntityMixin extends ZombieEntity {
-    public DrownedEntityMixin(EntityType<? extends ZombieEntity> entityType, World world) {
+@Mixin(Drowned.class)
+public abstract class DrownedEntityMixin extends Zombie {
+    public DrownedEntityMixin(EntityType<? extends Zombie> entityType, Level world) {
         super(entityType, world);
     }
 
     @ModifyArg(
-            method = "shootAt",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/TridentEntity;<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;)V"),
+            method = "performRangedAttack",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ThrownTrident;<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V"),
             index = 2
     )
     private ItemStack useHeldTridentTrims(ItemStack stack) {
-        var mainHandStack = getMainHandStack();
-        if (!mainHandStack.isOf(Items.TRIDENT)) return stack;
-        stack.set(DataComponentTypes.TRIM, mainHandStack.get(DataComponentTypes.TRIM));
+        var mainHandStack = getMainHandItem();
+        if (!mainHandStack.is(Items.TRIDENT)) return stack;
+        stack.set(DataComponents.TRIM, mainHandStack.get(DataComponents.TRIM));
         return stack;
     }
 }

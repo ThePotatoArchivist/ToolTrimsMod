@@ -1,29 +1,29 @@
 package archives.tater.tooltrims.mixin;
 
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.LootFunction;
-import net.minecraft.loot.provider.number.LootNumberProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 @Mixin(LootPool.class)
 public interface LootPoolAccessor {
     @Accessor("rolls")
-    LootNumberProvider tooltrims$getRolls();
+    NumberProvider tooltrims$getRolls();
 
     @Accessor("bonusRolls")
-    LootNumberProvider tooltrims$getBonusRolls();
+    NumberProvider tooltrims$getBonusRolls();
 
     @Accessor("entries")
-    List<LootPoolEntry> tooltrims$getEntries();
+    List<LootPoolEntryContainer> tooltrims$getEntries();
 
     @Accessor("conditions")
-    List<LootCondition> tooltrims$getConditions();
+    List<LootItemCondition> tooltrims$getConditions();
 
     @Accessor("functions")
-    List<LootFunction> tooltrims$getFunctions();
+    List<LootItemFunction> tooltrims$getFunctions();
 }

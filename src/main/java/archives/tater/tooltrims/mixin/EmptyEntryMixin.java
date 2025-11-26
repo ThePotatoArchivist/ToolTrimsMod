@@ -1,28 +1,28 @@
 package archives.tater.tooltrims.mixin;
 
 import archives.tater.tooltrims.loot.CopyWithWeight;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.entry.EmptyEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.function.LootFunction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.List;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-@Mixin(EmptyEntry.class)
-public abstract class EmptyEntryMixin extends LeafEntry implements CopyWithWeight<EmptyEntry> {
-    protected EmptyEntryMixin(int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
+@Mixin(EmptyLootItem.class)
+public abstract class EmptyEntryMixin extends LootPoolSingletonContainer implements CopyWithWeight<EmptyLootItem> {
+    protected EmptyEntryMixin(int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         super(weight, quality, conditions, functions);
     }
 
     @Invoker("<init>")
-    private static EmptyEntry newEmptyEntry(int weight, int quality, List<LootCondition> conditions, List<LootFunction> functions) {
+    private static EmptyLootItem newEmptyEntry(int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         throw new AssertionError();
     }
 
     @Override
-    public EmptyEntry tooltrims$copy(int weightChange) {
+    public EmptyLootItem tooltrims$copy(int weightChange) {
         return newEmptyEntry(weight + weightChange, quality, conditions, functions);
     }
 }

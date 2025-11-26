@@ -1,47 +1,47 @@
 package archives.tater.tooltrims;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterial;
-import net.minecraft.item.trim.ArmorTrimPattern;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.armortrim.TrimPattern;
 
 @SuppressWarnings("UnstableApiUsage")
 public class TridentTextures {
-    private static final Map<RegistryKey<ArmorTrimPattern>, Map<RegistryKey<ArmorTrimMaterial>, Identifier>> TEXTURE_IDS = new HashMap<>();
+    private static final Map<ResourceKey<TrimPattern>, Map<ResourceKey<TrimMaterial>, ResourceLocation>> TEXTURE_IDS = new HashMap<>();
 
-    public static Identifier getTextureId(RegistryKey<ArmorTrimPattern> pattern, RegistryKey<ArmorTrimMaterial> material) {
+    public static ResourceLocation getTextureId(ResourceKey<TrimPattern> pattern, ResourceKey<TrimMaterial> material) {
         return TEXTURE_IDS
                 .computeIfAbsent(pattern, x -> new HashMap<>())
                 .computeIfAbsent(material, x -> ToolTrims.id("textures/entity/trident/trident_"
-                    + pattern.getValue().getPath()
+                    + pattern.location().getPath()
                     + "_"
-                    + material.getValue().getPath()
+                    + material.location().getPath()
                     + ".png"));
     }
 
-    public static Identifier getTextureId(RegistryEntry<ArmorTrimPattern> pattern, RegistryEntry<ArmorTrimMaterial> material) {
-        return getTextureId(pattern.getKey().orElseThrow(), material.getKey().orElseThrow());
+    public static ResourceLocation getTextureId(Holder<TrimPattern> pattern, Holder<TrimMaterial> material) {
+        return getTextureId(pattern.unwrapKey().orElseThrow(), material.unwrapKey().orElseThrow());
     }
 
-    public static @Nullable Identifier getTextureId(ArmorTrim trim) {
+    public static @Nullable ResourceLocation getTextureId(ArmorTrim trim) {
         if (trim == null) return null;
-        return getTextureId(trim.getPattern(), trim.getMaterial());
+        return getTextureId(trim.pattern(), trim.material());
     }
 
-    public static @Nullable Identifier getTextureId(ItemStack stack) {
-        return getTextureId(stack.get(DataComponentTypes.TRIM));
+    public static @Nullable ResourceLocation getTextureId(ItemStack stack) {
+        return getTextureId(stack.get(DataComponents.TRIM));
     }
 
-    public static @Nullable Identifier getTextureId(TridentEntity tridentEntity) {
+    public static @Nullable ResourceLocation getTextureId(ThrownTrident tridentEntity) {
         return getTextureId(tridentEntity.getAttached(ToolTrimsDataAttachment.TRIDENT_TRIM));
     }
 }

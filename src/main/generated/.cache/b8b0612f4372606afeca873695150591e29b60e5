@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-11T18:41:25.379357971	tooltrims:tooltrims/Model Definitions
+// 1.21.1	2025-11-26T02:34:36.778992113	tooltrims:tooltrims/Model Definitions
 58618ca7f43620a8fe21e14a829bab2200c1b934 resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/golden_sword_frost_quartz.json
 87b7df7632d9d17bf0631ba7f1fc4c28cc2721aa resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/golden_pickaxe_frost_diamond.json
 f153b80cdead75035feff5627738175f33ef2f97 resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/golden_hoe_frost_netherite.json
@@ -501,8 +501,8 @@ c1a82c5c079b28de2f708d06875256a5e3c17d73 resourcepacks/tooltrims/assets/minecraf
 28e26c8610053c1716a0fa160d77876f1b18d6ed resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/wooden_shovel_tracks_diamond.json
 aa6d7a640ce44de55fb13abe0746100e66eb9a69 resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/netherite_hoe_linear_amethyst.json
 471b5c0b6f31b59a4f55f957a02a9eac4e5e9755 resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/wooden_axe_linear_lapis.json
-4682b73e4310821d8bc98b103b117b7f6b16a003 resourcepacks/tooltrims/assets/minecraft/models/item/netherite_shovel.json
 403aec0528c7302ab5646f41dedae901f10beb3a resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/crossbow_arrow_linear_iron.json
+4682b73e4310821d8bc98b103b117b7f6b16a003 resourcepacks/tooltrims/assets/minecraft/models/item/netherite_shovel.json
 1a8a4a15e95da634031253c19d12b1ca15a405ed resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/bow_pulling_0_frost_redstone.json
 22d05ccd471ea66c6ad3a45af5ceb1fc26eef09d resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/golden_axe_charge_emerald.json
 35fb99671c43def0ccdcfd699286637f294c8c37 resourcepacks/tooltrims/assets/tooltrims/models/item/trims/minecraft/bow_pulling_1_frost_gold.json

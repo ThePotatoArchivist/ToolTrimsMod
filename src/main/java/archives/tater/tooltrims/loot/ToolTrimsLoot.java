@@ -2,32 +2,32 @@ package archives.tater.tooltrims.loot;
 
 import archives.tater.tooltrims.ToolTrims;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 
 public class ToolTrimsLoot {
-    private static RegistryKey<LootTable> idInject(RegistryKey<LootTable> lootTable) {
-        return RegistryKey.of(lootTable.getRegistryRef(), ToolTrims.id("inject/" + lootTable.getValue().getNamespace() + "/" + lootTable.getValue().getPath()));
+    private static ResourceKey<LootTable> idInject(ResourceKey<LootTable> lootTable) {
+        return ResourceKey.create(lootTable.registryKey(), ToolTrims.id("inject/" + lootTable.location().getNamespace() + "/" + lootTable.location().getPath()));
     }
 
-    public static final RegistryKey<LootTable> TRAIL_RUINS_INJECT = idInject(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY);
-    public static final RegistryKey<LootTable> PILLAGER_OUTPOST_INJECT = idInject(LootTables.PILLAGER_OUTPOST_CHEST);
-    public static final RegistryKey<LootTable> ANCIENCT_CITY_INJECT = idInject(LootTables.ANCIENT_CITY_CHEST);
-    public static final RegistryKey<LootTable> IGLOO_INJECT = idInject(LootTables.IGLOO_CHEST_CHEST);
-    public static final RegistryKey<LootTable> MINESHAFT_INJECT = idInject(LootTables.ABANDONED_MINESHAFT_CHEST);
-    public static final RegistryKey<LootTable> MANSION_INJECT = idInject(LootTables.WOODLAND_MANSION_CHEST);
+    public static final ResourceKey<LootTable> TRAIL_RUINS_INJECT = idInject(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE);
+    public static final ResourceKey<LootTable> PILLAGER_OUTPOST_INJECT = idInject(BuiltInLootTables.PILLAGER_OUTPOST);
+    public static final ResourceKey<LootTable> ANCIENCT_CITY_INJECT = idInject(BuiltInLootTables.ANCIENT_CITY);
+    public static final ResourceKey<LootTable> IGLOO_INJECT = idInject(BuiltInLootTables.IGLOO_CHEST);
+    public static final ResourceKey<LootTable> MINESHAFT_INJECT = idInject(BuiltInLootTables.ABANDONED_MINESHAFT);
+    public static final ResourceKey<LootTable> MANSION_INJECT = idInject(BuiltInLootTables.WOODLAND_MANSION);
 
     sealed interface LootModifyEntry {
-        RegistryKey<LootTable> targetTable();
+        ResourceKey<LootTable> targetTable();
     }
 
     record AddPoolEntry(
-        RegistryKey<LootTable> targetTable,
-        RegistryKey<LootTable> injectTableId
+        ResourceKey<LootTable> targetTable,
+        ResourceKey<LootTable> injectTableId
     ) implements LootModifyEntry {}
 
     sealed interface PoolModifyEntry extends LootModifyEntry {
@@ -35,41 +35,41 @@ public class ToolTrimsLoot {
     }
 
     record ChangeWeightEntry(
-            RegistryKey<LootTable> targetTable,
+            ResourceKey<LootTable> targetTable,
             int poolIndex,
             int entryIndex,
             int weightChange
     ) implements PoolModifyEntry {}
 
     record AddEntry(
-            RegistryKey<LootTable> targetTable,
+            ResourceKey<LootTable> targetTable,
             int poolIndex,
-            RegistryKey<LootTable> injectTable,
+            ResourceKey<LootTable> injectTable,
             int weight
     ) implements PoolModifyEntry {}
 
     record DeleteEntry( // Note: Operation is not atomic, so deleting items 1 and 2 will actually delete 1 and 3
-            RegistryKey<LootTable> targetTable,
+            ResourceKey<LootTable> targetTable,
             int poolIndex,
             int entryIndex
     ) implements PoolModifyEntry {}
 
     private static final LootModifyEntry[] MODIFY_ENTRIES = {
-            new AddEntry(LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY, 0, TRAIL_RUINS_INJECT, 1),
+            new AddEntry(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE, 0, TRAIL_RUINS_INJECT, 1),
 
-            new ChangeWeightEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, 1, 1),
-            new AddEntry(LootTables.PILLAGER_OUTPOST_CHEST, 5, PILLAGER_OUTPOST_INJECT, 3),
+            new ChangeWeightEntry(BuiltInLootTables.PILLAGER_OUTPOST, 5, 1, 1),
+            new AddEntry(BuiltInLootTables.PILLAGER_OUTPOST, 5, PILLAGER_OUTPOST_INJECT, 3),
 
-            new ChangeWeightEntry(LootTables.ANCIENT_CITY_CHEST, 1, 0, -4),
-            new AddEntry(LootTables.ANCIENT_CITY_CHEST, 1, ANCIENCT_CITY_INJECT, 4),
+            new ChangeWeightEntry(BuiltInLootTables.ANCIENT_CITY, 1, 0, -4),
+            new AddEntry(BuiltInLootTables.ANCIENT_CITY, 1, ANCIENCT_CITY_INJECT, 4),
 
-            new AddPoolEntry(LootTables.IGLOO_CHEST_CHEST, IGLOO_INJECT),
+            new AddPoolEntry(BuiltInLootTables.IGLOO_CHEST, IGLOO_INJECT),
 
-            new DeleteEntry(LootTables.ABANDONED_MINESHAFT_CHEST, 0, 5),
-            new AddEntry(LootTables.ABANDONED_MINESHAFT_CHEST, 0, MINESHAFT_INJECT, 5),
+            new DeleteEntry(BuiltInLootTables.ABANDONED_MINESHAFT, 0, 5),
+            new AddEntry(BuiltInLootTables.ABANDONED_MINESHAFT, 0, MINESHAFT_INJECT, 5),
 
-            new DeleteEntry(LootTables.WOODLAND_MANSION_CHEST, 3, 0),
-            new AddEntry(LootTables.WOODLAND_MANSION_CHEST, 3, MANSION_INJECT, 1)
+            new DeleteEntry(BuiltInLootTables.WOODLAND_MANSION, 3, 0),
+            new AddEntry(BuiltInLootTables.WOODLAND_MANSION, 3, MANSION_INJECT, 1)
     };
 
     public static void register() {
@@ -80,11 +80,11 @@ public class ToolTrimsLoot {
             var needsModification = false;
 
             for (var entry : MODIFY_ENTRIES) {
-                if (!(entry.targetTable().getValue().equals(key.getValue()))) continue;
+                if (!(entry.targetTable().location().equals(key.location()))) continue;
 
                 if (entry instanceof AddPoolEntry addPoolEntry)
-                    builder.pool(LootPool.builder()
-                            .with(LootTableEntry.builder(addPoolEntry.injectTableId)));
+                    builder.withPool(LootPool.lootPool()
+                            .add(NestedLootTable.lootTableReference(addPoolEntry.injectTableId)));
                 else if (entry instanceof PoolModifyEntry)
                     needsModification = true;
             }
@@ -93,20 +93,20 @@ public class ToolTrimsLoot {
 
             ((ReplaceablePools) builder).tooltrims$modifyPoolEntries((entries, index) -> {
                 for (var entry : MODIFY_ENTRIES) {
-                    if (!(entry.targetTable().getValue().equals(key.getValue()))) continue;
+                    if (!(entry.targetTable().location().equals(key.location()))) continue;
                     if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != index) continue;
 
                     switch (entry) {
                         case AddEntry addEntry -> {
-                            var lootEntry = LootTableEntry.builder(addEntry.injectTable);
+                            var lootEntry = NestedLootTable.lootTableReference(addEntry.injectTable);
                             if (addEntry.weight != 1)
-                                lootEntry.weight(addEntry.weight);
+                                lootEntry.setWeight(addEntry.weight);
                             entries.add(lootEntry.build());
                         }
                         case DeleteEntry deleteEntry -> entries.remove(deleteEntry.entryIndex);
                         case ChangeWeightEntry changeWeightEntry -> {
                             if (changeWeightEntry.entryIndex < entries.size() && entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry)
-                                entries.set(changeWeightEntry.entryIndex, (LootPoolEntry) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
+                                entries.set(changeWeightEntry.entryIndex, (LootPoolEntryContainer) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
                         }
                         default -> {
                         }

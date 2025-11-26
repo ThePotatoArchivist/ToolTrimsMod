@@ -6,8 +6,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +19,8 @@ public class ToolTrims implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static Identifier id(String path) {
-		return Identifier.of(MOD_ID, path);
+	public static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	@Override
@@ -42,14 +42,14 @@ public class ToolTrims implements ModInitializer {
             ResourceManagerHelper.registerBuiltinResourcePack(
 					ToolTrims.id("enchancement"),
 					FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
-					Text.literal("Enchancement x Tool Trims"),
+					Component.literal("Enchancement x Tool Trims"),
 					ResourcePackActivationType.ALWAYS_ENABLED
 			);
 		//noinspection OptionalGetWithoutIsPresent
 		ResourceManagerHelper.registerBuiltinResourcePack(
 				ToolTrims.id("tooltrims"),
 				FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
-				Text.literal("Tool Trims"),
+				Component.literal("Tool Trims"),
 				ResourcePackActivationType.ALWAYS_ENABLED
 		);
 	}
