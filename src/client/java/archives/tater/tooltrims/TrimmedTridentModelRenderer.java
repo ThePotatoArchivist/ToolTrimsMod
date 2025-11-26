@@ -5,8 +5,8 @@ import net.fabricmc.api.Environment;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.model.TridentModel;
 import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.component.DataComponents;
@@ -15,10 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Objects;
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTrim> {
     private final TridentModel model;
@@ -41,7 +41,7 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
     }
 
     @Override
-    public void getExtents(Set<Vector3f> vertices) {
+    public void getExtents(Consumer<Vector3fc> vertices) {
         PoseStack matrixStack = new PoseStack();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
         this.model.root().getExtentsForGui(matrixStack, vertices);

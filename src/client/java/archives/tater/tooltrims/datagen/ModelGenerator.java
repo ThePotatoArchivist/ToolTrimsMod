@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.item.properties.select.Charge;
 import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -74,15 +74,15 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_HOE
     );
 
-    protected static ResourceLocation getSuffixedModelId(ResourceLocation itemId, String pattern, String material) {
+    protected static Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
         return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
 
-    protected static ItemModel.Unbaked generateTrimmedToolModels(ResourceLocation baseId, ModelTemplate model, ItemModelGenerators modelGenerator) {
+    protected static ItemModel.Unbaked generateTrimmedToolModels(Identifier baseId, ModelTemplate model, ItemModelGenerators modelGenerator) {
         return generateTrimmedToolModels(baseId, baseId, model, modelGenerator);
     }
 
-    protected static ItemModel.Unbaked generateTrimmedToolModels(ResourceLocation modelId, ResourceLocation textureId, ModelTemplate model, ItemModelGenerators modelGenerator) {
+    protected static ItemModel.Unbaked generateTrimmedToolModels(Identifier modelId, Identifier textureId, ModelTemplate model, ItemModelGenerators modelGenerator) {
         return ItemModelUtils.select(
                 TrimPatternProperty.INSTANCE,
                 // Legacy
@@ -93,14 +93,14 @@ public class ModelGenerator extends FabricModelProvider {
                                 ToolTrimsDPCompat.legacyPatternOrder.stream().flatMap(pattern ->
                                         ToolTrimsDPCompat.legacyMaterialOrder.stream().map(material ->
                                                 ItemModelUtils.override(
-                                                        ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.location().getPath(), material.location().getPath())),
+                                                        ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.identifier().getPath(), material.identifier().getPath())),
                                                         ToolTrimsDPCompat.getCustomModelData(material, pattern)
                                                 )
                                         )
                                 ),
                                 ToolTrimsDPCompat.legacyPatternOrder.stream().map(pattern ->
                                         ItemModelUtils.override(
-                                                ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.location().getPath(), TrimMaterials.RESIN.location().getPath())),
+                                                ItemModelUtils.plainModel(getSuffixedModelId(modelId, pattern.identifier().getPath(), TrimMaterials.RESIN.identifier().getPath())),
                                                 ToolTrimsDPCompat.getCustomModelData(TrimMaterials.RESIN, pattern)
                                         )
                                 )
@@ -108,8 +108,8 @@ public class ModelGenerator extends FabricModelProvider {
                 // Normal
                 ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
                         ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), materials.stream().map(material -> {
-                            var trimmedModelId = getSuffixedModelId(modelId, pattern.location().getPath(), material.materialKey().location().getPath());
-                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.location().getPath(), material.materialKey().location().getPath());
+                            var trimmedModelId = getSuffixedModelId(modelId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
+                            var trimmedTextureId = getSuffixedModelId(textureId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             model.create(trimmedModelId, TextureMapping.layer0(trimmedTextureId), modelGenerator.modelOutput);
                             return ItemModelUtils.when(material.materialKey(), ItemModelUtils.plainModel(trimmedModelId));
                         }).toList()))

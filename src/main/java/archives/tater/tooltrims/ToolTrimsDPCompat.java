@@ -13,10 +13,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderGetter.Provider;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -42,6 +43,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
+
 public class ToolTrimsDPCompat {
     public static final List<ResourceKey<TrimMaterial>> legacyMaterialOrder = List.of(
             TrimMaterials.AMETHYST,
@@ -65,10 +68,10 @@ public class ToolTrimsDPCompat {
     );
 
     private static ResourceKey<LootTable> templateLootTable(String trim) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("tooltrims", "items/" + trim + "_smithing_template"));
+        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + trim + "_smithing_template"));
     }
 
-    private static final String disableGamerule = "/gamerule " + ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES.getId() + " false";
+    private static final String disableGamerule = "/gamerule " + requireNonNull(BuiltInRegistries.GAME_RULE.getKey(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) + " false";
 
     private static boolean gameruleWasEnabled = false;
 
@@ -87,7 +90,7 @@ public class ToolTrimsDPCompat {
             var state = State.ofServer(server);
             if (!state.hasCheckedForDP()) {
                 if (wasDatapackUsed(server)) {
-                    server.getGameRules().getRule(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES).set(true, server);
+                    server.getWorldData().getGameRules().set(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES, true, server);
                     gameruleWasEnabled = true;
                     ToolTrims.LOGGER.warn(Component.translatable("tooltrims.warning.auto_enable", disableGamerule).getString());
                 }
@@ -116,12 +119,12 @@ public class ToolTrimsDPCompat {
 
     public static boolean isDatapackRunning(MinecraftServer server) {
         return server.getFunctions()
-                .getTag(ResourceLocation.withDefaultNamespace("load"))
-                .stream().anyMatch(function -> function.id().equals(ResourceLocation.fromNamespaceAndPath("tooltrims", "load")));
+                .getTag(Identifier.withDefaultNamespace("load"))
+                .stream().anyMatch(function -> function.id().equals(Identifier.fromNamespaceAndPath("tooltrims", "load")));
     }
 
-    public static boolean shouldDeleteToolsmithingTable(ArmorStand armorStand) {
-        return !armorStand.level().isClientSide() && Objects.requireNonNull(armorStand.level().getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
+    public static boolean shouldDeleteToolsmithingTable(ServerLevel world, ArmorStand armorStand) {
+        return !armorStand.level().isClientSide() && world.getGameRules().get(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
                 (armorStand.getTags().contains("310_toolsmithing_table") || armorStand.getTags().contains("310_place_toolsmithing_table")) &&
                         armorStand.level().getNearestPlayer(armorStand, 6) != null;
     }
@@ -171,8 +174,8 @@ public class ToolTrimsDPCompat {
         return getTrim(world.registryAccess(), customModelData);
     }
 
-    public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable Level world) {
-        if (world != null && !Objects.requireNonNull(world.getServer()).getGameRules().getBoolean(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
+    public static boolean shouldDeleteItem(ItemStack itemStack, @Nullable ServerLevel world) {
+        if (world != null && !world.getGameRules().get(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) return false;
         if (!itemStack.is(Items.STRUCTURE_BLOCK)) return false;
         var customModelData = getCustomModelData(itemStack, 0);
         return 312001 <= customModelData && customModelData <= 312021;
@@ -219,7 +222,7 @@ public class ToolTrimsDPCompat {
         if (stack.is(ToolTrimsTags.TRIMMABLE_TOOLS)) {
             var trim = stack.get(DataComponents.TRIM);
             if (trim == null) return null;
-            var id = ResourceLocation.fromNamespaceAndPath("tooltrims", "trims/" + trim.pattern().unwrapKey().orElseThrow().location().getPath() + "_" + trim.material().unwrapKey().orElseThrow().location().getPath());
+            var id = Identifier.fromNamespaceAndPath("tooltrims", "trims/" + trim.pattern().unwrapKey().orElseThrow().identifier().getPath() + "_" + trim.material().unwrapKey().orElseThrow().identifier().getPath());
             var modifier = registries.get(ResourceKey.create(Registries.ITEM_MODIFIER, id));
             if (modifier.isEmpty()) return null;
             modifier.get().value().apply(stack, new LootContext.Builder(new LootParams.Builder(world).create(LootContextParamSets.EMPTY)).create(Optional.empty()));
@@ -227,7 +230,7 @@ public class ToolTrimsDPCompat {
             return stack;
         }
         if (ToolTrimsItems.SMITHING_TEMPLATES.containsValue(stack.getItem())) {
-            var stacks = world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("tooltrims", "items/" + stack.getItemHolder().unwrapKey().orElseThrow().location().getPath())))
+            var stacks = world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + stack.getItemHolder().unwrapKey().orElseThrow().identifier().getPath())))
                     .getRandomItems(new LootParams.Builder(world).create(LootContextParamSets.EMPTY));
             if (stacks.isEmpty()) return null;
             var newStack = stacks.getFirst();

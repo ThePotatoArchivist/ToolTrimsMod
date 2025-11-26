@@ -8,7 +8,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import java.util.Optional;
@@ -18,8 +18,8 @@ public class EnchancementModelGenerator extends ModelGenerator {
         super(output);
     }
 
-    public static ResourceLocation enchancementId(String path) {
-        return ResourceLocation.fromNamespaceAndPath("enchancement", path);
+    public static Identifier enchancementId(String path) {
+        return Identifier.fromNamespaceAndPath("enchancement", path);
     }
 
     private record CrossbowModel(
@@ -56,7 +56,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         var twoLayersTemplate = new ModelTemplate(Optional.of(ToolTrims.id("item/template_crossbow")), Optional.empty(), TextureSlot.LAYER1);
 
-        var crossbowPullId = ResourceLocation.withDefaultNamespace("crossbow_pulling_2");
+        var crossbowPullId = Identifier.withDefaultNamespace("crossbow_pulling_2");
 
         for (var model : crossbowModels) {
             var templateModelId = ToolTrims.id(model.path).withPrefix("item/enchancement/");

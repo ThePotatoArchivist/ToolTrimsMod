@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.renderer.entity.ThrownTridentRenderer;
 import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ import java.util.Objects;
 @Mixin(ThrownTridentRenderer.class)
 public class TridentEntityRendererMixin {
     @Inject(
-            method = "extractRenderState(Lnet/minecraft/world/entity/projectile/ThrownTrident;Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;F)V",
+            method = "extractRenderState(Lnet/minecraft/world/entity/projectile/arrow/ThrownTrident;Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;F)V",
             at = @At("TAIL")
     )
     private void addTrimState(ThrownTrident tridentEntity, ThrownTridentRenderState tridentEntityRenderState, float f, CallbackInfo ci) {
@@ -31,10 +31,10 @@ public class TridentEntityRendererMixin {
 
     @ModifyArg(
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/TridentModel;renderType(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/object/projectile/TridentModel;renderType(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/rendertype/RenderType;"),
             index = 0
     )
-    private ResourceLocation applyTrimTexture(ResourceLocation original, @Local(argsOnly = true) ThrownTridentRenderState tridentEntityRenderState) {
+    private Identifier applyTrimTexture(Identifier original, @Local(argsOnly = true) ThrownTridentRenderState tridentEntityRenderState) {
         return Objects.requireNonNullElse(TridentTextures.getTextureId(((TrimmedState) tridentEntityRenderState).tooltrims$getTrim()), original);
     }
 }

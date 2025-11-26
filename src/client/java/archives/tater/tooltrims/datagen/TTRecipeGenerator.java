@@ -42,7 +42,7 @@ public class TTRecipeGenerator extends RecipeProvider {
                 ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE, Items.SNOW_BLOCK
         );
         ToolTrimsItems.SMITHING_TEMPLATES.forEach((entry, templateItem) -> {
-            offerToolTrimRecipe(templateItem, registries.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(entry), ResourceKey.create(Registries.RECIPE, entry.location().withSuffix("_tool_trim_smithing_template_smithing_trim")));
+            offerToolTrimRecipe(templateItem, registries.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(entry), ResourceKey.create(Registries.RECIPE, entry.identifier().withSuffix("_tool_trim_smithing_template_smithing_trim")));
             copySmithingTemplate(templateItem, materials.get(templateItem));
         });
     }

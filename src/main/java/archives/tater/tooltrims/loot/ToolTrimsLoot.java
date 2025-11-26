@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 
 public class ToolTrimsLoot {
     private static ResourceKey<LootTable> idInject(ResourceKey<LootTable> lootTable) {
-        return ResourceKey.create(lootTable.registryKey(), ToolTrims.id("inject/" + lootTable.location().getNamespace() + "/" + lootTable.location().getPath()));
+        return ResourceKey.create(lootTable.registryKey(), ToolTrims.id("inject/" + lootTable.identifier().getNamespace() + "/" + lootTable.identifier().getPath()));
     }
 
     public static final ResourceKey<LootTable> TRAIL_RUINS_INJECT = idInject(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE);
@@ -80,7 +80,7 @@ public class ToolTrimsLoot {
             var needsModification = false;
 
             for (var entry : MODIFY_ENTRIES) {
-                if (!(entry.targetTable().location().equals(key.location()))) continue;
+                if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
 
                 if (entry instanceof AddPoolEntry addPoolEntry)
                     builder.withPool(LootPool.lootPool()
@@ -93,7 +93,7 @@ public class ToolTrimsLoot {
 
             ((ReplaceablePools) builder).tooltrims$modifyPoolEntries((entries, index) -> {
                 for (var entry : MODIFY_ENTRIES) {
-                    if (!(entry.targetTable().location().equals(key.location()))) continue;
+                    if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
                     if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != index) continue;
 
                     switch (entry) {
