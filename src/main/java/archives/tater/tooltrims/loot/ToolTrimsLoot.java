@@ -74,7 +74,7 @@ public class ToolTrimsLoot {
 
     public static void register() {
 
-        LootTableEvents.MODIFY.register((key, builder, source, wrapperLookup) -> {
+        LootTableEvents.MODIFY.register((key, builder, source, _) -> {
             if (!source.isBuiltin()) return;
 
             var needsModification = false;

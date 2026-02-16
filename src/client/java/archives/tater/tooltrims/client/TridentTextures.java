@@ -13,7 +13,7 @@ import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class TridentTextures {
         return getTextureId(pattern.unwrapKey().orElseThrow(), material.unwrapKey().orElseThrow());
     }
 
-    public static @Nullable Identifier getTextureId(ArmorTrim trim) {
+    public static @Nullable Identifier getTextureId(@Nullable ArmorTrim trim) {
         if (trim == null) return null;
         return getTextureId(trim.pattern(), trim.material());
     }

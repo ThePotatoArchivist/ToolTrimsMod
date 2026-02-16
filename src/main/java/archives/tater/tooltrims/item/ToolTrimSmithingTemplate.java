@@ -5,26 +5,26 @@ import archives.tater.tooltrims.ToolTrims;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
 
+import static net.minecraft.util.Util.makeDescriptionId;
+
 public class ToolTrimSmithingTemplate {
     private ToolTrimSmithingTemplate() {} // Static utility class without instances
 
-    public static final ChatFormatting TITLE_FORMATTING = ChatFormatting.GRAY;
     public static final ChatFormatting DESCRIPTION_FORMATTING = ChatFormatting.BLUE;
-    public static final Component INGREDIENTS_TEXT = Component.translatable(Util.makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.ingredients")))
+    public static final Component INGREDIENTS_TEXT = Component.translatable(makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.ingredients")))
             .withStyle(DESCRIPTION_FORMATTING);
-    public static final Component APPLIES_TO_TEXT = Component.translatable(Util.makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.applies_to")))
+    public static final Component APPLIES_TO_TEXT = Component.translatable(makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.applies_to")))
             .withStyle(DESCRIPTION_FORMATTING);
     public static final Component BASE_SLOT_DESCRIPTION_TEXT = Component.translatable(
-            Util.makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.base_slot_description"))
+            makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.base_slot_description"))
     );
     public static final Component ADDITIONS_SLOT_DESCRIPTION_TEXT = Component.translatable(
-            Util.makeDescriptionId("item", Identifier.withDefaultNamespace("smithing_template.armor_trim.additions_slot_description"))
+            makeDescriptionId("item", Identifier.withDefaultNamespace("smithing_template.armor_trim.additions_slot_description"))
     );
     public static final Identifier EMPTY_SLOT_HOE_TEXTURE = Identifier.withDefaultNamespace("container/slot/hoe");
     public static final Identifier EMPTY_SLOT_AXE_TEXTURE = Identifier.withDefaultNamespace("container/slot/axe");

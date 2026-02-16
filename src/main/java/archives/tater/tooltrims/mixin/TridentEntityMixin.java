@@ -13,8 +13,6 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.level.Level;
 
-;
-
 @SuppressWarnings("UnstableApiUsage")
 @Mixin(ThrownTrident.class)
 public abstract class TridentEntityMixin extends AbstractArrow {

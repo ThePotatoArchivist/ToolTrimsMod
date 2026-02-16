@@ -1,6 +1,11 @@
 package archives.tater.tooltrims;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -10,18 +15,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import org.jetbrains.annotations.Nullable;
+
+import org.jspecify.annotations.Nullable;
 
 import static net.minecraft.commands.Commands.literal;
 
 public class ToolTrimsCommands {
 
     private static final SimpleCommandExceptionType ERROR_NOPLAYER = new SimpleCommandExceptionType(Component.translatable("commands.tooltrims.error.noplayer"));
-    private static final SimpleCommandExceptionType ERROR_MISSING_DATAPACK = new SimpleCommandExceptionType(Component.translatable("commands.tooltrims.error.demigrate.missing_datapack"));
+    private static final SimpleCommandExceptionType ERROR_MISSING_DATAPACK = new SimpleCommandExceptionType(Component.translatable("commands.tooltrims.demigrate.error.missing_datapack"));
     private static final DynamicCommandExceptionType MIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Component.translatable("commands.tooltrims.migrate.error.fail", itemText));
     private static final DynamicCommandExceptionType DEMIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Component.translatable("commands.tooltrims.demigrate.error.fail", itemText));
 

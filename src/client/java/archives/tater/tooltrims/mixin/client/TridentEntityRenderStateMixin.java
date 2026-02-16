@@ -1,11 +1,14 @@
 package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.duck.TrimmedState;
-import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
-import net.minecraft.world.item.equipment.trim.ArmorTrim;
-import org.jetbrains.annotations.Nullable;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+
+import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
+
+import org.jspecify.annotations.Nullable;
 
 @Mixin(ThrownTridentRenderState.class)
 public class TridentEntityRenderStateMixin implements TrimmedState {

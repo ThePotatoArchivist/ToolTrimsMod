@@ -1,7 +1,8 @@
 package archives.tater.tooltrims.duck;
 
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
-import org.jetbrains.annotations.Nullable;
+
+import org.jspecify.annotations.Nullable;
 
 public interface TrimmedState {
     @Nullable ArmorTrim tooltrims$getTrim();

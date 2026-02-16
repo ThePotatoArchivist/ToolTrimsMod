@@ -34,10 +34,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,10 +65,6 @@ public class ToolTrimsDPCompat {
             ToolTrimsPatterns.CHARGE,
             ToolTrimsPatterns.FROST
     );
-
-    private static ResourceKey<LootTable> templateLootTable(String trim) {
-        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + trim + "_smithing_template"));
-    }
 
     public static final AttachmentType<Unit> CHECKED_FOR_DP = AttachmentRegistry.createPersistent(ToolTrims.id("checked_for_dp"), Unit.CODEC);
 
@@ -102,7 +97,7 @@ public class ToolTrimsDPCompat {
             }
         });
 
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+        ServerPlayConnectionEvents.JOIN.register((handler, _, server) -> {
             if (!server.isPublished()) {
                 if (gameruleWasEnabled) {
                     handler.player.sendSystemMessage(Component.translatable("tooltrims.warning.auto_enable", disableGamerule));

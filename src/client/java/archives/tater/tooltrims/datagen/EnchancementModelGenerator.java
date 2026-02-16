@@ -54,6 +54,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
     };
 
     // Needed to register fake items
+    @SuppressWarnings("unused")
     public static void register() {}
 
     @Override
@@ -68,15 +69,5 @@ public class EnchancementModelGenerator extends ModelGenerator {
             var templateModel = new ModelTemplate(Optional.of(templateModelId), Optional.empty(), TextureSlot.LAYER0);
             itemModelGenerator.itemModelOutput.accept(model.fakeItem, generateTrimmedToolModels(enchancementId(model.path), crossbowPullId, templateModel, itemModelGenerator));
         }
-
-//        var crossbowOverrides = generateCrossbowOverrides(itemModelGenerator, false);
-//        for (var model : crossbowModels) {
-//            var templateModelId = ToolTrims.id(model.path).withPrefixedPath("item/enchancement/");
-//            twoLayersTemplate.upload(templateModelId, new TextureMap().put(TextureKey.LAYER1, templateModelId), itemModelGenerator.modelCollector);
-//            var templateModel = new Model(Optional.of(templateModelId), Optional.empty(), TextureKey.LAYER0);
-//            registerTrimmedTool(crossbowOverrides, enchancementId(model.path), crossbowPullId, templateModel, Map.of("charged", 1, enchancementId(model.predicate).toString(), model.predicateValue), true, true, itemModelGenerator.modelCollector);
-//        }
-//
-//        uploadCrossbow(itemModelGenerator, crossbowOverrides);
     }
 }

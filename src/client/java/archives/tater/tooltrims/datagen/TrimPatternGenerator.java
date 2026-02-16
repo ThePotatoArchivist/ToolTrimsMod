@@ -11,11 +11,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+
+import static net.minecraft.util.Util.makeDescriptionId;
 
 public class TrimPatternGenerator extends FabricCodecDataProvider<TrimPattern> {
     public TrimPatternGenerator(FabricPackOutput output, CompletableFuture<Provider> registriesFuture) {
@@ -25,15 +26,14 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<TrimPattern> {
     private static TrimPattern of(Identifier id) {
         return new TrimPattern(
                 Identifier.fromNamespaceAndPath("c", "n"),
-                Component.translatable(Util.makeDescriptionId("tool_trim_pattern", id)),
+                Component.translatable(makeDescriptionId("tool_trim_pattern", id)),
                 false
         );
     }
 
     public static void boostrap(BootstrapContext<TrimPattern> registry) {
-        ToolTrimsPatterns.PATTERNS.forEach(pattern -> {
-            registry.register(pattern, of(pattern.identifier()));
-        });
+        ToolTrimsPatterns.PATTERNS.forEach(pattern ->
+                registry.register(pattern, of(pattern.identifier())));
     }
 
     @Override

@@ -12,7 +12,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
-import org.jetbrains.annotations.Nullable;
+
+import org.jspecify.annotations.Nullable;
 
 public class TrimPatternProperty implements SelectItemModelProperty<ResourceKey<TrimPattern>> {
     private TrimPatternProperty() {}
