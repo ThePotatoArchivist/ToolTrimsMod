@@ -7,11 +7,12 @@ import archives.tater.tooltrims.item.ToolTrimsItems;
 import archives.tater.tooltrims.mixin.client.ItemModelGeneratorAccessor;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.Material;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
 import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
@@ -32,7 +33,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ModelGenerator extends FabricModelProvider {
-    public ModelGenerator(FabricDataOutput output) {
+    public ModelGenerator(FabricPackOutput output) {
         super(output);
     }
 
@@ -112,7 +113,7 @@ public class ModelGenerator extends FabricModelProvider {
                         ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), materials.stream().map(material -> {
                             var trimmedModelId = getSuffixedModelId(modelId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             var trimmedTextureId = getSuffixedModelId(textureId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
-                            model.create(trimmedModelId, TextureMapping.layer0(trimmedTextureId), modelGenerator.modelOutput);
+                            model.create(trimmedModelId, TextureMapping.layer0(new Material(trimmedTextureId, false)), modelGenerator.modelOutput);
                             return ItemModelUtils.when(material.materialKey(), ItemModelUtils.plainModel(trimmedModelId));
                         }).toList()))
                 ).toList()

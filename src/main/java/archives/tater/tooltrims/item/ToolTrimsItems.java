@@ -2,7 +2,11 @@ package archives.tater.tooltrims.item;
 
 import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsPatterns;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -10,14 +14,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.function.Function;
 
 public class ToolTrimsItems {
 
-    private static Item register(String path, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        return Items.registerItem(ResourceKey.create(Registries.ITEM, ToolTrims.id(path)), factory, settings);
+    public static Item register(ResourceKey<Item> key, Function<Item.Properties, Item> factory, Item.Properties properties) {
+        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
+    }
+
+    private static Item register(String path, Function<Item.Properties, Item> factory, Item.Properties properties) {
+        return register(ResourceKey.create(Registries.ITEM, ToolTrims.id(path)), factory, properties);
     }
 
     private static Item registerToolTemplate(String name, Rarity rarity) {
@@ -37,8 +46,8 @@ public class ToolTrimsItems {
     );
 
     public static void register() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries ->
-            entries.addAfter(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(output ->
+            output.insertAfter(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
                     LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
                     TRACKS_TOOL_TRIM_SMITHING_TEMPLATE,
                     CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,

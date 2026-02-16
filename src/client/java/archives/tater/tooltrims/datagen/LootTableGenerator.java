@@ -2,8 +2,10 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import archives.tater.tooltrims.loot.ToolTrimsLoot;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -20,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class LootTableGenerator extends SimpleFabricLootTableProvider {
+public class LootTableGenerator extends SimpleFabricLootTableSubProvider {
 
-    public LootTableGenerator(FabricDataOutput output, CompletableFuture<Provider> registryLookup) {
+    public LootTableGenerator(FabricPackOutput output, CompletableFuture<Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.CHEST);
     }
 

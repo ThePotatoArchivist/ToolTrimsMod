@@ -2,24 +2,25 @@ package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
 
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderGetter.Provider;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,20 +32,19 @@ import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.saveddata.SavedData;
-import net.minecraft.world.level.saveddata.SavedDataType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ToolTrimsDPCompat {
     public static final List<ResourceKey<TrimMaterial>> legacyMaterialOrder = List.of(
             TrimMaterials.AMETHYST,
@@ -71,30 +71,31 @@ public class ToolTrimsDPCompat {
         return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + trim + "_smithing_template"));
     }
 
+    public static final AttachmentType<Unit> CHECKED_FOR_DP = AttachmentRegistry.createPersistent(ToolTrims.id("checked_for_dp"), Unit.CODEC);
+
     private static final String disableGamerule = "/gamerule " + requireNonNull(BuiltInRegistries.GAME_RULE.getKey(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES)) + " false";
 
     private static boolean gameruleWasEnabled = false;
 
     public static void register() {
         //noinspection OptionalGetWithoutIsPresent
-        ResourceManagerHelper.registerBuiltinResourcePack(
+        ResourceLoader.registerBuiltinPack(
                 ToolTrims.id("legacy"),
                 FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
                 Component.literal("Tool Trims Legacy"),
-                ResourcePackActivationType.NORMAL
+                PackActivationType.NORMAL
         );
 
         gameruleWasEnabled = false;
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            var state = State.ofServer(server);
-            if (!state.hasCheckedForDP()) {
+            if (!server.overworld().hasAttached(CHECKED_FOR_DP)) {
                 if (wasDatapackUsed(server)) {
-                    server.getWorldData().getGameRules().set(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES, true, server);
+                    server.getGameRules().set(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES, true, server);
                     gameruleWasEnabled = true;
                     ToolTrims.LOGGER.warn(Component.translatable("tooltrims.warning.auto_enable", disableGamerule).getString());
                 }
-                state.setCheckedForDP();
+                server.overworld().setAttached(CHECKED_FOR_DP, Unit.INSTANCE);
             }
             if (isDatapackRunning(server)) {
                 ToolTrims.LOGGER.warn(Component.translatable("tooltrims.warning.datapack_running").getString());
@@ -125,12 +126,12 @@ public class ToolTrimsDPCompat {
 
     public static boolean shouldDeleteToolsmithingTable(ServerLevel world, ArmorStand armorStand) {
         return !armorStand.level().isClientSide() && world.getGameRules().get(ToolTrimsGamerules.DELETE_TOOLSMITHING_TABLES) &&
-                (armorStand.getTags().contains("310_toolsmithing_table") || armorStand.getTags().contains("310_place_toolsmithing_table")) &&
+                (armorStand.entityTags().contains("310_toolsmithing_table") || armorStand.entityTags().contains("310_place_toolsmithing_table")) &&
                         armorStand.level().getNearestPlayer(armorStand, 6) != null;
     }
 
     public static void deleteToolsmithingTable(ArmorStand armorStand) {
-        if (armorStand.getTags().contains("310_toolsmithing_table") && armorStand.level().getBlockState(armorStand.blockPosition()).is(Blocks.BARREL)) {
+        if (armorStand.entityTags().contains("310_toolsmithing_table") && armorStand.level().getBlockState(armorStand.blockPosition()).is(Blocks.BARREL)) {
             armorStand.level().destroyBlock(armorStand.blockPosition(), false);
         }
         armorStand.spawnAtLocation((ServerLevel) armorStand.level(), new ItemStack(Items.OAK_PLANKS, 4));
@@ -230,7 +231,7 @@ public class ToolTrimsDPCompat {
             return stack;
         }
         if (ToolTrimsItems.SMITHING_TEMPLATES.containsValue(stack.getItem())) {
-            var stacks = world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + stack.getItemHolder().unwrapKey().orElseThrow().identifier().getPath())))
+            var stacks = world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("tooltrims", "items/" + stack.typeHolder().unwrapKey().orElseThrow().identifier().getPath())))
                     .getRandomItems(new LootParams.Builder(world).create(LootContextParamSets.EMPTY));
             if (stacks.isEmpty()) return null;
             var newStack = stacks.getFirst();
@@ -239,39 +240,5 @@ public class ToolTrimsDPCompat {
             return newStack;
         }
         return null;
-    }
-
-    public static class State extends SavedData {
-        private static final String CHECKED_NBT = "CheckedForDP";
-        public static final Codec<State> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.BOOL.fieldOf("CheckedForDP").forGetter(State::hasCheckedForDP)
-        ).apply(instance, State::new));
-
-        private boolean checkedForDP;
-
-        public State() {
-            checkedForDP = false;
-        }
-
-        public State(boolean checkedForDP) {
-            this.checkedForDP = checkedForDP;
-        }
-
-        public boolean hasCheckedForDP() {
-            return checkedForDP;
-        }
-
-        public void setCheckedForDP() {
-            this.checkedForDP = true;
-            setDirty(true);
-        }
-
-        private static final SavedDataType<State> TYPE = new SavedDataType<>(ToolTrims.MOD_ID, State::new, CODEC, null);
-
-        public static State ofServer(MinecraftServer server) {
-            return Objects.requireNonNull(server.getLevel(Level.OVERWORLD))
-                    .getDataStorage()
-                    .computeIfAbsent(TYPE);
-        }
     }
 }

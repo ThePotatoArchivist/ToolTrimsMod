@@ -2,7 +2,7 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrimsTags;
 import archives.tater.tooltrims.item.ToolTrimsItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -49,7 +49,7 @@ public class TTRecipeGenerator extends RecipeProvider {
 
     public static class Provider extends FabricRecipeProvider {
 
-        public Provider(FabricDataOutput output, CompletableFuture<net.minecraft.core.HolderLookup.Provider> registriesFuture) {
+        public Provider(FabricPackOutput output, CompletableFuture<net.minecraft.core.HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 

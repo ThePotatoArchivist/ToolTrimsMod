@@ -1,15 +1,18 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrimsTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
+
 import java.util.concurrent.CompletableFuture;
 
-public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
+public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
 
-    public ItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+    public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture, null);
     }
 

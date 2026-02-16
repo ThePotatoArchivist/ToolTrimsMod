@@ -4,7 +4,7 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 
 import net.minecraft.advancements.Advancement;
@@ -13,12 +13,13 @@ import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.RecipeCraftedTrigger;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimMaterials;
@@ -27,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class AdvancementGenerator extends FabricAdvancementProvider {
-    public AdvancementGenerator(FabricDataOutput output, CompletableFuture<Provider> wrapperLookup) {
+    public AdvancementGenerator(FabricPackOutput output, CompletableFuture<Provider> wrapperLookup) {
         super(output, wrapperLookup);
     }
 
@@ -45,14 +46,15 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
-        var shinyToolsIcon = new ItemStack(Items.NETHERITE_SWORD);
-        shinyToolsIcon.set(DataComponents.TRIM, new ArmorTrim(
-                wrapperLookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(TrimMaterials.DIAMOND),
-                wrapperLookup.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
-        ));
+        var shinyToolsIcon = new ItemStackTemplate(Items.NETHERITE_SWORD, DataComponentPatch.builder()
+                .set(DataComponents.TRIM, new ArmorTrim(
+                        wrapperLookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(TrimMaterials.DIAMOND),
+                        wrapperLookup.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(ToolTrimsPatterns.FROST)
+                ))
+                .build());
 
         var shinyTools = createWithAllToolTrims()
-                .parent(new AdvancementHolder(Identifier.withDefaultNamespace("adventure/root"), null)) // fake advancement
+                .parent(Advancement.Builder.advancement().build(Identifier.withDefaultNamespace("adventure/root"))) // fake advancement
                 .display(shinyToolsIcon,
                         Component.translatable("advancements.adventure.shiny_tools.title"),
                         Component.translatable("advancements.adventure.shiny_tools.description"),

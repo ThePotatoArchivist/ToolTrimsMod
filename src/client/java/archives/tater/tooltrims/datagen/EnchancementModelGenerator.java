@@ -1,20 +1,24 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import archives.tater.tooltrims.item.ToolTrimsItems;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.renderer.block.model.Material;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+
 import java.util.Optional;
 
 public class EnchancementModelGenerator extends ModelGenerator {
-    public EnchancementModelGenerator(FabricDataOutput output) {
+    public EnchancementModelGenerator(FabricPackOutput output) {
         super(output);
     }
 
@@ -30,7 +34,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
     ) {
         public CrossbowModel(String path, String predicate, float predicateValue) {
             this(path, predicate, predicateValue,
-                    Items.registerItem(ResourceKey.create(Registries.ITEM, enchancementId(path)), Item::new, new Item.Properties()));
+                    ToolTrimsItems.register(ResourceKey.create(Registries.ITEM, enchancementId(path)), Item::new, new Item.Properties()));
         }
 
         public CrossbowModel(String path, String predicate) {
@@ -60,7 +64,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
 
         for (var model : crossbowModels) {
             var templateModelId = ToolTrims.id(model.path).withPrefix("item/enchancement/");
-            twoLayersTemplate.create(templateModelId, new TextureMapping().put(TextureSlot.LAYER1, templateModelId), itemModelGenerator.modelOutput);
+            twoLayersTemplate.create(templateModelId, new TextureMapping().put(TextureSlot.LAYER1, new Material(templateModelId, false)), itemModelGenerator.modelOutput);
             var templateModel = new ModelTemplate(Optional.of(templateModelId), Optional.empty(), TextureSlot.LAYER0);
             itemModelGenerator.itemModelOutput.accept(model.fakeItem, generateTrimmedToolModels(enchancementId(model.path), crossbowPullId, templateModel, itemModelGenerator));
         }

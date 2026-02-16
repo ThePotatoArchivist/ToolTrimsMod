@@ -2,7 +2,7 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrimsPatterns;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
 
 import net.minecraft.core.HolderLookup.Provider;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class TrimPatternGenerator extends FabricCodecDataProvider<TrimPattern> {
-    public TrimPatternGenerator(FabricDataOutput output, CompletableFuture<Provider> registriesFuture) {
+    public TrimPatternGenerator(FabricPackOutput output, CompletableFuture<Provider> registriesFuture) {
         super(output, registriesFuture, PackOutput.Target.DATA_PACK, "trim_pattern", TrimPattern.DIRECT_CODEC);
     }
 

@@ -3,7 +3,7 @@ package archives.tater.tooltrims.datagen;
 import archives.tater.tooltrims.ToolTrims;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class LanguageCopyGenerator extends FabricLanguageProvider {
     private final String sourceLanguageCode;
 
-    public LanguageCopyGenerator(String languageCode, String sourceLanguageCode, FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public LanguageCopyGenerator(String languageCode, String sourceLanguageCode, FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, languageCode, registryLookup);
         this.sourceLanguageCode = sourceLanguageCode;
     }
