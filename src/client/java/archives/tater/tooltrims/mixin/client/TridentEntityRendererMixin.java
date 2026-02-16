@@ -1,7 +1,7 @@
 package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.ToolTrimsDataAttachment;
-import archives.tater.tooltrims.TridentTextures;
+import archives.tater.tooltrims.client.TridentTextures;
 import archives.tater.tooltrims.duck.TrimmedState;
 
 import com.llamalad7.mixinextras.sugar.Local;

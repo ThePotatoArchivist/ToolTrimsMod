@@ -1,6 +1,8 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.*;
+import archives.tater.tooltrims.client.TrimPatternProperty;
+import archives.tater.tooltrims.client.TrimmedTridentModelRenderer;
 import archives.tater.tooltrims.item.ToolTrimsItems;
 import archives.tater.tooltrims.mixin.client.ItemModelGeneratorAccessor;
 

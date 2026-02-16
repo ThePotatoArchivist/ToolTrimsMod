@@ -1,4 +1,6 @@
-package archives.tater.tooltrims;
+package archives.tater.tooltrims.client;
+
+import archives.tater.tooltrims.ToolTrims;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;

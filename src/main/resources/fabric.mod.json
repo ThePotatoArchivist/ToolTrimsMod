@@ -23,10 +23,10 @@
           "archives.tater.tooltrims.ToolTrims"
 		],
 		"client": [
-			"archives.tater.tooltrims.ToolTrimsClient"
+			"archives.tater.tooltrims.client.ToolTrimsClient"
 		],
 		"fabric-datagen": [
-			"archives.tater.tooltrims.ToolTrimsData"
+			"archives.tater.tooltrims.datagen.ToolTrimsData"
 		]
 	},
 	"mixins": [

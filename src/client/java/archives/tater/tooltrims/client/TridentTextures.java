@@ -1,4 +1,7 @@
-package archives.tater.tooltrims;
+package archives.tater.tooltrims.client;
+
+import archives.tater.tooltrims.ToolTrims;
+import archives.tater.tooltrims.ToolTrimsDataAttachment;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
