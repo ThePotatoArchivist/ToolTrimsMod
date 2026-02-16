@@ -22,6 +22,14 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(AdvancementGenerator::new);
 		pack.addProvider(LootTableGenerator::new);
+		pack.addProvider(LanguageCopyGenerator.of("es_ar", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("es_cl", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("es_ec", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("es_mx", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("es_uy", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("es_ve", "es_es"));
+		pack.addProvider(LanguageCopyGenerator.of("fr_ca", "fr_fr"));
+		pack.addProvider(LanguageCopyGenerator.of("pt_br", "pt_pt"));
 
 		var overlayPack = fabricDataGenerator.createBuiltinResourcePack(ToolTrims.id("tooltrims"));
 		overlayPack.addProvider(ModelGenerator::new);

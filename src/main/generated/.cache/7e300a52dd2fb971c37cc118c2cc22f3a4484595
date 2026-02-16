@@ -1,4 +1,4 @@
-// 1.21.11-pre3	-999999999-01-01T00:00:00	Tool Trims Mod/Tool Trims Recipes
+// 1.21.11	-999999999-01-01T00:00:00	Tool Trims Mod/Tool Trims Recipes
 41c2d6868a45802ce1d69487af741f7c80dd9774 data/tooltrims/advancement/recipes/misc/charge_tool_trim_smithing_template.json
 d424f0c30eda0bc54ac2135b2592c2ec5729577b data/tooltrims/advancement/recipes/misc/charge_tool_trim_smithing_template_smithing_trim.json
 cc3ec92392b65c22454e36b880a54217ec388c17 data/tooltrims/advancement/recipes/misc/frost_tool_trim_smithing_template.json
