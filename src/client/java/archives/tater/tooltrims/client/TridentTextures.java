@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class TridentTextures {
-    public static RenderStateDataKey<Optional<ArmorTrim>> TRIDENT_TRIM = RenderStateDataKey.create(() -> "Trident Trim");
+    public static final RenderStateDataKey<Optional<ArmorTrim>> TRIDENT_TRIM = RenderStateDataKey.create(() -> "Trident Trim");
 
     private static final Map<ResourceKey<TrimPattern>, Map<ResourceKey<TrimMaterial>, Identifier>> TEXTURE_IDS = new HashMap<>();
 
