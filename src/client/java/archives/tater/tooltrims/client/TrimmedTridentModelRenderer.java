@@ -10,15 +10,15 @@ import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
 import org.joml.Vector3fc;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNullElse;
 
 public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTrim> {
     private final TridentModel model;
@@ -33,11 +33,11 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
     }
 
     @Override
-    public void submit(@Nullable ArmorTrim data, ItemDisplayContext displayContext, PoseStack matrices, SubmitNodeCollector queue, int light, int overlay, boolean glint, int i) {
-        matrices.pushPose();
-        matrices.scale(1.0F, -1.0F, -1.0F);
-        queue.submitModelPart(this.model.root(), matrices, this.model.renderType(Objects.requireNonNullElse(TridentTextures.getTextureId(data), TridentModel.TEXTURE)), light, overlay, null, false, glint, -1, null, i);
-        matrices.popPose();
+    public void submit(@Nullable ArmorTrim argument, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
+        poseStack.pushPose();
+        poseStack.scale(1.0F, -1.0F, -1.0F);
+        submitNodeCollector.submitModelPart(this.model.root(), poseStack, this.model.renderType(requireNonNullElse(TridentTextures.getTextureId(argument), TridentModel.TEXTURE)), lightCoords, overlayCoords, null, false, hasFoil, -1, null, outlineColor);
+        poseStack.popPose();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
     }
 
     @Environment(EnvType.CLIENT)
-    public record Unbaked() implements SpecialModelRenderer.Unbaked {
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<ArmorTrim> {
         public static final MapCodec<TrimmedTridentModelRenderer.Unbaked> CODEC = MapCodec.unit(new TrimmedTridentModelRenderer.Unbaked());
 
         public MapCodec<TrimmedTridentModelRenderer.Unbaked> type() {
@@ -56,7 +56,7 @@ public class TrimmedTridentModelRenderer implements SpecialModelRenderer<ArmorTr
         }
 
         @Override
-        public SpecialModelRenderer<?> bake(BakingContext context) {
+        public SpecialModelRenderer<ArmorTrim> bake(BakingContext context) {
             return new TrimmedTridentModelRenderer(new TridentModel(context.entityModelSet().bakeLayer(ModelLayers.TRIDENT)));
         }
     }

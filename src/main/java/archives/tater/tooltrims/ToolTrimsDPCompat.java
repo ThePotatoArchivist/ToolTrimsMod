@@ -43,7 +43,6 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("UnstableApiUsage")
 public class ToolTrimsDPCompat {
     public static final List<ResourceKey<TrimMaterial>> legacyMaterialOrder = List.of(
             TrimMaterials.AMETHYST,

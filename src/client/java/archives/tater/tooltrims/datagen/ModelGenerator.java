@@ -1,6 +1,8 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.*;
+import archives.tater.tooltrims.ToolTrims;
+import archives.tater.tooltrims.ToolTrimsDPCompat;
+import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.client.TrimPatternProperty;
 import archives.tater.tooltrims.client.TrimmedTridentModelRenderer;
 import archives.tater.tooltrims.item.ToolTrimsItems;
@@ -12,7 +14,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.Material;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
 import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
 import net.minecraft.client.renderer.item.properties.select.Charge;
 import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CrossbowItem;

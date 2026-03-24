@@ -2,7 +2,6 @@ package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.ToolTrimsDataAttachment;
 import archives.tater.tooltrims.client.TridentTextures;
-import archives.tater.tooltrims.duck.TrimmedState;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,9 +15,10 @@ import net.minecraft.client.renderer.entity.state.ThrownTridentRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 
-import java.util.Objects;
+import java.util.Optional;
 
-@SuppressWarnings("UnstableApiUsage")
+import static java.util.Objects.requireNonNullElse;
+
 @Mixin(ThrownTridentRenderer.class)
 public class TridentEntityRendererMixin {
     @Inject(
@@ -26,15 +26,15 @@ public class TridentEntityRendererMixin {
             at = @At("TAIL")
     )
     private void addTrimState(ThrownTrident tridentEntity, ThrownTridentRenderState tridentEntityRenderState, float f, CallbackInfo ci) {
-        ((TrimmedState) tridentEntityRenderState).tooltrims$setTrim(tridentEntity.getAttached(ToolTrimsDataAttachment.TRIDENT_TRIM));
+        tridentEntityRenderState.setData(TridentTextures.TRIDENT_TRIM, Optional.ofNullable(tridentEntity.getAttached(ToolTrimsDataAttachment.TRIDENT_TRIM)));
     }
 
     @ModifyArg(
-            method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/object/projectile/TridentModel;renderType(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/rendertype/RenderType;"),
-            index = 0
+            method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/resources/Identifier;IIILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V"),
+            index = 3
     )
     private Identifier applyTrimTexture(Identifier original, @Local(argsOnly = true) ThrownTridentRenderState tridentEntityRenderState) {
-        return Objects.requireNonNullElse(TridentTextures.getTextureId(((TrimmedState) tridentEntityRenderState).tooltrims$getTrim()), original);
+        return requireNonNullElse(TridentTextures.getTextureId(tridentEntityRenderState.getDataOrDefault(TridentTextures.TRIDENT_TRIM, Optional.empty()).orElse(null)), original);
     }
 }

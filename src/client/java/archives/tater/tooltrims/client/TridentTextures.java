@@ -3,6 +3,8 @@ package archives.tater.tooltrims.client;
 import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsDataAttachment;
 
+import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
@@ -17,9 +19,11 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-@SuppressWarnings("UnstableApiUsage")
 public class TridentTextures {
+    public static RenderStateDataKey<Optional<ArmorTrim>> TRIDENT_TRIM = RenderStateDataKey.create(() -> "Trident Trim");
+
     private static final Map<ResourceKey<TrimPattern>, Map<ResourceKey<TrimMaterial>, Identifier>> TEXTURE_IDS = new HashMap<>();
 
     public static Identifier getTextureId(ResourceKey<TrimPattern> pattern, ResourceKey<TrimMaterial> material) {
