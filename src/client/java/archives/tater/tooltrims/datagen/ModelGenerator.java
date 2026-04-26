@@ -6,7 +6,6 @@ import archives.tater.tooltrims.ToolTrimsPatterns;
 import archives.tater.tooltrims.client.TrimPatternProperty;
 import archives.tater.tooltrims.client.TrimmedTridentModelRenderer;
 import archives.tater.tooltrims.item.ToolTrimsItems;
-import archives.tater.tooltrims.mixin.client.ItemModelGeneratorAccessor;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -38,8 +37,6 @@ public class ModelGenerator extends FabricModelProvider {
     public ModelGenerator(FabricPackOutput output) {
         super(output);
     }
-
-    public static final List<ItemModelGenerators.TrimMaterialData> MATERIALS = ItemModelGeneratorAccessor.TRIM_MATERIALS();
 
     private static final List<Item> standardTools = List.of(
             Items.WOODEN_SWORD,
@@ -112,7 +109,7 @@ public class ModelGenerator extends FabricModelProvider {
                         ).toList()),
                 // Normal
                 ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
-                        ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), MATERIALS.stream().map(material -> {
+                        ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), TrimAssets.TRIM_MATERIALS.stream().map(material -> {
                             var trimmedModelId = getSuffixedModelId(modelId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             var trimmedTextureId = getSuffixedModelId(textureId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             model.create(trimmedModelId, TextureMapping.layer0(new Material(trimmedTextureId, false)), modelGenerator.modelOutput);
