@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tooltrims:trims/itemstone_spear_in_hand_redstone"
+  }
+}

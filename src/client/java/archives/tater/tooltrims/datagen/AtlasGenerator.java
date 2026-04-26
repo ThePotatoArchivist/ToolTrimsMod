@@ -26,7 +26,7 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
         super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, "atlases", SpriteSources.FILE_CODEC);
     }
 
-    public static final List<Identifier> TEMPLATE_TEXTURES = TrimAssets.TEMPLATES.stream()
+    public static final List<Identifier> TEMPLATE_TEXTURES = TrimAssets.ALL_MODELS.stream()
             .map(id -> id.withPrefix("trims/item/"))
             .toList();
 
@@ -36,7 +36,7 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
                 new PalettedPermutations(
                         TEMPLATE_TEXTURES,
                         ToolTrims.id("trims/color_palettes/key"),
-                        TrimAssets.TRIM_MATERIALS.stream().map(trimMaterialData -> trimMaterialData.materialKey().identifier().getPath()).collect(toMap(
+                        TrimAssets.TRIM_MATERIALS.stream().collect(toMap(
                                 Function.identity(),
                                 path -> ToolTrims.id("trims/color_palettes/" + path)
                         ))

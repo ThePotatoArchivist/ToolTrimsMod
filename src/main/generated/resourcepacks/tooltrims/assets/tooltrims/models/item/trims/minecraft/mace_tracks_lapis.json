@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/handheld_mace",
-  "textures": {
-    "layer0": "tooltrims:item/trims/minecraft/mace_tracks_lapis"
-  }
-}

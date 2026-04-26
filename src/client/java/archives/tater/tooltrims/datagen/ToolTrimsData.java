@@ -35,7 +35,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		var overlayPack = fabricDataGenerator.createBuiltinResourcePack(ToolTrims.id("tooltrims"));
 		overlayPack.addProvider(ModelGenerator::new);
 
-		var enchancementPack = fabricDataGenerator.createBuiltinResourcePack(ToolTrims.id("enchancement"));
-		enchancementPack.addProvider(EnchancementModelGenerator::new);
+//		var enchancementPack = fabricDataGenerator.createBuiltinResourcePack(ToolTrims.id("enchancement"));
+//		enchancementPack.addProvider(EnchancementModelGenerator::new);
 	}
 }

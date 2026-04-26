@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tooltrims:trims/itemdiamond_spear_amethyst"
+  }
+}

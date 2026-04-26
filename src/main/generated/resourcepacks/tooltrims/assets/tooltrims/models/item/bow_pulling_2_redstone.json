@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tooltrims:trims/itembow_pulling_2_redstone"
+  }
+}

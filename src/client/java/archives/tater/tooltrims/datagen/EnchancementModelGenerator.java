@@ -67,7 +67,7 @@ public class EnchancementModelGenerator extends ModelGenerator {
             var templateModelId = ToolTrims.id(model.path).withPrefix("item/enchancement/");
             twoLayersTemplate.create(templateModelId, new TextureMapping().put(TextureSlot.LAYER1, new Material(templateModelId, false)), itemModelGenerator.modelOutput);
             var templateModel = new ModelTemplate(Optional.of(templateModelId), Optional.empty(), TextureSlot.LAYER0);
-            itemModelGenerator.itemModelOutput.accept(model.fakeItem, generateTrimmedToolModels(enchancementId(model.path), crossbowPullId, templateModel, itemModelGenerator));
+//            itemModelGenerator.itemModelOutput.accept(model.fakeItem, generateTrimmedToolModels(enchancementId(model.path), crossbowPullId, templateModel, itemModelGenerator));
         }
     }
 }
