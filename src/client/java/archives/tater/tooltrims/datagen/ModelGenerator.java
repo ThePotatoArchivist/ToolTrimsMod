@@ -39,7 +39,7 @@ public class ModelGenerator extends FabricModelProvider {
         super(output);
     }
 
-    private static final List<ItemModelGenerators.TrimMaterialData> materials = ItemModelGeneratorAccessor.TRIM_MATERIALS();
+    public static final List<ItemModelGenerators.TrimMaterialData> MATERIALS = ItemModelGeneratorAccessor.TRIM_MATERIALS();
 
     private static final List<Item> standardTools = List.of(
             Items.WOODEN_SWORD,
@@ -112,7 +112,7 @@ public class ModelGenerator extends FabricModelProvider {
                         ).toList()),
                 // Normal
                 ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
-                        ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), materials.stream().map(material -> {
+                        ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), MATERIALS.stream().map(material -> {
                             var trimmedModelId = getSuffixedModelId(modelId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             var trimmedTextureId = getSuffixedModelId(textureId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             model.create(trimmedModelId, TextureMapping.layer0(new Material(trimmedTextureId, false)), modelGenerator.modelOutput);
