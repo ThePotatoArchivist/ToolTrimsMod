@@ -1,0 +1,9 @@
+{
+  "items": [
+    "minecraft:diamond_sword"
+  ],
+  "model": {
+    "type": "minecraft:model",
+    "model": "minecraft:egg"
+  }
+}

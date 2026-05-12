@@ -23,6 +23,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(AdvancementGenerator::new);
 		pack.addProvider(LootTableGenerator::new);
+		pack.addProvider(TrimOverlayGenerator::new);
 		pack.addProvider(LanguageCopyGenerator.of("es_ar", "es_es"));
 		pack.addProvider(LanguageCopyGenerator.of("es_cl", "es_es"));
 		pack.addProvider(LanguageCopyGenerator.of("es_ec", "es_es"));

@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TrimAssets {
@@ -27,7 +26,7 @@ public class TrimAssets {
 
     // TODO: trident entity
 
-    record Entry(Item baseItem, ModelTemplate model, List<Identifier> textures)
+    record Entry(Item baseItem, ModelTemplate model, List<Identifier> textures) {}
 
     public static final Map<ModelTemplate, List<Identifier>> TYPES = Map.of(
             ModelTemplates.FLAT_HANDHELD_ITEM,
@@ -72,7 +71,7 @@ public class TrimAssets {
             List.of(ToolTrims.id("mace"))
     );
 
-    public static final Map<ModelTemplate, List<Identifier>> MODELS = TYPES.entrySet().stream()
+//    public static final Map<ModelTemplate, List<Identifier>> MODELS = TYPES.entrySet().stream();
 
     private static Stream<Identifier> getPatternedIds(Identifier tool) {
         return ToolTrimsPatterns.PATTERNS.stream().map(pattern ->
