@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/iron_spear",
+    "layer1": "tooltrims:item/trims/minecraft/iron_spear_tracks_diamond"
+  }
+}

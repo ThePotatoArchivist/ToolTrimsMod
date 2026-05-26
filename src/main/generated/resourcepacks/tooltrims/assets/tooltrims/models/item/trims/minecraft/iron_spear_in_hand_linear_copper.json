@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/spear_in_hand",
+  "textures": {
+    "layer0": "minecraft:item/iron_spear_in_hand",
+    "layer1": "tooltrims:item/trims/minecraft/iron_spear_in_hand_linear_copper"
+  }
+}

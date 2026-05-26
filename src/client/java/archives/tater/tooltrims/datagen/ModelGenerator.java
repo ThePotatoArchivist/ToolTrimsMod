@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
 import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
@@ -79,6 +80,18 @@ public class ModelGenerator extends FabricModelProvider {
             Items.NETHERITE_HOE
     );
 
+    private static final List<Item> spears = List.of(
+            Items.WOODEN_SPEAR,
+            Items.STONE_SPEAR,
+            Items.COPPER_SPEAR,
+            Items.GOLDEN_SPEAR,
+            Items.IRON_SPEAR,
+            Items.DIAMOND_SPEAR,
+            Items.NETHERITE_SPEAR
+    );
+
+    public static final ModelTemplate TWO_LAYERED_SPEAR_IN_HAND = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("item/spear_in_hand")), Optional.of("_in_hand"), TextureSlot.LAYER0, TextureSlot.LAYER1);
+
     protected static Identifier getSuffixedModelId(Identifier itemId, String pattern, String material) {
         return ToolTrims.id("item/trims/" + itemId.getNamespace() + "/" + itemId.getPath() + "_" + pattern+ "_" + material);
     }
@@ -88,12 +101,13 @@ public class ModelGenerator extends FabricModelProvider {
     }
 
     protected static ItemModel.Unbaked generateTrimmedToolModels(Identifier modelId, Identifier textureId, ModelTemplate model, ItemModelGenerators modelGenerator) {
+        var baseTextureId = modelId.withPrefix("item/");
         return ItemModelUtils.select(
                 TrimPatternProperty.INSTANCE,
                 // Legacy
                 ItemModelUtils.rangeSelect(
                         new CustomModelDataProperty(0),
-                        ItemModelUtils.plainModel(modelId.withPrefix("item/")),
+                        ItemModelUtils.plainModel(baseTextureId),
                         Stream.concat(
                                 ToolTrimsDPCompat.legacyPatternOrder.stream().flatMap(pattern ->
                                         ToolTrimsDPCompat.legacyMaterialOrder.stream().map(material ->
@@ -115,7 +129,10 @@ public class ModelGenerator extends FabricModelProvider {
                         ItemModelUtils.when(pattern, ItemModelUtils.select(new TrimMaterialProperty(), materials.stream().map(material -> {
                             var trimmedModelId = getSuffixedModelId(modelId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
                             var trimmedTextureId = getSuffixedModelId(textureId, pattern.identifier().getPath(), material.materialKey().identifier().getPath());
-                            model.create(trimmedModelId, TextureMapping.layer0(new Material(trimmedTextureId, false)), modelGenerator.modelOutput);
+                            var mapping = model == TWO_LAYERED_SPEAR_IN_HAND || model == ModelTemplates.TWO_LAYERED_ITEM
+                                    ? TextureMapping.layered(new Material(baseTextureId), new Material(trimmedTextureId))
+                                    : TextureMapping.layer0(new Material(trimmedTextureId));
+                            model.create(trimmedModelId, mapping, modelGenerator.modelOutput);
                             return ItemModelUtils.when(material.materialKey(), ItemModelUtils.plainModel(trimmedModelId));
                         }).toList()))
                 ).toList()
@@ -142,6 +159,14 @@ public class ModelGenerator extends FabricModelProvider {
         }
 
         registerTrimmedTool(Items.MACE, ModelTemplates.FLAT_HANDHELD_MACE_ITEM, itemModelGenerator);
+
+        for (var spear : spears) {
+            var id = BuiltInRegistries.ITEM.getKey(spear);
+            itemModelGenerator.itemModelOutput.accept(spear, ItemModelGenerators.createFlatModelDispatch(
+                    generateTrimmedToolModels(id, ModelTemplates.TWO_LAYERED_ITEM, itemModelGenerator),
+                    generateTrimmedToolModels(id.withSuffix("_in_hand"), TWO_LAYERED_SPEAR_IN_HAND, itemModelGenerator)
+            ), new ClientItem.Properties(true, false, 1.95F));
+        }
 
         var bowId = BuiltInRegistries.ITEM.getKey(Items.BOW);
         var bowModel = new ModelTemplate(Optional.of(ModelLocationUtils.getModelLocation(Items.BOW)), Optional.empty(), TextureSlot.LAYER0);
