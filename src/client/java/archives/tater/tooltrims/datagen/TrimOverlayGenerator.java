@@ -1,7 +1,7 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.TrimOverlayLoader;
+import archives.tater.tooltrims.client.data.ClientTrimOverlay;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class TrimOverlayGenerator extends FabricCodecDataProvider<TrimOverlayLoader.Entry> {
+public class TrimOverlayGenerator extends FabricCodecDataProvider<ClientTrimOverlay> {
     protected TrimOverlayGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, TrimOverlayLoader.PATH, TrimOverlayLoader.Entry.CODEC);
+        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimOverlay.Loader.PATH, ClientTrimOverlay.CODEC);
     }
 
     @Override
-    protected void configure(BiConsumer<Identifier, TrimOverlayLoader.Entry> provider, HolderLookup.Provider registryLookup) {
-        provider.accept(ToolTrims.id("sword"), new TrimOverlayLoader.Entry(List.of(Items.DIAMOND_SWORD.builtInRegistryHolder().key().identifier()), ItemModelUtils.plainModel(Items.EGG.builtInRegistryHolder().key().identifier())));
+    protected void configure(BiConsumer<Identifier, ClientTrimOverlay> provider, HolderLookup.Provider registryLookup) {
+        provider.accept(ToolTrims.id("sword"), new ClientTrimOverlay(ItemModelUtils.plainModel(Items.EGG.builtInRegistryHolder().key().identifier()), List.of(Items.DIAMOND_SWORD.builtInRegistryHolder().key().identifier())));
     }
 
     @Override

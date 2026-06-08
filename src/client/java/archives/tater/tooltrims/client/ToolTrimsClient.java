@@ -1,29 +1,75 @@
 package archives.tater.tooltrims.client;
 
 import archives.tater.tooltrims.ToolTrims;
+import archives.tater.tooltrims.client.data.ClientTrimMaterial;
+import archives.tater.tooltrims.client.data.ClientTrimOverlay;
+import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 
+import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
+import net.minecraft.client.renderer.texture.atlas.SpriteSources;
+import net.minecraft.client.resources.model.cuboid.CuboidModel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 
+import it.unimi.dsi.fastutil.Pair;
+
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.Map.entry;
+import static net.minecraft.util.Util.toMap;
+
 public class ToolTrimsClient implements ClientModInitializer {
+    public static final Identifier TRIM_PATTERNS_ID = ToolTrims.id("trim_patterns");
+    public static final ClientTrimPattern.Loader TRIM_PATTERNS = new ClientTrimPattern.Loader();
+    public static final Identifier TRIM_MATERIALS_ID = ToolTrims.id("trim_materials");
+    public static final ClientTrimMaterial.Loader TRIM_MATERIALS = new ClientTrimMaterial.Loader();
     public static final Identifier TRIM_OVERLAYS_ID = ToolTrims.id("trim_overlays");
-    public static final TrimOverlayLoader TRIM_OVERLAYS = new TrimOverlayLoader();
+    public static final ClientTrimOverlay.Loader TRIM_OVERLAYS = new ClientTrimOverlay.Loader();
+
+    public static Stream<Pair<Identifier, CuboidModel>> getModels() {
+        return TRIM_OVERLAYS.getModels().stream().flatMap(model ->
+                TRIM_PATTERNS.entries().entrySet().stream().flatMap(pattern ->
+                        TRIM_MATERIALS.entries().entrySet().stream().map(material ->
+                                entry(UnbakedTrimsModel.createModelId(model, pattern.getValue(), material.getValue()), new CuboidModel(
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+
+                                ))
+                        )
+                )
+        )
+                .collect(toMap());
+    }
 
     @Override
     public void onInitializeClient() {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
         SelectItemModelProperties.ID_MAPPER.put(ToolTrims.id("trim_pattern"), TrimPatternProperty.TYPE);
         SpecialModelRenderers.ID_MAPPER.put(ToolTrims.id("trimmed_trident"), TrimmedTridentModelRenderer.Unbaked.CODEC);
+        ItemModels.ID_MAPPER.put(ToolTrims.id("trims"), UnbakedTrimsModel.CODEC);
+        SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("trim_permutations"), TrimPermutationsSpriteSource.CODEC);
 
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(TRIM_OVERLAYS_ID, TRIM_OVERLAYS);
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).addListenerOrdering(TRIM_OVERLAYS_ID, ResourceReloaderKeys.Client.MODELS);
+        var clientResources = ResourceLoader.get(PackType.CLIENT_RESOURCES);
+        clientResources.registerReloadListener(TRIM_PATTERNS_ID, TRIM_PATTERNS);
+        clientResources.registerReloadListener(TRIM_MATERIALS_ID, TRIM_MATERIALS);
+        clientResources.registerReloadListener(TRIM_OVERLAYS_ID, TRIM_OVERLAYS);
+        clientResources.addListenerOrdering(TRIM_PATTERNS_ID, ResourceReloaderKeys.Client.MODELS);
+        clientResources.addListenerOrdering(TRIM_MATERIALS_ID, ResourceReloaderKeys.Client.MODELS);
+        clientResources.addListenerOrdering(TRIM_OVERLAYS_ID, ResourceReloaderKeys.Client.MODELS);
+        clientResources.addListenerOrdering(TRIM_PATTERNS_ID, ResourceReloaderKeys.Client.TEXTURES);
+        clientResources.addListenerOrdering(TRIM_MATERIALS_ID, ResourceReloaderKeys.Client.TEXTURES);
+        clientResources.addListenerOrdering(TRIM_OVERLAYS_ID, ResourceReloaderKeys.Client.TEXTURES);
         ModelLoadingPlugin.register(TRIM_OVERLAYS);
     }
 }
