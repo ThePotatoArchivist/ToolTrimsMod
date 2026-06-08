@@ -1,10 +1,12 @@
-package archives.tater.tooltrims.client;
+package archives.tater.tooltrims.client.data.models.item;
 
+import archives.tater.tooltrims.client.ToolTrimsClient;
 import archives.tater.tooltrims.client.data.ClientTrimMaterial;
 import archives.tater.tooltrims.client.data.ClientTrimPattern;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.renderer.item.EmptyModel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.select.TrimMaterialProperty;
@@ -29,10 +31,10 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent) implemen
 
     @Override
     public ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
-        return select(
+        return ItemModelUtils.select(
                 TrimPatternProperty.INSTANCE,
                 new EmptyModel.Unbaked(),
-                ToolTrimsClient.TRIM_PATTERNS.entries().entrySet().stream().map(pattern -> 
+                ToolTrimsClient.TRIM_PATTERNS.entries().entrySet().stream().map(pattern ->
                         when(ResourceKey.create(Registries.TRIM_PATTERN, pattern.getKey()), select(
                                 new TrimMaterialProperty(),
                                 new EmptyModel.Unbaked(),

@@ -4,6 +4,9 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.data.ClientTrimMaterial;
 import archives.tater.tooltrims.client.data.ClientTrimOverlay;
 import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.models.item.TrimPatternProperty;
+import archives.tater.tooltrims.client.data.models.item.TrimmedTridentModelRenderer;
+import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;

@@ -1,4 +1,6 @@
-package archives.tater.tooltrims.client;
+package archives.tater.tooltrims.client.data.models.item;
+
+import archives.tater.tooltrims.client.TridentTextures;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

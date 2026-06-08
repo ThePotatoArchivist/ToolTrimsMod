@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.client.data;
 
-import archives.tater.tooltrims.client.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

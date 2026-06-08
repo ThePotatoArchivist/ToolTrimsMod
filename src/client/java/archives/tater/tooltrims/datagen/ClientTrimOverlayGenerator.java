@@ -1,7 +1,7 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.client.data.ClientTrimOverlay;
 import archives.tater.tooltrims.mixin.client.ModelTemplateAccessor;
 
