@@ -1,0 +1,10 @@
+{
+  "items": [
+    "minecraft:mace"
+  ],
+  "model": {
+    "type": "tooltrims:trims",
+    "parent": "minecraft:item/handheld_mace",
+    "base_path": "tooltrims:trims/item/mace"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "items": [
+    "minecraft:copper_hoe"
+  ],
+  "model": {
+    "type": "tooltrims:trims",
+    "parent": "minecraft:item/handheld",
+    "base_path": "tooltrims:trims/item/copper_hoe"
+  }
+}

@@ -1,5 +1,7 @@
 {
-  "items": [],
+  "items": [
+    "minecraft:diamond_sword"
+  ],
   "model": {
     "type": "tooltrims:trims",
     "parent": "minecraft:item/handheld",

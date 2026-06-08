@@ -27,11 +27,6 @@ public class ModelGenerator extends FabricModelProvider {
         for (var item : ToolTrimsItems.SMITHING_TEMPLATES.values())
             itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         ModelTemplates.FLAT_ITEM.create(ToolTrims.id("item/aaa"), TextureMapping.layer0(Items.EGG), itemModelGenerators.modelOutput);
-//        for (var tool : TrimAssets.HANDHELD)
-//            for (var material : TrimAssets.TRIM_MATERIALS) {
-//                var id = tool.withSuffix("_" + material);
-//                ModelTemplates.FLAT_ITEM.create(id.withPrefix("item/"), TextureMapping.layer0(new Material(id.withPrefix("trims/item"))), itemModelGenerators.modelOutput);
-//            }
     }
 
 

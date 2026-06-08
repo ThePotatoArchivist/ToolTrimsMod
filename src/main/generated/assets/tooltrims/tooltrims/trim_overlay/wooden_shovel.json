@@ -1,0 +1,10 @@
+{
+  "items": [
+    "minecraft:wooden_shovel"
+  ],
+  "model": {
+    "type": "tooltrims:trims",
+    "parent": "minecraft:item/handheld",
+    "base_path": "tooltrims:trims/item/wooden_shovel"
+  }
+}

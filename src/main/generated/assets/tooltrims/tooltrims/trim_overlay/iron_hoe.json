@@ -1,8 +1,10 @@
 {
-  "items": [],
+  "items": [
+    "minecraft:iron_hoe"
+  ],
   "model": {
     "type": "tooltrims:trims",
     "parent": "minecraft:item/handheld",
-    "base_path": "tooltrims:trims/item/diamond_sword"
+    "base_path": "tooltrims:trims/item/iron_hoe"
   }
 }
