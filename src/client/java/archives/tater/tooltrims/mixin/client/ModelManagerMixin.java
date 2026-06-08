@@ -1,6 +1,7 @@
 package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.client.ToolTrimsClient;
+import archives.tater.tooltrims.client.data.ClientTrimOverlay;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -31,8 +32,8 @@ public class ModelManagerMixin {
 
     @ModifyExpressionValue(method = "reload", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/ClientItemInfoLoader;scheduleLoad(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
     private CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> hookBlockStateModels(CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> original) {
-        return original.thenApplyAsync(infos -> new ClientItemInfoLoader.LoadedClientInfos(infos.contents().entrySet().stream()
-                .map(entry -> Map.entry(entry.getKey(), new ClientItem(ToolTrimsClient.TRIM_OVERLAYS.modifyModel(entry.getValue().model(), entry.getKey()), entry.getValue().properties(), entry.getValue().registrySwapper())))
+        return original.thenCombine(ToolTrimsClient.TRIM_OVERLAYS.overlays(), (infos, overlays) -> new ClientItemInfoLoader.LoadedClientInfos(infos.contents().entrySet().stream()
+                .map(entry -> Map.entry(entry.getKey(), new ClientItem(ClientTrimOverlay.Loader.modifyModel(overlays, entry.getValue().model(), entry.getKey()), entry.getValue().properties(), entry.getValue().registrySwapper())))
                 .collect(toMap())));
     }
 

@@ -29,4 +29,8 @@ public class StoredJsonResourceReloadListener<T> extends PreparationJsonResource
     public CompletableFuture<Map<Identifier, T>> entries() {
         return entries;
     }
+
+    public Map<Identifier, T> joinEntries() {
+        return entries().join();
+    }
 }

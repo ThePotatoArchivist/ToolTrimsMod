@@ -30,6 +30,7 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         public static final String PATH = "tooltrims/trim_overlay";
         private static final FileToIdConverter LISTER = FileToIdConverter.json(PATH);
         private CompletableFuture<List<UnbakedTrimsModel>> trimModels = CompletableFuture.completedFuture(List.of());
+
         private CompletableFuture<Map<Identifier, ItemModel.Unbaked>> overlays = CompletableFuture.completedFuture(Map.of());
 
         public Loader() {
@@ -60,13 +61,17 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
             };
         }
 
-        public ItemModel.Unbaked modifyModel(ItemModel.Unbaked model, Identifier itemId) {
-            var trimModel = overlays.join().get(itemId);
+        public static ItemModel.Unbaked modifyModel(Map<Identifier, ItemModel.Unbaked> overlays, ItemModel.Unbaked model, Identifier itemId) {
+            var trimModel = overlays.get(itemId);
             if (trimModel == null || trimModel instanceof EmptyModel.Unbaked) return model;
             return composite(
                     model,
                     trimModel
             );
+        }
+
+        public CompletableFuture<Map<Identifier, ItemModel.Unbaked>> overlays() {
+            return overlays;
         }
 
         public CompletableFuture<List<UnbakedTrimsModel>> trimModels() {
