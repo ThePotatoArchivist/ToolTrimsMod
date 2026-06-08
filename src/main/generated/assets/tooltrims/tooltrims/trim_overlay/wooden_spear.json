@@ -9,7 +9,7 @@
         "model": {
           "type": "tooltrims:trims",
           "parent": "minecraft:item/generated",
-          "base_path": "tooltrims:trims/item/wooden_spear"
+          "base_path": "tooltrims:trims/items/wooden_spear"
         },
         "when": [
           "gui",
@@ -22,7 +22,7 @@
     "fallback": {
       "type": "tooltrims:trims",
       "parent": "minecraft:item/spear_in_hand",
-      "base_path": "tooltrims:trims/item/wooden_spear_in_hand"
+      "base_path": "tooltrims:trims/items/wooden_spear_in_hand"
     },
     "property": "minecraft:display_context"
   }

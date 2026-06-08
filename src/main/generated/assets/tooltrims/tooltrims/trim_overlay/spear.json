@@ -7,7 +7,7 @@
         "model": {
           "type": "tooltrims:trims",
           "parent": "minecraft:item/generated",
-          "base_path": "tooltrims:trims/item/diamond_spear"
+          "base_path": "tooltrims:trims/items/diamond_spear"
         },
         "when": [
           "gui",
@@ -20,7 +20,7 @@
     "fallback": {
       "type": "tooltrims:trims",
       "parent": "minecraft:item/spear_in_hand",
-      "base_path": "tooltrims:trims/item/diamond_spear_in_hand"
+      "base_path": "tooltrims:trims/items/diamond_spear_in_hand"
     },
     "property": "minecraft:display_context"
   }

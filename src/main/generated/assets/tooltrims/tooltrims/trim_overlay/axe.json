@@ -3,6 +3,6 @@
   "model": {
     "type": "tooltrims:trims",
     "parent": "minecraft:item/handheld",
-    "base_path": "tooltrims:trims/item/diamond_axe"
+    "base_path": "tooltrims:trims/items/diamond_axe"
   }
 }

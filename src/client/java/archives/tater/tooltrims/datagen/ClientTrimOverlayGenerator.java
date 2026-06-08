@@ -91,7 +91,7 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
     }
 
     private static Identifier trimmedId(String name) {
-        return ToolTrims.id("trims/item/" + name);
+        return ToolTrims.id("trims/items/" + name);
     }
 
     private static void register(BiConsumer<Identifier, ClientTrimOverlay> provider, Identifier id, Item item, ItemModel.Unbaked model) {
