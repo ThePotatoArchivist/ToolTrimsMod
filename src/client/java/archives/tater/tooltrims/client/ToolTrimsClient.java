@@ -35,9 +35,9 @@ public class ToolTrimsClient implements ClientModInitializer {
     public static final ClientTrimOverlay.Loader TRIM_OVERLAYS = new ClientTrimOverlay.Loader();
 
     public static Stream<Pair<Identifier, CuboidModel>> getTrimModels() {
-        return TRIM_OVERLAYS.trimModels().stream().flatMap(model ->
-                TRIM_PATTERNS.entries().values().stream().flatMap(pattern ->
-                        TRIM_MATERIALS.entries().values().stream().map(material -> {
+        return TRIM_OVERLAYS.trimModels().join().stream().flatMap(model ->
+                TRIM_PATTERNS.entries().join().values().stream().flatMap(pattern ->
+                        TRIM_MATERIALS.entries().join().values().stream().map(material -> {
                                 var modelId = UnbakedTrimsModel.createModelId(model.basePath(), pattern, material);
                                 return Pair.of(modelId, new CuboidModel(
                                         null,

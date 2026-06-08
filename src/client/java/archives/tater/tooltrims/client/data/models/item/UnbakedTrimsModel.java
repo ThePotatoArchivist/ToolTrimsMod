@@ -34,11 +34,11 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent) implemen
         return ItemModelUtils.select(
                 TrimPatternProperty.INSTANCE,
                 new EmptyModel.Unbaked(),
-                ToolTrimsClient.TRIM_PATTERNS.entries().entrySet().stream().map(pattern ->
+                ToolTrimsClient.TRIM_PATTERNS.entries().join().entrySet().stream().map(pattern ->
                         when(ResourceKey.create(Registries.TRIM_PATTERN, pattern.getKey()), select(
                                 new TrimMaterialProperty(),
                                 new EmptyModel.Unbaked(),
-                                ToolTrimsClient.TRIM_MATERIALS.entries().entrySet().stream().map(material -> 
+                                ToolTrimsClient.TRIM_MATERIALS.entries().join().entrySet().stream().map(material ->
                                         when(ResourceKey.create(Registries.TRIM_MATERIAL, material.getKey()), plainModel(
                                                 createModelId(pattern.getValue(), material.getValue())
                                         ))
@@ -58,8 +58,8 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent) implemen
 
     @Override
     public void resolveDependencies(Resolver resolver) {
-        for (var pattern : ToolTrimsClient.TRIM_PATTERNS.entries().values())
-            for (var material : ToolTrimsClient.TRIM_MATERIALS.entries().values())
+        for (var pattern : ToolTrimsClient.TRIM_PATTERNS.entries().join().values())
+            for (var material : ToolTrimsClient.TRIM_MATERIALS.entries().join().values())
                 resolver.markDependency(createModelId(pattern, material));
     }
 }

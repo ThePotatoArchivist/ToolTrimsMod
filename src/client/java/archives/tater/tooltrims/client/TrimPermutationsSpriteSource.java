@@ -18,12 +18,12 @@ public record TrimPermutationsSpriteSource(Identifier paletteKey) implements Spr
     @Override
     public void run(ResourceManager resourceManager, Output output) {
         new PalettedPermutations(
-                ToolTrimsClient.TRIM_OVERLAYS.trimModels().stream()
-                        .flatMap(model -> ToolTrimsClient.TRIM_PATTERNS.entries().values().stream()
+                ToolTrimsClient.TRIM_OVERLAYS.trimModels().join().stream()
+                        .flatMap(model -> ToolTrimsClient.TRIM_PATTERNS.entries().join().values().stream()
                                 .map(pattern -> model.basePath().withSuffix("_" + pattern.suffix()))
                         ).toList(),
                 paletteKey,
-                ToolTrimsClient.TRIM_MATERIALS.entries().values().stream()
+                ToolTrimsClient.TRIM_MATERIALS.entries().join().values().stream()
                         .map(material -> entry(material.suffix(), material.assetName()))
                         .collect(toMap())
         ).run(resourceManager, output);

@@ -1,20 +1,19 @@
 package archives.tater.tooltrims.client.data;
 
 import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.data.util.PreparationJsonResourceReloadListener;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static java.util.Map.entry;
@@ -27,27 +26,27 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
             Identifier.CODEC.listOf().fieldOf("items").forGetter(ClientTrimOverlay::items)
     ).apply(instance, ClientTrimOverlay::new));
 
-    public static class Loader extends SimpleJsonResourceReloadListener<ClientTrimOverlay> {
+    public static class Loader extends PreparationJsonResourceReloadListener<ClientTrimOverlay> {
         public static final String PATH = "tooltrims/trim_overlay";
         private static final FileToIdConverter LISTER = FileToIdConverter.json(PATH);
-        private List<UnbakedTrimsModel> trimModels = List.of();
-        private Map<Identifier, ItemModel.Unbaked> overlays = Map.of();
+        private CompletableFuture<List<UnbakedTrimsModel>> trimModels = CompletableFuture.completedFuture(List.of());
+        private CompletableFuture<Map<Identifier, ItemModel.Unbaked>> overlays = CompletableFuture.completedFuture(Map.of());
 
         public Loader() {
             super(CODEC, LISTER);
         }
 
         @Override
-        protected void apply(Map<Identifier, ClientTrimOverlay> preparations, ResourceManager manager, ProfilerFiller profiler) {
-            overlays = preparations.values().stream()
+        public void apply(CompletableFuture<Map<Identifier, ClientTrimOverlay>> entriesFuture) {
+            overlays = entriesFuture.thenApply(entries -> entries.values().stream()
                     .flatMap(overlay -> overlay.items().stream()
                             .map(item -> entry(item, overlay.model()))
                     )
-                    .collect(toMap());
-            trimModels = preparations.values().stream()
+                    .collect(toMap()));
+            trimModels = entriesFuture.thenApply(entries -> entries.values().stream()
                     .flatMap(overlay -> extractTrimModels(overlay.model))
                     .distinct()
-                    .toList();
+                    .toList());
         }
 
         private static Stream<UnbakedTrimsModel> extractTrimModels(ItemModel.@Nullable Unbaked model) {
@@ -62,7 +61,7 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         }
 
         public ItemModel.Unbaked modifyModel(ItemModel.Unbaked model, Identifier itemId) {
-            var trimModel = overlays.get(itemId);
+            var trimModel = overlays.join().get(itemId);
             if (trimModel == null || trimModel instanceof EmptyModel.Unbaked) return model;
             return composite(
                     model,
@@ -70,7 +69,7 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
             );
         }
 
-        public List<UnbakedTrimsModel> trimModels() {
+        public CompletableFuture<List<UnbakedTrimsModel>> trimModels() {
             return trimModels;
         }
     }

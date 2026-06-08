@@ -1,6 +1,7 @@
 package archives.tater.tooltrims.client.data;
 
 import archives.tater.tooltrims.ToolTrimsUtil;
+import archives.tater.tooltrims.client.data.util.StoredJsonResourceReloadListener;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,7 +14,7 @@ public record ClientTrimMaterial(Identifier assetName, String suffix) {
             ToolTrimsUtil.IDENTIFIER_PATH_CODEC.fieldOf("suffix").forGetter(ClientTrimMaterial::suffix)
     ).apply(instance, ClientTrimMaterial::new));
 
-    public static class Loader extends SimpleStoredJsonResourceReloadListener<ClientTrimMaterial> {
+    public static class Loader extends StoredJsonResourceReloadListener<ClientTrimMaterial> {
         public static final String PATH = "tooltrims/trim_material";
         private static final FileToIdConverter LISTER = FileToIdConverter.json(PATH);
 
