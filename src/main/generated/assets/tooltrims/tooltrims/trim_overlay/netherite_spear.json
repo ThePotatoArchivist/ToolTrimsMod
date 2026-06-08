@@ -1,0 +1,29 @@
+{
+  "items": [
+    "minecraft:netherite_spear"
+  ],
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "tooltrims:trims",
+          "parent": "minecraft:item/generated",
+          "base_path": "tooltrims:trims/item/netherite_spear"
+        },
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ]
+      }
+    ],
+    "fallback": {
+      "type": "tooltrims:trims",
+      "parent": "minecraft:item/spear_in_hand",
+      "base_path": "tooltrims:trims/item/netherite_spear_in_hand"
+    },
+    "property": "minecraft:display_context"
+  }
+}
