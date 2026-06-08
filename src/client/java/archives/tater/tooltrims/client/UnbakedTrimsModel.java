@@ -16,9 +16,10 @@ import org.joml.Matrix4fc;
 
 import static net.minecraft.client.data.models.model.ItemModelUtils.*;
 
-public record UnbakedTrimsModel(Identifier basePath) implements ItemModel.Unbaked {
+public record UnbakedTrimsModel(Identifier basePath, Identifier parent) implements ItemModel.Unbaked {
     public static final MapCodec<UnbakedTrimsModel> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Identifier.CODEC.fieldOf("base_path").forGetter(UnbakedTrimsModel::basePath)
+            Identifier.CODEC.fieldOf("base_path").forGetter(UnbakedTrimsModel::basePath),
+            Identifier.CODEC.fieldOf("parent").forGetter(UnbakedTrimsModel::parent)
     ).apply(instance, UnbakedTrimsModel::new));
 
     @Override
@@ -46,7 +47,7 @@ public record UnbakedTrimsModel(Identifier basePath) implements ItemModel.Unbake
     }
 
     public static Identifier createModelId(Identifier basePath, ClientTrimPattern pattern, ClientTrimMaterial material) {
-        return basePath.withSuffix(pattern.suffix() + "_" + material.suffix());
+        return basePath.withSuffix("_" + pattern.suffix() + "_" + material.suffix());
     }
 
     private Identifier createModelId(ClientTrimPattern pattern, ClientTrimMaterial material) {

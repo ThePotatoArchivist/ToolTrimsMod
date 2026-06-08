@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SmithingTrimRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,7 +28,7 @@ public class TTRecipeGenerator extends RecipeProvider {
 
     public void offerToolTrimRecipe(Item template, Holder<TrimPattern> pattern, ResourceKey<Recipe<?>> registryKey) {
         SmithingTrimRecipeBuilder.smithingTrim(
-                        Ingredient.of(template), tag(ToolTrimsTags.TRIMMABLE_TOOLS), tag(ToolTrimsTags.TOOL_TRIM_MATERIALS), pattern, RecipeCategory.MISC
+                        Ingredient.of(template), tag(ToolTrimsTags.TRIMMABLE_TOOLS), tag(ItemTags.TRIM_MATERIALS), pattern, RecipeCategory.MISC
                 )
                 .unlocks("has_smithing_trim_template", has(template))
                 .save(output, registryKey);

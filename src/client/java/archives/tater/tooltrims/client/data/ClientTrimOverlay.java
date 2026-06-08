@@ -1,7 +1,6 @@
 package archives.tater.tooltrims.client.data;
 
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier;
+import archives.tater.tooltrims.client.UnbakedTrimsModel;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,10 +27,10 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
             Identifier.CODEC.listOf().fieldOf("items").forGetter(ClientTrimOverlay::items)
     ).apply(instance, ClientTrimOverlay::new));
 
-    public static class Loader extends SimpleJsonResourceReloadListener<ClientTrimOverlay> implements ModelLoadingPlugin, ModelModifier.BeforeBakeItem {
+    public static class Loader extends SimpleJsonResourceReloadListener<ClientTrimOverlay> {
         public static final String PATH = "tooltrims/trim_overlay";
         private static final FileToIdConverter LISTER = FileToIdConverter.json(PATH);
-        private List<Identifier> models = List.of();
+        private List<UnbakedTrimsModel> trimModels = List.of();
         private Map<Identifier, ItemModel.Unbaked> overlays = Map.of();
 
         public Loader() {
@@ -45,40 +44,34 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
                             .map(item -> entry(item, overlay.model()))
                     )
                     .collect(toMap());
-            models = preparations.values().stream()
-                    .flatMap(overlay -> flat(overlay.model))
+            trimModels = preparations.values().stream()
+                    .flatMap(overlay -> extractTrimModels(overlay.model))
                     .distinct()
                     .toList();
         }
 
-        private static Stream<Identifier> flat(ItemModel.@Nullable Unbaked model) {
+        private static Stream<UnbakedTrimsModel> extractTrimModels(ItemModel.@Nullable Unbaked model) {
             return switch (model) {
-                case CuboidItemModelWrapper.Unbaked unbaked -> Stream.of(unbaked.model());
-                case CompositeModel.Unbaked unbaked -> unbaked.models().stream().flatMap(Loader::flat);
-                case ConditionalItemModel.Unbaked unbaked -> Stream.concat(flat(unbaked.onFalse()), flat(unbaked.onTrue()));
-                case SelectItemModel.Unbaked unbaked -> Stream.concat(flat(unbaked.fallback().orElse(null)), unbaked.unbakedSwitch().cases().stream().flatMap(switchCase -> flat(switchCase.model())));
-                case RangeSelectItemModel.Unbaked unbaked -> Stream.concat(flat(unbaked.fallback().orElse(null)), unbaked.entries().stream().flatMap(entry -> flat(entry.model())));
+                case UnbakedTrimsModel unbaked -> Stream.of(unbaked);
+                case CompositeModel.Unbaked unbaked -> unbaked.models().stream().flatMap(Loader::extractTrimModels);
+                case ConditionalItemModel.Unbaked unbaked -> Stream.concat(extractTrimModels(unbaked.onFalse()), extractTrimModels(unbaked.onTrue()));
+                case SelectItemModel.Unbaked unbaked -> Stream.concat(extractTrimModels(unbaked.fallback().orElse(null)), unbaked.unbakedSwitch().cases().stream().flatMap(switchCase -> extractTrimModels(switchCase.model())));
+                case RangeSelectItemModel.Unbaked unbaked -> Stream.concat(extractTrimModels(unbaked.fallback().orElse(null)), unbaked.entries().stream().flatMap(entry -> extractTrimModels(entry.model())));
                 case null, default -> Stream.empty();
             };
         }
 
-        @Override
-        public void initialize(ModelLoadingPlugin.Context pluginContext) {
-            pluginContext.modifyItemModelBeforeBake().register(this);
-        }
-
-        @Override
-        public ItemModel.Unbaked modifyModelBeforeBake(ItemModel.Unbaked model, ModelModifier.BeforeBakeItem.Context context) {
-            var trimModel = overlays.get(context.itemId());
-            if (trimModel instanceof EmptyModel.Unbaked) return model;
+        public ItemModel.Unbaked modifyModel(ItemModel.Unbaked model, Identifier itemId) {
+            var trimModel = overlays.get(itemId);
+            if (trimModel == null || trimModel instanceof EmptyModel.Unbaked) return model;
             return composite(
                     model,
                     trimModel
             );
         }
 
-        public List<Identifier> getModels() {
-            return models;
+        public List<UnbakedTrimsModel> trimModels() {
+            return trimModels;
         }
     }
 }

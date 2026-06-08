@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "tooltrims:trim_permutations",
+      "palette_key": "tooltrims:trims/color_palettes/key"
+    }
+  ]
+}

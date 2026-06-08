@@ -7,25 +7,21 @@ import archives.tater.tooltrims.client.data.ClientTrimPattern;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
-import net.minecraft.client.renderer.texture.atlas.SpriteSources;
 import net.minecraft.client.resources.model.cuboid.CuboidModel;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 
-import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Map;
 import java.util.stream.Stream;
-
-import static java.util.Map.entry;
-import static net.minecraft.util.Util.toMap;
 
 public class ToolTrimsClient implements ClientModInitializer {
     public static final Identifier TRIM_PATTERNS_ID = ToolTrims.id("trim_patterns");
@@ -35,21 +31,23 @@ public class ToolTrimsClient implements ClientModInitializer {
     public static final Identifier TRIM_OVERLAYS_ID = ToolTrims.id("trim_overlays");
     public static final ClientTrimOverlay.Loader TRIM_OVERLAYS = new ClientTrimOverlay.Loader();
 
-    public static Stream<Pair<Identifier, CuboidModel>> getModels() {
-        return TRIM_OVERLAYS.getModels().stream().flatMap(model ->
-                TRIM_PATTERNS.entries().entrySet().stream().flatMap(pattern ->
-                        TRIM_MATERIALS.entries().entrySet().stream().map(material ->
-                                entry(UnbakedTrimsModel.createModelId(model, pattern.getValue(), material.getValue()), new CuboidModel(
+    public static Stream<Pair<Identifier, CuboidModel>> getTrimModels() {
+        return TRIM_OVERLAYS.trimModels().stream().flatMap(model ->
+                TRIM_PATTERNS.entries().values().stream().flatMap(pattern ->
+                        TRIM_MATERIALS.entries().values().stream().map(material -> {
+                                var modelId = UnbakedTrimsModel.createModelId(model.basePath(), pattern, material);
+                                return Pair.of(modelId, new CuboidModel(
                                         null,
                                         null,
                                         null,
                                         null,
-
-                                ))
+                                        new TextureSlots.Data.Builder().addTexture(TextureSlot.LAYER0.getId(), new Material(modelId)).build(),
+                                        model.parent()
+                                ));
+                            }
                         )
                 )
-        )
-                .collect(toMap());
+        );
     }
 
     @Override
@@ -70,6 +68,5 @@ public class ToolTrimsClient implements ClientModInitializer {
         clientResources.addListenerOrdering(TRIM_PATTERNS_ID, ResourceReloaderKeys.Client.TEXTURES);
         clientResources.addListenerOrdering(TRIM_MATERIALS_ID, ResourceReloaderKeys.Client.TEXTURES);
         clientResources.addListenerOrdering(TRIM_OVERLAYS_ID, ResourceReloaderKeys.Client.TEXTURES);
-        ModelLoadingPlugin.register(TRIM_OVERLAYS);
     }
 }

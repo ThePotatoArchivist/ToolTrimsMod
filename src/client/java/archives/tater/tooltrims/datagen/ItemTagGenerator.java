@@ -59,18 +59,5 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
                 Items.TRIDENT,
                 Items.MACE
         );
-        valueLookupBuilder(ToolTrimsTags.TOOL_TRIM_MATERIALS).add(
-                Items.IRON_INGOT,
-                Items.COPPER_INGOT,
-                Items.GOLD_INGOT,
-                Items.LAPIS_LAZULI,
-                Items.EMERALD,
-                Items.DIAMOND,
-                Items.NETHERITE_INGOT,
-                Items.REDSTONE,
-                Items.QUARTZ,
-                Items.AMETHYST_SHARD,
-                Items.RESIN_BRICK
-        );
     }
 }
