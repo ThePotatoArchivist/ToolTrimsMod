@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTrimOverlay> {
+
     protected ClientTrimOverlayGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimOverlay.Loader.PATH, ClientTrimOverlay.CODEC);
     }
@@ -79,9 +80,10 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
         ));
     }
 
-    private static void registerEmpty(BiConsumer<Identifier, ClientTrimOverlay> provider, String name) {
-        provider.accept(ToolTrims.id(name), new ClientTrimOverlay(
-                new UnbakedTrimsModel(ToolTrims.id("trims/item/diamond_" + name), HANDHELD),
+    private static void registerEmpty(BiConsumer<Identifier, ClientTrimOverlay> provider, Identifier name) {
+        provider.accept(
+                name, new ClientTrimOverlay(
+                new UnbakedTrimsModel(ToolTrims.id("trims/item/diamond_" + name.getPath()), HANDHELD),
                 List.of()
         ));
     }
@@ -92,11 +94,11 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
             registerPlain(provider, item, HANDHELD);
         registerPlain(provider, Items.MACE, HANDHELD_MACE);
 
-        registerEmpty(provider, "sword");
-        registerEmpty(provider, "pickaxe");
-        registerEmpty(provider, "axe");
-        registerEmpty(provider, "shovel");
-        registerEmpty(provider, "hoe");
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_PICKAXE);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_AXE);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SHOVEL);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_HOE);
     }
 
     @Override
