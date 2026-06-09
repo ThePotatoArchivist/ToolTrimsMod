@@ -1,0 +1,20 @@
+{
+  "type": "datapatched:add_pools",
+  "targets": "minecraft:chests/igloo_chest",
+  "pools": [
+    {
+      "rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tooltrims:frost_template",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "datapatched:add_pools",
+  "targets": "minecraft:chests/woodland_mansion",
+  "pools": [
+    {
+      "rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tooltrims:tracks_template",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
