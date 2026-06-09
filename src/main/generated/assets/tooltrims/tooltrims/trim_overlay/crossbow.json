@@ -1,0 +1,63 @@
+{
+  "items": [
+    "minecraft:crossbow"
+  ],
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "tooltrims:trims",
+          "parent": "minecraft:item/crossbow_arrow",
+          "base_path": "tooltrims:trims/items/crossbow_arrow"
+        },
+        "when": "arrow"
+      },
+      {
+        "model": {
+          "type": "tooltrims:trims",
+          "parent": "minecraft:item/crossbow_firework",
+          "base_path": "tooltrims:trims/items/crossbow_firework"
+        },
+        "when": "rocket"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "tooltrims:trims",
+        "parent": "minecraft:item/crossbow",
+        "base_path": "tooltrims:trims/items/crossbow_standby"
+      },
+      "on_true": {
+        "type": "minecraft:range_dispatch",
+        "entries": [
+          {
+            "model": {
+              "type": "tooltrims:trims",
+              "parent": "minecraft:item/crossbow_pulling_1",
+              "base_path": "tooltrims:trims/items/crossbow_pulling_1"
+            },
+            "threshold": 0.58
+          },
+          {
+            "model": {
+              "type": "tooltrims:trims",
+              "parent": "minecraft:item/crossbow_pulling_2",
+              "base_path": "tooltrims:trims/items/crossbow_pulling_2"
+            },
+            "threshold": 1.0
+          }
+        ],
+        "fallback": {
+          "type": "tooltrims:trims",
+          "parent": "minecraft:item/crossbow_pulling_0",
+          "base_path": "tooltrims:trims/items/crossbow_pulling_0"
+        },
+        "property": "minecraft:crossbow/pull"
+      },
+      "property": "minecraft:using_item"
+    },
+    "property": "minecraft:charge_type"
+  }
+}

@@ -13,9 +13,13 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
+import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
+import net.minecraft.client.renderer.item.properties.select.Charge;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -23,8 +27,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static net.minecraft.client.data.models.model.ItemModelUtils.conditional;
-import static net.minecraft.client.data.models.model.ItemModelUtils.isUsingItem;
+import static net.minecraft.client.data.models.model.ItemModelUtils.*;
+import static net.minecraft.client.data.models.model.ModelLocationUtils.getModelLocation;
 
 public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTrimOverlay> {
 
@@ -144,9 +148,37 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
                 new UnbakedTrimsModel(trimmedId(itemId(Items.TRIDENT).getPath()), FLAT),
                 conditional(
                         isUsingItem(),
-                        new TexturedTridentModelRenderer.UnbakedTrims(Identifier.withDefaultNamespace("item/trident_throwing"), ToolTrims.id("trims/tridents/trident_entity")),
-                        new TexturedTridentModelRenderer.UnbakedTrims(Identifier.withDefaultNamespace("item/trident_in_hand"), ToolTrims.id("trims/tridents/trident_entity"))
+                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_throwing"), ToolTrims.id("trims/tridents/trident_entity")),
+                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_in_hand"), ToolTrims.id("trims/tridents/trident_entity"))
                 )
+        ));
+
+        register(provider, Items.BOW, conditional(
+                isUsingItem(),
+                rangeSelect(
+                        new UseDuration(false),
+                        0.05F,
+                        new UnbakedTrimsModel(trimmedId("bow_pulling_0"), getModelLocation(Items.BOW, "_pulling_0")),
+                        override(new UnbakedTrimsModel(trimmedId("bow_pulling_1"), getModelLocation(Items.BOW, "_pulling_1")), 0.65F),
+                        override(new UnbakedTrimsModel(trimmedId("bow_pulling_2"), getModelLocation(Items.BOW, "_pulling_2")), 0.9F)
+                ),
+                new UnbakedTrimsModel(trimmedId("bow"), getModelLocation(Items.BOW))
+        ));
+
+        register(provider, Items.CROSSBOW, select(
+                new Charge(),
+                conditional(
+                        isUsingItem(),
+                        rangeSelect(
+                                new CrossbowPull(),
+                                new UnbakedTrimsModel(trimmedId("crossbow_pulling_0"), getModelLocation(Items.CROSSBOW, "_pulling_0")),
+                                override(new UnbakedTrimsModel(trimmedId("crossbow_pulling_1"), getModelLocation(Items.CROSSBOW, "_pulling_1")), 0.58F),
+                                override(new UnbakedTrimsModel(trimmedId("crossbow_pulling_2"), getModelLocation(Items.CROSSBOW, "_pulling_2")), 1.0F)
+                        ),
+                        new UnbakedTrimsModel(trimmedId("crossbow_standby"), getModelLocation(Items.CROSSBOW))
+                ),
+                when(CrossbowItem.ChargeType.ARROW, new UnbakedTrimsModel(trimmedId("crossbow_arrow"), getModelLocation(Items.CROSSBOW, "_arrow"))),
+                when(CrossbowItem.ChargeType.ROCKET, new UnbakedTrimsModel(trimmedId("crossbow_firework"), getModelLocation(Items.CROSSBOW, "_firework")))
         ));
 
         registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD, Items.DIAMOND_SWORD);
