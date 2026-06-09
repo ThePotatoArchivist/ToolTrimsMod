@@ -4,11 +4,7 @@ import archives.tater.tooltrims.item.ToolTrimsItems;
 import archives.tater.tooltrims.loot.ToolTrimsLoot;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
-import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import org.slf4j.Logger;
@@ -39,21 +35,5 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsCommands.register();
 		ToolTrimsDPCompat.register();
 		ToolTrimsDataAttachment.register();
-
-		if (ToolTrimsModCompat.isEnchancementLoaded)
-            //noinspection OptionalGetWithoutIsPresent
-            ResourceLoader.registerBuiltinPack(
-					ToolTrims.id("enchancement"),
-					FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
-					Component.literal("Enchancement x Tool Trims"),
-					PackActivationType.ALWAYS_ENABLED
-			);
-		//noinspection OptionalGetWithoutIsPresent
-		ResourceLoader.registerBuiltinPack(
-				ToolTrims.id("tooltrims"),
-				FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).get(),
-				Component.literal("Tool Trims"),
-				PackActivationType.ALWAYS_ENABLED
-		);
 	}
 }

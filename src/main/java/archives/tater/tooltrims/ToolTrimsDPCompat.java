@@ -16,6 +16,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -50,15 +51,24 @@ public class ToolTrimsDPCompat {
                 .stream().anyMatch(function -> function.id().equals(Identifier.fromNamespaceAndPath("tooltrims", "load_wait")));
     }
 
-    public static @Nullable ItemStack migrateItem(ItemStack itemStack) {
-        if (!itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("tooltrims:item", "").equals("template")) return null;
-
-        if (itemStack.is(Items.TADPOLE_SPAWN_EGG)) return ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE.getDefaultInstance();
-        if (itemStack.is(Items.SILVERFISH_SPAWN_EGG)) return ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE.getDefaultInstance();
-        if (itemStack.is(Items.COD_SPAWN_EGG)) return ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE.getDefaultInstance();
-        if (itemStack.is(Items.SNOW_GOLEM_SPAWN_EGG)) return ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE.getDefaultInstance();
-
+    private static @Nullable Item getMigratedItem(ItemStack dpTemplate) {
+        if (dpTemplate.is(Items.TADPOLE_SPAWN_EGG)) return ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE;
+        if (dpTemplate.is(Items.SILVERFISH_SPAWN_EGG)) return ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE;
+        if (dpTemplate.is(Items.COD_SPAWN_EGG)) return ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE;
+        if (dpTemplate.is(Items.SNOW_GOLEM_SPAWN_EGG)) return ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE;
         return null;
+    }
+
+    public static @Nullable ItemStack migrateItem(ItemStack stack) {
+        if (!stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("tooltrims:item", "").equals("template")) return null;
+
+        var item = getMigratedItem(stack);
+        if (item == null) return null;
+
+        var newStack = item.getDefaultInstance();
+        newStack.setCount(stack.getCount());
+
+        return newStack;
     }
 
     private static @Nullable Identifier getTemplateLootTable(ItemStack template) {
@@ -69,12 +79,12 @@ public class ToolTrimsDPCompat {
         return null;
     }
 
-    public static @Nullable ItemStack demigrateItem(ServerLevel world, ItemStack stack) {
+    public static @Nullable ItemStack demigrateItem(ServerLevel level, ItemStack stack) {
         if (!ToolTrimsItems.SMITHING_TEMPLATES.containsValue(stack.getItem())) return null;
         var lootTable = getTemplateLootTable(stack);
         if (lootTable == null) return null;
-        var stacks = world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, lootTable))
-                .getRandomItems(new LootParams.Builder(world).create(LootContextParamSets.EMPTY));
+        var stacks = level.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, lootTable))
+                .getRandomItems(new LootParams.Builder(level).create(LootContextParamSets.EMPTY));
         if (stacks.isEmpty()) return null;
         var newStack = stacks.getFirst();
         newStack.setCount(stack.getCount());
