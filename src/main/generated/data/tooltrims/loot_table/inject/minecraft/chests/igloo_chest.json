@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tooltrims:frost_tool_trim_smithing_template",
+          "name": "tooltrims:frost_template",
           "weight": 2
         },
         {

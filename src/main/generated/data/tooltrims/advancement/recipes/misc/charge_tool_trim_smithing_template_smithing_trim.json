@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "tooltrims:charge_tool_trim_smithing_template"
+            "items": "tooltrims:charge_template"
           }
         ]
       },

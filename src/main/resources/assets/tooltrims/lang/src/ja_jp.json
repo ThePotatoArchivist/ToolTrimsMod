@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "ぴかぴかのツール！",
+    "advancements.adventure.shiny_tools.description": "ツール用鍛冶台でツールを装飾する",
+    "advancements.adventure.tools_of_all_styles.title": "いろんなスタイルのツール",
+    "advancements.adventure.tools_of_all_styles.description": "すべてのツール用装飾をそれぞれ最低一回以上施す",
+    
+    "template.tooltrims.applies_to": "武器やツール",
+    "trim_pattern.tooltrims.linear": "線形のツール装飾",
+    "trim_pattern.tooltrims.tracks": "足跡風のツール装飾",
+    "trim_pattern.tooltrims.charge": "帯電のツール装飾",
+    "trim_pattern.tooltrims.frost": "霜風のツール装飾",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}

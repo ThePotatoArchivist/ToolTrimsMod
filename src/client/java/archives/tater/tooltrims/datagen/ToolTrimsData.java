@@ -26,16 +26,6 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(ClientTrimPatternGenerator::new);
 		pack.addProvider(ClientTrimMaterialGenerator::new);
 		pack.addProvider(ClientTrimOverlayGenerator::new);
-		pack.addProvider(LanguageCopyGenerator.of("es_ar", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("es_cl", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("es_ec", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("es_mx", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("es_uy", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("es_ve", "es_es"));
-		pack.addProvider(LanguageCopyGenerator.of("fr_ca", "fr_fr"));
-		pack.addProvider(LanguageCopyGenerator.of("pt_br", "pt_pt"));
-
-//		var enchancementPack = fabricDataGenerator.createBuiltinResourcePack(ToolTrims.id("enchancement"));
-//		enchancementPack.addProvider(EnchancementModelGenerator::new);
+		pack.addProvider(LanguageMergeGenerator::new);
 	}
 }

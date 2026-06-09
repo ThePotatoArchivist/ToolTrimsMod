@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Outils brillants",
+    "advancements.adventure.shiny_tools.description": "Fabriquez un outil orné en utilisant une table d'outils",
+    "advancements.adventure.tools_of_all_styles.title": "Outils de tous styles",
+    "advancements.adventure.tools_of_all_styles.description": "Apliquez tous les modèles de forge d'outils au moins une fois",
+
+    "template.tooltrims.applies_to": "Armes et outils",
+    "trim_pattern.tooltrims.linear": "Ornement des lignes",
+    "trim_pattern.tooltrims.tracks": "Ornement des pistes",
+    "trim_pattern.tooltrims.charge": "Ornement des charges",
+    "trim_pattern.tooltrims.frost": "Ornement des gelées",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}   

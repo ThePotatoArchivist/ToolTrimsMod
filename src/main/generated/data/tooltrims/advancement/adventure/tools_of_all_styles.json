@@ -32,7 +32,7 @@
     },
     "frame": "challenge",
     "icon": {
-      "id": "tooltrims:linear_tool_trim_smithing_template"
+      "id": "tooltrims:linear_template"
     },
     "title": {
       "translate": "advancements.adventure.tools_of_all_styles.title"

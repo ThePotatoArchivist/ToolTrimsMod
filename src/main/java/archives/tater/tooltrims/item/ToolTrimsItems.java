@@ -15,9 +15,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.function.Function;
+
+import static net.minecraft.util.Util.makeDescriptionId;
 
 public class ToolTrimsItems {
 
@@ -30,7 +31,10 @@ public class ToolTrimsItems {
     }
 
     private static Item registerToolTemplate(String name, Rarity rarity) {
-        return register(name + "_tool_trim_smithing_template", ToolTrimSmithingTemplate::of, new Item.Properties().rarity(rarity));
+        return register(name + "_template", ToolTrimSmithingTemplate::of, new Item.Properties()
+                .rarity(rarity)
+                .overrideDescription(makeDescriptionId("trim_pattern", ToolTrims.id(name)))
+        );
     }
 
     public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("linear", Rarity.UNCOMMON);
@@ -54,14 +58,9 @@ public class ToolTrimsItems {
                     FROST_TOOL_TRIM_SMITHING_TEMPLATE)
         );
 
-        if (System.getProperty("fabric-api.datagen") != null) {
-            try {
-                var enchancementClass = Class.forName("archives.tater.tooltrims.datagen.EnchancementModelGenerator");
-                enchancementClass.getMethod("register").invoke(null);
-            } catch (NoSuchMethodException | ClassNotFoundException | IllegalAccessException |
-                     InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
+        for (var pattern : ToolTrimsPatterns.PATTERNS) {
+            var name = pattern.identifier().getPath();
+            BuiltInRegistries.ITEM.addAlias(ToolTrims.id(name + "_tool_trim_smithing_template"), ToolTrims.id(name + "_template"));
         }
     }
 }

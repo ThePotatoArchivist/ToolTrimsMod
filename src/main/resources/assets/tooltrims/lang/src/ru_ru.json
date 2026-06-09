@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Сверкай по новому!",
+    "advancements.adventure.shiny_tools.description": "Нанесите Инструментальный Шаблон на инструмент с помощью Инструментального Стола",
+    "advancements.adventure.tools_of_all_styles.title": "Инструменты всех стилей",
+    "advancements.adventure.tools_of_all_styles.description": "Нанеси каждый Инструментальный Шаблон хотя бы раз",
+
+    "template.tooltrims.applies_to": "Оружия и инструменты",
+    "trim_pattern.tooltrims.linear": "Отделка «Линия»",
+    "trim_pattern.tooltrims.tracks": "Отделка «Рельсы»",
+    "trim_pattern.tooltrims.charge": "Отделка «Заряд»",
+    "trim_pattern.tooltrims.frost": "Отделка «Мороз»",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}

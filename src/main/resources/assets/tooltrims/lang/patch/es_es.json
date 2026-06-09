@@ -1,0 +1,12 @@
+{
+  "template.tooltrims.base_slot_description": "Añade una pieza de armadura",
+  "tag.item.tooltrims.trimmable_tools": "Herramientas Para Decorar",
+
+  "commands.tooltrims.error.noplayer": "Debe ser ejecutado por un jugador",
+  "commands.tooltrims.migrate.success": "El objeto heredado de Tool Trims %s se ha actualizado correctamente",
+  "commands.tooltrims.migrate.error.fail": "No se pudo actualizar %s",
+  "commands.tooltrims.demigrate.success": "Successfully demigrated Tool Trims legacy item %s",
+  "commands.tooltrims.demigrate.error.fail": "Could not demigrate %s",
+  "commands.tooltrims.demigrate.error.missing_datapack": "The Tool Trims datapack must be installed, download it from modrinth",
+  "tooltrims.warning.datapack_running": "[Tool Trims] Advertencia: no debes ejecutar el mod y el datapack al mismo tiempo, elimina uno"
+}

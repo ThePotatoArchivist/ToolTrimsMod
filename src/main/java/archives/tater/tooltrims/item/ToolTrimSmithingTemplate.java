@@ -1,6 +1,7 @@
 package archives.tater.tooltrims.item;
 
 import archives.tater.tooltrims.ToolTrims;
+import archives.tater.tooltrims.mixin.SmithingTemplateItemAccessor;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -10,74 +11,56 @@ import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
 
-import static net.minecraft.util.Util.makeDescriptionId;
-
 public class ToolTrimSmithingTemplate {
     private ToolTrimSmithingTemplate() {} // Static utility class without instances
 
-    public static final ChatFormatting DESCRIPTION_FORMATTING = ChatFormatting.BLUE;
-    public static final Component INGREDIENTS_TEXT = Component.translatable(makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.ingredients")))
-            .withStyle(DESCRIPTION_FORMATTING);
-    public static final Component APPLIES_TO_TEXT = Component.translatable(makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.applies_to")))
-            .withStyle(DESCRIPTION_FORMATTING);
-    public static final Component BASE_SLOT_DESCRIPTION_TEXT = Component.translatable(
-            makeDescriptionId("item", ToolTrims.id("smithing_template.tool_trim.base_slot_description"))
-    );
-    public static final Component ADDITIONS_SLOT_DESCRIPTION_TEXT = Component.translatable(
-            makeDescriptionId("item", Identifier.withDefaultNamespace("smithing_template.armor_trim.additions_slot_description"))
-    );
-    public static final Identifier EMPTY_SLOT_HOE_TEXTURE = Identifier.withDefaultNamespace("container/slot/hoe");
-    public static final Identifier EMPTY_SLOT_AXE_TEXTURE = Identifier.withDefaultNamespace("container/slot/axe");
-    public static final Identifier EMPTY_SLOT_SWORD_TEXTURE = Identifier.withDefaultNamespace("container/slot/sword");
-    public static final Identifier EMPTY_SLOT_SHOVEL_TEXTURE = Identifier.withDefaultNamespace("container/slot/shovel");
-    public static final Identifier EMPTY_SLOT_PICKAXE_TEXTURE = Identifier.withDefaultNamespace("container/slot/pickaxe");
-    public static final Identifier EMPTY_SLOT_BOW_TEXTURE = ToolTrims.id("container/slot/bow");
-    public static final Identifier EMPTY_SLOT_CROSSBOW_TEXTURE = ToolTrims.id("container/slot/crossbow");
-    public static final Identifier EMPTY_SLOT_TRIDENT_TEXTURE = ToolTrims.id("container/slot/trident");
-    public static final Identifier EMPTY_SLOT_MACE_TEXTURE = ToolTrims.id("container/slot/mace");
+    public static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
 
-    public static final Identifier EMPTY_SLOT_INGOT_TEXTURE = Identifier.withDefaultNamespace("container/slot/ingot");
-    public static final Identifier EMPTY_SLOT_REDSTONE_DUST_TEXTURE = Identifier.withDefaultNamespace("container/slot/redstone_dust");
-    public static final Identifier EMPTY_SLOT_QUARTZ_TEXTURE = Identifier.withDefaultNamespace("container/slot/quartz");
-    public static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.withDefaultNamespace("container/slot/emerald");
-    public static final Identifier EMPTY_SLOT_DIAMOND_TEXTURE = Identifier.withDefaultNamespace("container/slot/diamond");
-    public static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.withDefaultNamespace("container/slot/lapis_lazuli");
-    public static final Identifier EMPTY_SLOT_AMETHYST_SHARD_TEXTURE = Identifier.withDefaultNamespace("container/slot/amethyst_shard");
+    public static final Component INGREDIENTS = SmithingTemplateItemAccessor.getARMOR_TRIM_INGREDIENTS();
+    public static final Component APPLIES_TO = Component.translatable("template.tooltrims.applies_to")
+            .withStyle(DESCRIPTION_FORMAT);
+    public static final Component BASE_SLOT_DESCRIPTION = Component.translatable("template.tooltrims.base_slot_description");
+    public static final Component ADDITIONS_SLOT_DESCRIPTION = SmithingTemplateItemAccessor.getARMOR_TRIM_ADDITIONS_SLOT_DESCRIPTION();
+
+    public static final Identifier EMPTY_SLOT_SWORD = SmithingTemplateItemAccessor.getEMPTY_SLOT_SWORD();
+    public static final Identifier EMPTY_SLOT_PICKAXE = SmithingTemplateItemAccessor.getEMPTY_SLOT_PICKAXE();
+    public static final Identifier EMPTY_SLOT_AXE = SmithingTemplateItemAccessor.getEMPTY_SLOT_AXE();
+    public static final Identifier EMPTY_SLOT_HOE = SmithingTemplateItemAccessor.getEMPTY_SLOT_HOE();
+    public static final Identifier EMPTY_SLOT_SHOVEL = SmithingTemplateItemAccessor.getEMPTY_SLOT_SHOVEL();
+    public static final Identifier EMPTY_SLOT_SPEAR = SmithingTemplateItemAccessor.getEMPTY_SLOT_SPEAR();
+    public static final Identifier EMPTY_SLOT_BOW = ToolTrims.id("container/slot/bow");
+    public static final Identifier EMPTY_SLOT_CROSSBOW = ToolTrims.id("container/slot/crossbow");
+    public static final Identifier EMPTY_SLOT_TRIDENT = ToolTrims.id("container/slot/trident");
+    public static final Identifier EMPTY_SLOT_MACE = ToolTrims.id("container/slot/mace");
 
     public static SmithingTemplateItem of(Item.Properties settings) {
-        return new SmithingTemplateItem(APPLIES_TO_TEXT,
-                INGREDIENTS_TEXT,
-                BASE_SLOT_DESCRIPTION_TEXT,
-                ADDITIONS_SLOT_DESCRIPTION_TEXT,
-                getEmptyBaseSlotTextures(),
-                getEmptyAdditionsSlotTextures(),
+        return new SmithingTemplateItem(
+                APPLIES_TO,
+                INGREDIENTS,
+                BASE_SLOT_DESCRIPTION,
+                ADDITIONS_SLOT_DESCRIPTION,
+                createTrimmableToolIconList(),
+                createTrimmableMaterialIconList(),
                 settings
         );
     }
 
-    public static List<Identifier> getEmptyAdditionsSlotTextures() {
-        return List.of(
-                EMPTY_SLOT_INGOT_TEXTURE,
-                EMPTY_SLOT_REDSTONE_DUST_TEXTURE,
-                EMPTY_SLOT_LAPIS_LAZULI_TEXTURE,
-                EMPTY_SLOT_QUARTZ_TEXTURE,
-                EMPTY_SLOT_DIAMOND_TEXTURE,
-                EMPTY_SLOT_EMERALD_TEXTURE,
-                EMPTY_SLOT_AMETHYST_SHARD_TEXTURE
-        );
+    public static List<Identifier> createTrimmableMaterialIconList() {
+        return SmithingTemplateItemAccessor.invokeCreateTrimmableMaterialIconList();
     }
 
-    public static List<Identifier> getEmptyBaseSlotTextures() {
+    public static List<Identifier> createTrimmableToolIconList() {
         return List.of(
-                EMPTY_SLOT_SWORD_TEXTURE,
-                EMPTY_SLOT_PICKAXE_TEXTURE,
-                EMPTY_SLOT_AXE_TEXTURE,
-                EMPTY_SLOT_HOE_TEXTURE,
-                EMPTY_SLOT_SHOVEL_TEXTURE,
-                EMPTY_SLOT_BOW_TEXTURE,
-                EMPTY_SLOT_CROSSBOW_TEXTURE,
-                EMPTY_SLOT_TRIDENT_TEXTURE,
-                EMPTY_SLOT_MACE_TEXTURE
+                EMPTY_SLOT_SWORD,
+                EMPTY_SLOT_PICKAXE,
+                EMPTY_SLOT_AXE,
+                EMPTY_SLOT_HOE,
+                EMPTY_SLOT_SHOVEL,
+                EMPTY_SLOT_SPEAR,
+                EMPTY_SLOT_BOW,
+                EMPTY_SLOT_CROSSBOW,
+                EMPTY_SLOT_TRIDENT,
+                EMPTY_SLOT_MACE
         );
     }
 

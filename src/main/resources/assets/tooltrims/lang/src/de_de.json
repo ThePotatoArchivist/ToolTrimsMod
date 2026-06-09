@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Funkelnde Werkzeuge",
+    "advancements.adventure.shiny_tools.description": "Wende am Werkzeugschmiedetisch eine Schmiedvorlage auf ein Werkzeug oder eine Waffe an ",
+    "advancements.adventure.tools_of_all_styles.title": "Werkzeuge aller Art",
+    "advancements.adventure.tools_of_all_styles.description": "Verwende jede Schmiedevorlage mindestens einmal",
+
+    "template.tooltrims.applies_to": "Waffen & Werkzeuge",
+    "trim_pattern.tooltrims.linear": "Linear-Werkzeugvorlage",
+    "trim_pattern.tooltrims.tracks": "Tracks-Werkzeugvorlage",
+    "trim_pattern.tooltrims.charge": "Charge-Werkzeugvorlage",
+    "trim_pattern.tooltrims.frost": "Frost-Werkzeugvorlage",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}

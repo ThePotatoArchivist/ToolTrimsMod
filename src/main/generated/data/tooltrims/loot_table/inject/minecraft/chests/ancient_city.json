@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tooltrims:charge_tool_trim_smithing_template"
+          "name": "tooltrims:charge_template"
         }
       ],
       "rolls": 1.0

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tooltrims:tracks_tool_trim_smithing_template"
+          "name": "tooltrims:tracks_template"
         }
       ],
       "rolls": 1.0

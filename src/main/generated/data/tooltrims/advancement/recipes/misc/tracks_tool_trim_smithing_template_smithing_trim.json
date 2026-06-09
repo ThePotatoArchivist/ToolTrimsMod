@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "tooltrims:tracks_tool_trim_smithing_template"
+            "items": "tooltrims:tracks_template"
           }
         ]
       },

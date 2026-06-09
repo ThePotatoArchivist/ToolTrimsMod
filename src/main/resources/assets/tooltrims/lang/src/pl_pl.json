@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Błyszczące Narzędzia",
+    "advancements.adventure.shiny_tools.description": "Stwórz przyozdobione narzędzie w narzędziowym stole kowalskim",
+    "advancements.adventure.tools_of_all_styles.title": "Narzędzia wszystkich stylów",
+    "advancements.adventure.tools_of_all_styles.description": "Zastosuj wszystkie narzędziowe szablony kowalskie co najmniej raz",
+    
+    "template.tooltrims.applies_to": "Brońie i narzędzia",
+    "trim_pattern.tooltrims.linear": "Szablon Narzędziowy \"Liniowy\"",
+    "trim_pattern.tooltrims.tracks": "Szablon Narzędziowy \"Tracks\"",
+    "trim_pattern.tooltrims.charge": "Szablon Narzędziowy \"Charge\"",
+    "trim_pattern.tooltrims.frost": "Szablon Narzędziowy \"Mróz\"",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}

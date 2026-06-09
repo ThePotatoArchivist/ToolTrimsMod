@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tooltrims:linear_tool_trim_smithing_template"
+          "name": "tooltrims:linear_template"
         }
       ],
       "rolls": 1.0

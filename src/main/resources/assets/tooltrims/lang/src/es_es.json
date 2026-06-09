@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Herramientas brillantes",
+    "advancements.adventure.shiny_tools.description": "Decora una herramienta en una mesa de herramientas",
+    "advancements.adventure.tools_of_all_styles.title": "Herramientas de todos los estilos",
+    "advancements.adventure.tools_of_all_styles.description": "Aplica todos los moldes de herrería para herramientas al menos una vez",
+
+    "template.tooltrims.applies_to": "Armas y Herramientas",
+    "trim_pattern.tooltrims.linear": "Diseño de herramienta de línea",
+    "trim_pattern.tooltrims.tracks": "Diseño de herramienta de pistas",
+    "trim_pattern.tooltrims.charge": "Diseño de herramienta de carga",
+    "trim_pattern.tooltrims.frost": "Diseño de herramienta de escarcha",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}

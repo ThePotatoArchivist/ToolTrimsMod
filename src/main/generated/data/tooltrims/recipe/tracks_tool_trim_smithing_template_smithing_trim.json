@@ -3,5 +3,5 @@
   "addition": "#minecraft:trim_materials",
   "base": "#tooltrims:trimmable_tools",
   "pattern": "tooltrims:tracks",
-  "template": "tooltrims:tracks_tool_trim_smithing_template"
+  "template": "tooltrims:tracks_template"
 }

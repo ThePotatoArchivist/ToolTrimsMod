@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "tooltrims:frost_tool_trim_smithing_template"
+            "items": "tooltrims:frost_template"
           }
         ]
       },

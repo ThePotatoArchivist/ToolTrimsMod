@@ -1,0 +1,19 @@
+{
+    "tooltrims.title": "Tool Trims",
+
+    "advancements.adventure.shiny_tools.title": "Shiny Tools",
+    "advancements.adventure.shiny_tools.description": "Craft a trimmed tool at a Smithing Table",
+    "advancements.adventure.tools_of_all_styles.title": "Tools of All Styles",
+    "advancements.adventure.tools_of_all_styles.description": "Apply all tool trim smithing templates at least once",
+
+    "template.tooltrims.applies_to": "Weapons & Tools",
+    "trim_pattern.tooltrims.linear": "Linear Tool Trim",
+    "trim_pattern.tooltrims.tracks": "Tracks Tool Trim",
+    "trim_pattern.tooltrims.charge": "Charge Tool Trim",
+    "trim_pattern.tooltrims.frost": "Frost Tool Trim",
+
+    "tooltip.linear_template": "Linear Tool Trims Smithing Template\uE035\uD000\uE005",
+    "tooltip.tracks_template": "Tracks Tool Trims Smithing Template\uE035\uD001\uE005",
+    "tooltip.charge_template": "Charge Tool Trims Smithing Template\uE035\uD002\uE005",
+    "tooltip.frost_template": "Frost Tool Trims Smithing Template\uE034\uD003\uE005"
+}
