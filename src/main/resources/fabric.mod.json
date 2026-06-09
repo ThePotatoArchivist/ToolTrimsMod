@@ -41,9 +41,9 @@
 		"fabricloader": ">=0.18.0",
 		"minecraft": "~26.1",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"datapatched": "^2.0.0"
 	},
 	"suggests": {
-		"enchancement": "*"
 	}
 }
