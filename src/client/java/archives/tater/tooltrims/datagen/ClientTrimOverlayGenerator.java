@@ -2,6 +2,7 @@ package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.data.ClientTrimOverlay;
+import archives.tater.tooltrims.client.data.models.item.TexturedTridentModelRenderer;
 import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.mixin.client.ModelTemplateAccessor;
 
@@ -21,6 +22,9 @@ import net.minecraft.world.item.Items;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+
+import static net.minecraft.client.data.models.model.ItemModelUtils.conditional;
+import static net.minecraft.client.data.models.model.ItemModelUtils.isUsingItem;
 
 public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTrimOverlay> {
 
@@ -109,7 +113,7 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
     private static void registerPlain(BiConsumer<Identifier, ClientTrimOverlay> provider, Item item, Identifier parent) {
         var itemId = itemId(item);
         var name = itemId.getPath();
-        register(provider, ToolTrims.id(itemId.getPath()), item, new UnbakedTrimsModel(trimmedId(name), parent));
+        register(provider, ToolTrims.id(name), item, new UnbakedTrimsModel(trimmedId(name), parent));
     }
 
     private static ItemModel.Unbaked spear(Item item) {
@@ -136,6 +140,14 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
             register(provider, item, spear(item));
 
         registerPlain(provider, Items.MACE, HANDHELD_MACE);
+        register(provider, Items.TRIDENT, ItemModelGenerators.createFlatModelDispatch(
+                new UnbakedTrimsModel(trimmedId(itemId(Items.TRIDENT).getPath()), FLAT),
+                conditional(
+                        isUsingItem(),
+                        new TexturedTridentModelRenderer.UnbakedTrims(Identifier.withDefaultNamespace("item/trident_throwing"), ToolTrims.id("trims/tridents/trident_entity")),
+                        new TexturedTridentModelRenderer.UnbakedTrims(Identifier.withDefaultNamespace("item/trident_in_hand"), ToolTrims.id("trims/tridents/trident_entity"))
+                )
+        ));
 
         registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD, Items.DIAMOND_SWORD);
         registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_PICKAXE, Items.DIAMOND_PICKAXE);

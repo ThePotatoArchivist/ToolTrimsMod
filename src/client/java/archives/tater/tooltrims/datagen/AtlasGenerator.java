@@ -1,6 +1,8 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
+import archives.tater.tooltrims.client.SingleTrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.ToolTrimsClient;
 import archives.tater.tooltrims.client.TrimPermutationsSpriteSource;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -25,9 +27,11 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
 
     @Override
     protected void configure(BiConsumer<Identifier, List<SpriteSource>> provider, HolderLookup.Provider registryLookup) {
-        provider.accept(
-                AtlasIds.ITEMS, List.of(
+        provider.accept(AtlasIds.ITEMS, List.of(
                 new TrimPermutationsSpriteSource(ToolTrims.id("trims/color_palettes/key"))
+        ));
+        provider.accept(ToolTrimsClient.TRIDENT_TRIMS_ATLAS, List.of(
+                new SingleTrimPermutationsSpriteSource(ToolTrims.id("trims/tridents/trident_entity"), ToolTrims.id("trims/color_palettes/key"))
         ));
     }
 

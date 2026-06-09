@@ -4,12 +4,13 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ItemModelGeneratorAccessor",
-    "TridentEntityRendererMixin"
+    "ThrownTridentRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
+    "AtlasManagerMixin",
     "ModelManagerMixin",
     "ModelTemplateAccessor",
     "SpriteSourcesAccessor"

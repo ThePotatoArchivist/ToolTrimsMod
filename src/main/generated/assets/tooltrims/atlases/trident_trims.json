@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "type": "tooltrims:single_trim_permutations",
+      "base_path": "tooltrims:trims/tridents/trident_entity",
+      "palette_key": "tooltrims:trims/color_palettes/key"
+    }
+  ]
+}

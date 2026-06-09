@@ -4,12 +4,13 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.data.ClientTrimMaterial;
 import archives.tater.tooltrims.client.data.ClientTrimOverlay;
 import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.models.item.TexturedTridentModelRenderer;
 import archives.tater.tooltrims.client.data.models.item.TrimPatternProperty;
-import archives.tater.tooltrims.client.data.models.item.TrimmedTridentModelRenderer;
 import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 
@@ -17,13 +18,17 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.client.resources.model.cuboid.CuboidModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ToolTrimsClient implements ClientModInitializer {
@@ -33,6 +38,12 @@ public class ToolTrimsClient implements ClientModInitializer {
     public static final ClientTrimMaterial.Loader TRIM_MATERIALS = new ClientTrimMaterial.Loader();
     public static final Identifier TRIM_OVERLAYS_ID = ToolTrims.id("trim_overlays");
     public static final ClientTrimOverlay.Loader TRIM_OVERLAYS = new ClientTrimOverlay.Loader();
+
+    public static final Identifier TRIDENT_TRIMS_ATLAS = ToolTrims.id("trident_trims");
+    public static final Identifier TRIDENT_TRIMS_SHEET = ToolTrims.id("textures/atlas/trident_trims.png");
+    public static final RenderType TRIDENT_TRIMS_RENDER_TYPE = RenderTypes.entityCutout(TRIDENT_TRIMS_SHEET);
+
+    public static final RenderStateDataKey<Optional<ArmorTrim>> TRIDENT_TRIM = RenderStateDataKey.create(() -> "tooltrims:trident_trim");
 
     public static Stream<Pair<Identifier, CuboidModel>> getTrimModels() {
         var patterns = TRIM_PATTERNS.joinEntries().values();
@@ -59,9 +70,11 @@ public class ToolTrimsClient implements ClientModInitializer {
     public void onInitializeClient() {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
         SelectItemModelProperties.ID_MAPPER.put(ToolTrims.id("trim_pattern"), TrimPatternProperty.TYPE);
-        SpecialModelRenderers.ID_MAPPER.put(ToolTrims.id("trimmed_trident"), TrimmedTridentModelRenderer.Unbaked.CODEC);
+        SpecialModelRenderers.ID_MAPPER.put(ToolTrims.id("trimmed_trident"), TexturedTridentModelRenderer.Unbaked.CODEC);
         ItemModels.ID_MAPPER.put(ToolTrims.id("trims"), UnbakedTrimsModel.CODEC);
+        ItemModels.ID_MAPPER.put(ToolTrims.id("trident_trims"), TexturedTridentModelRenderer.UnbakedTrims.CODEC);
         SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("trim_permutations"), TrimPermutationsSpriteSource.CODEC);
+        SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("single_trim_permutations"), SingleTrimPermutationsSpriteSource.CODEC);
 
         var clientResources = ResourceLoader.get(PackType.CLIENT_RESOURCES);
         clientResources.registerReloadListener(TRIM_PATTERNS_ID, TRIM_PATTERNS);
