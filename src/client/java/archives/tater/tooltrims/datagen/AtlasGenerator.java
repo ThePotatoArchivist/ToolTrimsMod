@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
+import static archives.tater.tooltrims.datagen.ClientTrimOverlayGenerator.trimmedId;
+
 
 public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> {
     protected AtlasGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -31,7 +33,7 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
                 new TrimPermutationsSpriteSource(ToolTrims.id("trims/color_palettes/key"))
         ));
         provider.accept(ToolTrimsClient.TRIDENT_TRIMS_ATLAS, List.of(
-                new SingleTrimPermutationsSpriteSource(ToolTrims.id("trims/tridents/trident_entity"), ToolTrims.id("trims/color_palettes/key"))
+                new SingleTrimPermutationsSpriteSource(trimmedId("trident_entity"), ToolTrims.id("trims/color_palettes/key"))
         ));
     }
 

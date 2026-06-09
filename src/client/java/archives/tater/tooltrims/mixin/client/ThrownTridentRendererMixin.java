@@ -1,6 +1,5 @@
 package archives.tater.tooltrims.mixin.client;
 
-import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.ToolTrimsDataAttachment;
 import archives.tater.tooltrims.client.ToolTrimsClient;
 
@@ -31,6 +30,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static archives.tater.tooltrims.datagen.ClientTrimOverlayGenerator.trimmedId;
 import static net.minecraft.util.Util.memoize;
 
 @Mixin(ThrownTridentRenderer.class)
@@ -54,7 +54,7 @@ public class ThrownTridentRendererMixin {
             var material = ToolTrimsClient.TRIM_MATERIALS.joinEntries().get(trim.material().unwrapKey().orElseThrow().identifier());
             return pattern == null || material == null
                     ? null
-                    : tridentTrimAtlas.getSprite(ToolTrims.id("trims/tridents/trident_entity_" + pattern.suffix() + "_" + material.suffix()));
+                    : tridentTrimAtlas.getSprite(trimmedId("trident_entity_" + pattern.suffix() + "_" + material.suffix()));
         });
     }
 

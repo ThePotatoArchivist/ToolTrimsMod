@@ -98,7 +98,7 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
         return item.builtInRegistryHolder().key().identifier();
     }
 
-    private static Identifier trimmedId(String name) {
+    public static Identifier trimmedId(String name) {
         return ToolTrims.id("trims/items/" + name);
     }
 
@@ -148,8 +148,8 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
                 new UnbakedTrimsModel(trimmedId(itemId(Items.TRIDENT).getPath()), FLAT),
                 conditional(
                         isUsingItem(),
-                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_throwing"), ToolTrims.id("trims/tridents/trident_entity")),
-                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_in_hand"), ToolTrims.id("trims/tridents/trident_entity"))
+                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_throwing"), trimmedId("trident_entity")),
+                        new TexturedTridentModelRenderer.UnbakedTrims(getModelLocation(Items.TRIDENT, "_in_hand"), trimmedId("trident_entity"))
                 )
         ));
 

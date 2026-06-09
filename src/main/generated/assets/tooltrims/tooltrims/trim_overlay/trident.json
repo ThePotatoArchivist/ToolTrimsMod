@@ -24,12 +24,12 @@
       "on_false": {
         "type": "tooltrims:trident_trims",
         "base_model": "minecraft:item/trident_in_hand",
-        "base_path": "tooltrims:trims/tridents/trident_entity"
+        "base_path": "tooltrims:trims/items/trident_entity"
       },
       "on_true": {
         "type": "tooltrims:trident_trims",
         "base_model": "minecraft:item/trident_throwing",
-        "base_path": "tooltrims:trims/tridents/trident_entity"
+        "base_path": "tooltrims:trims/items/trident_entity"
       },
       "property": "minecraft:using_item"
     },
