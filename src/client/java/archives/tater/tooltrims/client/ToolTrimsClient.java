@@ -1,9 +1,11 @@
 package archives.tater.tooltrims.client;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.data.ClientTrimMaterial;
-import archives.tater.tooltrims.client.data.ClientTrimOverlay;
-import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.resource.ClientTrimMaterial;
+import archives.tater.tooltrims.client.data.resource.ClientTrimOverlay;
+import archives.tater.tooltrims.client.data.resource.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.atlas.SingleTrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.data.atlas.TrimPermutationsSpriteSource;
 import archives.tater.tooltrims.client.data.models.item.TexturedTridentModelRenderer;
 import archives.tater.tooltrims.client.data.models.item.TrimPatternProperty;
 import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;

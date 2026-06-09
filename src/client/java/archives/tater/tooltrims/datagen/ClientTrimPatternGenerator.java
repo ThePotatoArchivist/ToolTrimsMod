@@ -1,7 +1,7 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrimsPatterns;
-import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.resource.ClientTrimPattern;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;

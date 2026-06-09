@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.client.data;
+package archives.tater.tooltrims.client.data.resource;
 
 import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;

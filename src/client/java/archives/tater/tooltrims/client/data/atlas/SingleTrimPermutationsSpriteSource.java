@@ -1,4 +1,6 @@
-package archives.tater.tooltrims.client;
+package archives.tater.tooltrims.client.data.atlas;
+
+import archives.tater.tooltrims.client.ToolTrimsClient;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

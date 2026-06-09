@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.objectweb.asm.Opcodes;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.object.projectile.TridentModel;
@@ -25,6 +26,8 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
+import org.jspecify.annotations.Nullable;
+
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -37,22 +40,22 @@ public class ThrownTridentRendererMixin {
     private TridentModel model;
 
     @Unique
-    private Function<ArmorTrim, TextureAtlasSprite> trimSpriteLookup = _ -> {
-        throw new IllegalStateException("Trim sprite lookup not initialized yet");
-    };
+    private Function<ArmorTrim, @Nullable TextureAtlasSprite> trimSpriteLookup = _ -> null;
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(
             method = "<init>",
             at = @At("TAIL")
     )
     private void setTrimSpriteLookup(EntityRendererProvider.Context context, CallbackInfo ci) {
         var tridentTrimAtlas = context.getAtlas(ToolTrimsClient.TRIDENT_TRIMS_ATLAS);
-        trimSpriteLookup = memoize(trim -> tridentTrimAtlas.getSprite(ToolTrims.id(
-                "trims/tridents/trident_entity_" +
-                ToolTrimsClient.TRIM_PATTERNS.joinEntries().get(trim.pattern().unwrapKey().orElseThrow().identifier()).suffix() +
-                "_" +
-                ToolTrimsClient.TRIM_MATERIALS.joinEntries().get(trim.material().unwrapKey().orElseThrow().identifier()).suffix()
-        )));
+        trimSpriteLookup = memoize(trim -> {
+            var pattern = ToolTrimsClient.TRIM_PATTERNS.joinEntries().get(trim.pattern().unwrapKey().orElseThrow().identifier());
+            var material = ToolTrimsClient.TRIM_MATERIALS.joinEntries().get(trim.material().unwrapKey().orElseThrow().identifier());
+            return pattern == null || material == null
+                    ? null
+                    : tridentTrimAtlas.getSprite(ToolTrims.id("trims/tridents/trident_entity_" + pattern.suffix() + "_" + material.suffix()));
+        });
     }
 
     @Inject(
@@ -65,11 +68,13 @@ public class ThrownTridentRendererMixin {
 
     @Inject(
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;isFoil:Z")
+            at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;isFoil:Z", opcode = Opcodes.GETFIELD)
     )
     private void applyTrimTexture(ThrownTridentRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         var trim = state.getDataOrDefault(ToolTrimsClient.TRIDENT_TRIM, Optional.empty()).orElse(null);
         if (trim == null) return;
+        var sprite = trimSpriteLookup.apply(trim);
+        if (sprite == null) return;
         submitNodeCollector.order(1).submitModel(
                 model,
                 Unit.INSTANCE,
@@ -78,7 +83,7 @@ public class ThrownTridentRendererMixin {
                 state.lightCoords,
                 OverlayTexture.NO_OVERLAY,
                 -1,
-                trimSpriteLookup.apply(trim),
+                sprite,
                 state.outlineColor,
                 null
         );

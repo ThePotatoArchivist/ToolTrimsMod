@@ -1,8 +1,8 @@
 package archives.tater.tooltrims.client.data.models.item;
 
 import archives.tater.tooltrims.client.ToolTrimsClient;
-import archives.tater.tooltrims.client.data.ClientTrimMaterial;
-import archives.tater.tooltrims.client.data.ClientTrimPattern;
+import archives.tater.tooltrims.client.data.resource.ClientTrimMaterial;
+import archives.tater.tooltrims.client.data.resource.ClientTrimPattern;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.client.data;
+package archives.tater.tooltrims.client.data.resource;
 
 import archives.tater.tooltrims.ToolTrimsUtil;
 import archives.tater.tooltrims.client.data.util.StoredJsonResourceReloadListener;

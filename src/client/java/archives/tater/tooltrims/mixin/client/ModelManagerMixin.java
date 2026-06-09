@@ -1,7 +1,7 @@
 package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.client.ToolTrimsClient;
-import archives.tater.tooltrims.client.data.ClientTrimOverlay;
+import archives.tater.tooltrims.client.data.resource.ClientTrimOverlay;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;

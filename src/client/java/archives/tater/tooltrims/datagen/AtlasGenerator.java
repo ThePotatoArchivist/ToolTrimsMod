@@ -1,9 +1,9 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.SingleTrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.data.atlas.SingleTrimPermutationsSpriteSource;
 import archives.tater.tooltrims.client.ToolTrimsClient;
-import archives.tater.tooltrims.client.TrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.data.atlas.TrimPermutationsSpriteSource;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
