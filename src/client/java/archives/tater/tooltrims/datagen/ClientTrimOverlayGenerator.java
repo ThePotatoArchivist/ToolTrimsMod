@@ -181,12 +181,12 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
                 when(CrossbowItem.ChargeType.ROCKET, new UnbakedTrimsModel(trimmedId("crossbow_firework"), getModelLocation(Items.CROSSBOW, "_firework")))
         ));
 
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD, Items.DIAMOND_SWORD);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_PICKAXE, Items.DIAMOND_PICKAXE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_AXE, Items.DIAMOND_AXE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SHOVEL, Items.DIAMOND_SHOVEL);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_HOE, Items.DIAMOND_HOE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SPEAR, spear(Items.DIAMOND_SPEAR));
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD, Items.NETHERITE_SWORD);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_PICKAXE, Items.NETHERITE_PICKAXE);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_AXE, Items.NETHERITE_AXE);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SHOVEL, Items.NETHERITE_SHOVEL);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_HOE, Items.NETHERITE_HOE);
+        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SPEAR, spear(Items.NETHERITE_SPEAR));
     }
 
     @Override
