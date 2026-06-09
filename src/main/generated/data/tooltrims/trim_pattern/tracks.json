@@ -2,6 +2,6 @@
   "asset_id": "c:n",
   "decal": false,
   "description": {
-    "translate": "tool_trim_pattern.tooltrims.tracks"
+    "translate": "trim_pattern.tooltrims.tracks"
   }
 }

@@ -26,7 +26,7 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<TrimPattern> {
     private static TrimPattern of(Identifier id) {
         return new TrimPattern(
                 Identifier.fromNamespaceAndPath("c", "n"),
-                Component.translatable(makeDescriptionId("tool_trim_pattern", id)),
+                Component.translatable(makeDescriptionId("trim_pattern", id)),
                 false
         );
     }
