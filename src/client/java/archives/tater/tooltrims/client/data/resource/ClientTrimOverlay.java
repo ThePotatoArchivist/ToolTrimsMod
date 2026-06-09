@@ -31,12 +31,12 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         public static final String PATH = "tooltrims/trim_overlay";
         private static final FileToIdConverter LISTER = FileToIdConverter.json(PATH);
 
-        public static final Identifier FALLBACK_SWORD = ToolTrims.id("sword");
-        public static final Identifier FALLBACK_PICKAXE = ToolTrims.id("pickaxe");
-        public static final Identifier FALLBACK_AXE = ToolTrims.id("axe");
-        public static final Identifier FALLBACK_SHOVEL = ToolTrims.id("shovel");
-        public static final Identifier FALLBACK_HOE = ToolTrims.id("hoe");
-        public static final Identifier FALLBACK_SPEAR = ToolTrims.id("spear");
+        public static final Identifier FALLBACK_SWORD = ToolTrims.id("fallback_sword");
+        public static final Identifier FALLBACK_PICKAXE = ToolTrims.id("fallback_pickaxe");
+        public static final Identifier FALLBACK_AXE = ToolTrims.id("fallback_axe");
+        public static final Identifier FALLBACK_SHOVEL = ToolTrims.id("fallback_shovel");
+        public static final Identifier FALLBACK_HOE = ToolTrims.id("fallback_hoe");
+        public static final Identifier FALLBACK_SPEAR = ToolTrims.id("fallback_spear");
         private static final Map<Identifier, Identifier> FALLBACKS = BuiltInRegistries.ITEM.keySet().stream().map(item -> {
             var fallback = getFallback(item);
             return fallback == null ? null : entry(item, fallback);
