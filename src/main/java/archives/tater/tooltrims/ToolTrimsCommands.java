@@ -6,7 +6,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -32,39 +31,40 @@ public class ToolTrimsCommands {
                 dispatcher.register(literal("tooltrims")
                     .then(literal("migrate")
                             .executes(ctx -> {
-                                migrate(registryAccess, ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getIndex(LivingEntity.EQUIPMENT_SLOT_OFFSET), false);
+                                migrate(ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getIndex(LivingEntity.EQUIPMENT_SLOT_OFFSET), false);
                                 return 1;
                             })
                             .then(Commands.argument("slot", SlotArgument.slot()).executes(ctx -> {
-                                migrate(registryAccess, ctx, ctx.getSource().getPlayer(), SlotArgument.getSlot(ctx, "slot"), false);
+                                migrate(ctx, ctx.getSource().getPlayer(), SlotArgument.getSlot(ctx, "slot"), false);
                                 return 1;
                             })
                             .then(Commands.argument("target", EntityArgument.player()).executes(ctx -> {
-                                migrate(registryAccess, ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), false);
+                                migrate(ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), false);
                                 return 1;
                             }))))
                     .then(literal("demigrate")
                             .executes(ctx -> {
-                                migrate(registryAccess, ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getIndex(LivingEntity.EQUIPMENT_SLOT_OFFSET), true);
+                                migrate(ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getIndex(LivingEntity.EQUIPMENT_SLOT_OFFSET), true);
                                 return 1;
                             })
                             .then(Commands.argument("slot", SlotArgument.slot()).executes(ctx -> {
-                                migrate(registryAccess, ctx, ctx.getSource().getPlayer(), SlotArgument.getSlot(ctx, "slot"), true);
+                                migrate(ctx, ctx.getSource().getPlayer(), SlotArgument.getSlot(ctx, "slot"), true);
                                 return 1;
                             })
                             .then(Commands.argument("target", EntityArgument.player()).executes(ctx -> {
-                                migrate(registryAccess, ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), true);
+                                migrate(ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), true);
                                 return 1;
                             }))))
         ));
     }
 
-    public static void migrate(CommandBuildContext registries, CommandContext<CommandSourceStack> ctx, @Nullable ServerPlayer player, int slot, boolean reverse) throws CommandSyntaxException {
+    public static void migrate(CommandContext<CommandSourceStack> ctx, @Nullable ServerPlayer player, int slot, boolean reverse) throws CommandSyntaxException {
         if (!ToolTrimsDPCompat.isDatapackRunning(ctx.getSource().getServer())) throw ERROR_MISSING_DATAPACK.create();
         if (player == null) throw ERROR_NOPLAYER.create();
         var stackReference = player.getSlot(slot);
+        if (stackReference == null) return;
         var currentStack = stackReference.get();
-        var newStack = reverse ? ToolTrimsDPCompat.demigrateItem(player.level(), registries, currentStack) : ToolTrimsDPCompat.migrateItem(player.level(), currentStack);
+        var newStack = reverse ? ToolTrimsDPCompat.demigrateItem(player.level(), currentStack) : ToolTrimsDPCompat.migrateItem(currentStack);
         if (newStack == null)
             throw (reverse ? DEMIGRATE_FAIL : MIGRATE_FAIL).create(currentStack.getDisplayName());
         stackReference.set(newStack);
