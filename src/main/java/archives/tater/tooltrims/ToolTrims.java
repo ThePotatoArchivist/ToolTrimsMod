@@ -1,7 +1,6 @@
 package archives.tater.tooltrims;
 
 import archives.tater.tooltrims.item.ToolTrimsItems;
-import archives.tater.tooltrims.loot.ToolTrimsLoot;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -30,7 +29,6 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsPatterns.register();
 		ToolTrimsItems.register();
 		ToolTrimsTags.register();
-		ToolTrimsLoot.register();
 		ToolTrimsGamerules.register();
 		ToolTrimsCommands.register();
 		ToolTrimsDPCompat.register();

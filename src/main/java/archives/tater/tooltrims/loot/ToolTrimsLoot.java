@@ -1,13 +1,10 @@
 package archives.tater.tooltrims.loot;
 
 import archives.tater.tooltrims.ToolTrims;
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 
 public class ToolTrimsLoot {
     private static ResourceKey<LootTable> idInject(ResourceKey<LootTable> lootTable) {
@@ -72,47 +69,47 @@ public class ToolTrimsLoot {
             new AddEntry(BuiltInLootTables.WOODLAND_MANSION, 3, MANSION_INJECT, 1)
     };
 
-    public static void register() {
-
-        LootTableEvents.MODIFY.register((key, builder, source, _) -> {
-            if (!source.isBuiltin()) return;
-
-            var needsModification = false;
-
-            for (var entry : MODIFY_ENTRIES) {
-                if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
-
-                if (entry instanceof AddPoolEntry addPoolEntry)
-                    builder.withPool(LootPool.lootPool()
-                            .add(NestedLootTable.lootTableReference(addPoolEntry.injectTableId)));
-                else if (entry instanceof PoolModifyEntry)
-                    needsModification = true;
-            }
-
-            if (!needsModification) return;
-
-            ((ReplaceablePools) builder).tooltrims$modifyPoolEntries((entries, index) -> {
-                for (var entry : MODIFY_ENTRIES) {
-                    if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
-                    if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != index) continue;
-
-                    switch (entry) {
-                        case AddEntry addEntry -> {
-                            var lootEntry = NestedLootTable.lootTableReference(addEntry.injectTable);
-                            if (addEntry.weight != 1)
-                                lootEntry.setWeight(addEntry.weight);
-                            entries.add(lootEntry.build());
-                        }
-                        case DeleteEntry deleteEntry -> entries.remove(deleteEntry.entryIndex);
-                        case ChangeWeightEntry changeWeightEntry -> {
-                            if (changeWeightEntry.entryIndex < entries.size() && entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry)
-                                entries.set(changeWeightEntry.entryIndex, (LootPoolEntryContainer) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
-                        }
-                        default -> {
-                        }
-                    }
-                }
-            });
-        });
-    }
+//    public static void register() {
+//
+//        LootTableEvents.MODIFY.register((key, builder, source, _) -> {
+//            if (!source.isBuiltin()) return;
+//
+//            var needsModification = false;
+//
+//            for (var entry : MODIFY_ENTRIES) {
+//                if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
+//
+//                if (entry instanceof AddPoolEntry addPoolEntry)
+//                    builder.withPool(LootPool.lootPool()
+//                            .add(NestedLootTable.lootTableReference(addPoolEntry.injectTableId)));
+//                else if (entry instanceof PoolModifyEntry)
+//                    needsModification = true;
+//            }
+//
+//            if (!needsModification) return;
+//
+//            ((ReplaceablePools) builder).tooltrims$modifyPoolEntries((entries, index) -> {
+//                for (var entry : MODIFY_ENTRIES) {
+//                    if (!(entry.targetTable().identifier().equals(key.identifier()))) continue;
+//                    if (!(entry instanceof PoolModifyEntry poolModifyEntry) || poolModifyEntry.poolIndex() != index) continue;
+//
+//                    switch (entry) {
+//                        case AddEntry addEntry -> {
+//                            var lootEntry = NestedLootTable.lootTableReference(addEntry.injectTable);
+//                            if (addEntry.weight != 1)
+//                                lootEntry.setWeight(addEntry.weight);
+//                            entries.add(lootEntry.build());
+//                        }
+//                        case DeleteEntry deleteEntry -> entries.remove(deleteEntry.entryIndex);
+//                        case ChangeWeightEntry changeWeightEntry -> {
+//                            if (changeWeightEntry.entryIndex < entries.size() && entries.get(changeWeightEntry.entryIndex) instanceof CopyWithWeight<?> copyableEntry)
+//                                entries.set(changeWeightEntry.entryIndex, (LootPoolEntryContainer) copyableEntry.tooltrims$copy(changeWeightEntry.weightChange));
+//                        }
+//                        default -> {
+//                        }
+//                    }
+//                }
+//            });
+//        });
+//    }
 }

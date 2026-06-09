@@ -21,7 +21,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(TTRecipeGenerator.Provider::new);
 		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(AdvancementGenerator::new);
-		pack.addProvider(LootTableGenerator::new);
+		pack.addProvider(LootModifierGenerator::new);
 		pack.addProvider(ModelGenerator::new);
 		pack.addProvider(ClientTrimPatternGenerator::new);
 		pack.addProvider(ClientTrimMaterialGenerator::new);

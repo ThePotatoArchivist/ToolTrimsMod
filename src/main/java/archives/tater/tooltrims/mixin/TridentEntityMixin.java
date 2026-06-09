@@ -30,7 +30,9 @@ public abstract class TridentEntityMixin extends AbstractArrow {
     private void syncTrim(CallbackInfo ci) {
         if (level().isClientSide()) return;
         var trim = getPickupItemStackOrigin().get(DataComponents.TRIM);
-        if (trim != null)
+        if (trim == null)
+            removeAttached(ToolTrimsDataAttachment.TRIDENT_TRIM);
+        else
             setAttached(ToolTrimsDataAttachment.TRIDENT_TRIM, trim);
     }
 }
