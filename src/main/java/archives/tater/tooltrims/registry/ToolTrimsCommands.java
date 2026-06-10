@@ -1,4 +1,6 @@
-package archives.tater.tooltrims;
+package archives.tater.tooltrims.registry;
+
+import archives.tater.tooltrims.ToolTrimsDPCompat;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
@@ -26,8 +28,8 @@ public class ToolTrimsCommands {
     private static final DynamicCommandExceptionType MIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Component.translatable("commands.tooltrims.migrate.error.fail", itemText));
     private static final DynamicCommandExceptionType DEMIGRATE_FAIL = new DynamicCommandExceptionType(itemText -> Component.translatable("commands.tooltrims.demigrate.error.fail", itemText));
 
-    public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+    public static void init() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, _, _) ->
                 dispatcher.register(literal("tooltrims")
                     .then(literal("migrate")
                             .executes(ctx -> {
@@ -41,7 +43,8 @@ public class ToolTrimsCommands {
                             .then(Commands.argument("target", EntityArgument.player()).executes(ctx -> {
                                 migrate(ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), false);
                                 return 1;
-                            }))))
+                            }))
+                    ))
                     .then(literal("demigrate")
                             .executes(ctx -> {
                                 migrate(ctx, ctx.getSource().getPlayer(), EquipmentSlot.MAINHAND.getIndex(LivingEntity.EQUIPMENT_SLOT_OFFSET), true);
@@ -54,7 +57,8 @@ public class ToolTrimsCommands {
                             .then(Commands.argument("target", EntityArgument.player()).executes(ctx -> {
                                 migrate(ctx, EntityArgument.getPlayer(ctx, "target"), SlotArgument.getSlot(ctx, "slot"), true);
                                 return 1;
-                            }))))
+                            }))
+                    ))
         ));
     }
 

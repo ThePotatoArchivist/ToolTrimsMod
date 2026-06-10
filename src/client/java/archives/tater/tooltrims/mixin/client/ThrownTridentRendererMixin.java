@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.mixin.client;
 
-import archives.tater.tooltrims.ToolTrimsDataAttachment;
+import archives.tater.tooltrims.registry.ToolTrimsAttachments;
 import archives.tater.tooltrims.client.ToolTrimsClient;
 
 import org.spongepowered.asm.mixin.Final;
@@ -63,7 +63,7 @@ public class ThrownTridentRendererMixin {
             at = @At("TAIL")
     )
     private void addTrimState(ThrownTrident entity, ThrownTridentRenderState state, float partialTicks, CallbackInfo ci) {
-        state.setData(ToolTrimsClient.TRIDENT_TRIM, Optional.ofNullable(entity.getAttached(ToolTrimsDataAttachment.TRIDENT_TRIM)));
+        state.setData(ToolTrimsClient.TRIDENT_TRIM, Optional.ofNullable(entity.getAttached(ToolTrimsAttachments.TRIDENT_TRIM)));
     }
 
     @Inject(

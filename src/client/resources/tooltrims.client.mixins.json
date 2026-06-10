@@ -1,18 +1,15 @@
 {
   "required": true,
   "package": "archives.tater.tooltrims.mixin.client",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_25",
   "client": [
-    "ItemModelGeneratorAccessor",
-    "ThrownTridentRendererMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "mixins": [
+    "ThrownTridentRendererMixin",
     "AtlasManagerMixin",
     "ModelManagerMixin",
     "ModelTemplateAccessor",
     "SpriteSourcesAccessor"
-  ]
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

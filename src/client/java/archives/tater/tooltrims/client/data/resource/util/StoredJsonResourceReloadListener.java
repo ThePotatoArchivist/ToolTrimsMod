@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.client.data.util;
+package archives.tater.tooltrims.client.data.resource.util;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;

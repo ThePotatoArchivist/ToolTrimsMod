@@ -1,7 +1,7 @@
-package archives.tater.tooltrims.item;
+package archives.tater.tooltrims.registry;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.ToolTrimsPatterns;
+import archives.tater.tooltrims.item.ToolTrimSmithingTemplate;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 
@@ -31,31 +31,32 @@ public class ToolTrimsItems {
     }
 
     private static Item registerToolTemplate(String name, Rarity rarity) {
-        return register(name + "_template", ToolTrimSmithingTemplate::of, new Item.Properties()
+        return register(name + "_template", ToolTrimSmithingTemplate::create, new Item.Properties()
                 .rarity(rarity)
                 .overrideDescription(makeDescriptionId("trim_pattern", ToolTrims.id(name)))
         );
     }
 
-    public static final Item LINEAR_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("linear", Rarity.UNCOMMON);
-    public static final Item TRACKS_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("tracks", Rarity.UNCOMMON);
-    public static final Item CHARGE_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("charge", Rarity.EPIC);
-    public static final Item FROST_TOOL_TRIM_SMITHING_TEMPLATE = registerToolTemplate("frost", Rarity.UNCOMMON);
+    public static final Item LINEAR_TEMPLATE = registerToolTemplate("linear", Rarity.UNCOMMON);
+    public static final Item TRACKS_TEMPLATE = registerToolTemplate("tracks", Rarity.UNCOMMON);
+    public static final Item CHARGE_TEMPLATE = registerToolTemplate("charge", Rarity.EPIC);
+    public static final Item FROST_TEMPLATE = registerToolTemplate("frost", Rarity.UNCOMMON);
 
     public static final Map<ResourceKey<TrimPattern>, Item> SMITHING_TEMPLATES = Map.of(
-            ToolTrimsPatterns.LINEAR, LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
-            ToolTrimsPatterns.TRACKS, TRACKS_TOOL_TRIM_SMITHING_TEMPLATE,
-            ToolTrimsPatterns.CHARGE, CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,
-            ToolTrimsPatterns.FROST, FROST_TOOL_TRIM_SMITHING_TEMPLATE
+            ToolTrimsPatterns.LINEAR, LINEAR_TEMPLATE,
+            ToolTrimsPatterns.TRACKS, TRACKS_TEMPLATE,
+            ToolTrimsPatterns.CHARGE, CHARGE_TEMPLATE,
+            ToolTrimsPatterns.FROST, FROST_TEMPLATE
     );
 
-    public static void register() {
+    public static void init() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(output ->
             output.insertAfter(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE,
-                    LINEAR_TOOL_TRIM_SMITHING_TEMPLATE,
-                    TRACKS_TOOL_TRIM_SMITHING_TEMPLATE,
-                    CHARGE_TOOL_TRIM_SMITHING_TEMPLATE,
-                    FROST_TOOL_TRIM_SMITHING_TEMPLATE)
+                    LINEAR_TEMPLATE,
+                    TRACKS_TEMPLATE,
+                    CHARGE_TEMPLATE,
+                    FROST_TEMPLATE
+            )
         );
 
         for (var pattern : ToolTrimsPatterns.PATTERNS) {

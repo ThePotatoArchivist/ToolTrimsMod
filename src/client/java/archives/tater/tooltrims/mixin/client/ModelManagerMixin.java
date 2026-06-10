@@ -29,7 +29,6 @@ import static net.minecraft.util.Util.toMap;
 @Mixin(ModelManager.class)
 public class ModelManagerMixin {
 
-
     @ModifyExpressionValue(method = "reload", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/ClientItemInfoLoader;scheduleLoad(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
     private CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> hookBlockStateModels(CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> original) {
         return original.thenCombine(ToolTrimsClient.TRIM_OVERLAYS.overlays(), (infos, overlays) -> new ClientItemInfoLoader.LoadedClientInfos(infos.contents().entrySet().stream()

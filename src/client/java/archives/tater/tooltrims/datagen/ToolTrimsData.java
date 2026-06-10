@@ -9,7 +9,6 @@ import net.minecraft.core.registries.Registries;
 public class ToolTrimsData implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
 		registryBuilder.add(Registries.TRIM_PATTERN, TrimPatternGenerator::boostrap);
 	}
 

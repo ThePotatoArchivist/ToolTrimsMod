@@ -1,12 +1,9 @@
 package archives.tater.tooltrims;
 
-import archives.tater.tooltrims.item.ToolTrimsItems;
+import archives.tater.tooltrims.registry.ToolTrimsItems;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
-import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -26,22 +23,15 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.jspecify.annotations.Nullable;
 
 public class ToolTrimsDPCompat {
-    public static void register() {
-        ResourceLoader.registerBuiltinPack(
-                ToolTrims.id("legacy"),
-                FabricLoader.getInstance().getModContainer(ToolTrims.MOD_ID).orElseThrow(),
-                Component.literal("Tool Trims Legacy"),
-                PackActivationType.NORMAL
-        );
-
+    public static void init() {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             if (isDatapackRunning(server))
                 ToolTrims.LOGGER.warn(Component.translatable("tooltrims.warning.datapack_running").getString());
         });
 
-        ServerPlayConnectionEvents.JOIN.register((handler, _, server) -> {
+        ServerPlayConnectionEvents.JOIN.register((listener, _, server) -> {
             if (!server.isPublished() && isDatapackRunning(server))
-                handler.player.sendSystemMessage(Component.translatable("tooltrims.warning.datapack_running").withStyle(ChatFormatting.GOLD));
+                listener.player.sendSystemMessage(Component.translatable("tooltrims.warning.datapack_running").withStyle(ChatFormatting.GOLD));
         });
     }
 
@@ -51,11 +41,11 @@ public class ToolTrimsDPCompat {
                 .stream().anyMatch(function -> function.id().equals(Identifier.fromNamespaceAndPath("tooltrims", "load_wait")));
     }
 
-    private static @Nullable Item getMigratedItem(ItemStack dpTemplate) {
-        if (dpTemplate.is(Items.TADPOLE_SPAWN_EGG)) return ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE;
-        if (dpTemplate.is(Items.SILVERFISH_SPAWN_EGG)) return ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE;
-        if (dpTemplate.is(Items.COD_SPAWN_EGG)) return ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE;
-        if (dpTemplate.is(Items.SNOW_GOLEM_SPAWN_EGG)) return ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE;
+    private static @Nullable Item getMigratedItem(ItemStack stack) {
+        if (stack.is(Items.TADPOLE_SPAWN_EGG)) return ToolTrimsItems.LINEAR_TEMPLATE;
+        if (stack.is(Items.SILVERFISH_SPAWN_EGG)) return ToolTrimsItems.TRACKS_TEMPLATE;
+        if (stack.is(Items.COD_SPAWN_EGG)) return ToolTrimsItems.CHARGE_TEMPLATE;
+        if (stack.is(Items.SNOW_GOLEM_SPAWN_EGG)) return ToolTrimsItems.FROST_TEMPLATE;
         return null;
     }
 
@@ -72,10 +62,10 @@ public class ToolTrimsDPCompat {
     }
 
     private static @Nullable Identifier getTemplateLootTable(ItemStack template) {
-        if (template.is(ToolTrimsItems.LINEAR_TOOL_TRIM_SMITHING_TEMPLATE)) return ToolTrims.id("linear_template");
-        if (template.is(ToolTrimsItems.TRACKS_TOOL_TRIM_SMITHING_TEMPLATE)) return ToolTrims.id("tracks_template");
-        if (template.is(ToolTrimsItems.CHARGE_TOOL_TRIM_SMITHING_TEMPLATE)) return ToolTrims.id("charge_template");
-        if (template.is(ToolTrimsItems.FROST_TOOL_TRIM_SMITHING_TEMPLATE)) return ToolTrims.id("frost_template");
+        if (template.is(ToolTrimsItems.LINEAR_TEMPLATE)) return ToolTrims.id("linear_template");
+        if (template.is(ToolTrimsItems.TRACKS_TEMPLATE)) return ToolTrims.id("tracks_template");
+        if (template.is(ToolTrimsItems.CHARGE_TEMPLATE)) return ToolTrims.id("charge_template");
+        if (template.is(ToolTrimsItems.FROST_TEMPLATE)) return ToolTrims.id("frost_template");
         return null;
     }
 

@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.ToolTrimsPatterns;
+import archives.tater.tooltrims.registry.ToolTrimsPatterns;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
@@ -25,7 +25,7 @@ public class TrimPatternGenerator extends FabricCodecDataProvider<TrimPattern> {
 
     private static TrimPattern of(Identifier id) {
         return new TrimPattern(
-                Identifier.fromNamespaceAndPath("c", "n"),
+                Identifier.fromNamespaceAndPath("minecraft", "missingno"),
                 Component.translatable(makeDescriptionId("trim_pattern", id)),
                 false
         );

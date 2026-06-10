@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.mixin;
 
-import archives.tater.tooltrims.ToolTrimsDataAttachment;
+import archives.tater.tooltrims.registry.ToolTrimsAttachments;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,9 +14,10 @@ import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.level.Level;
 
 @Mixin(ThrownTrident.class)
-public abstract class TridentEntityMixin extends AbstractArrow {
-    protected TridentEntityMixin(EntityType<? extends AbstractArrow> entityType, Level world) {
-        super(entityType, world);
+public abstract class ThrownTridentMixin extends AbstractArrow {
+
+    protected ThrownTridentMixin(EntityType<? extends AbstractArrow> type, Level level) {
+        super(type, level);
     }
 
     @Inject(
@@ -31,8 +32,8 @@ public abstract class TridentEntityMixin extends AbstractArrow {
         if (level().isClientSide()) return;
         var trim = getPickupItemStackOrigin().get(DataComponents.TRIM);
         if (trim == null)
-            removeAttached(ToolTrimsDataAttachment.TRIDENT_TRIM);
+            removeAttached(ToolTrimsAttachments.TRIDENT_TRIM);
         else
-            setAttached(ToolTrimsDataAttachment.TRIDENT_TRIM, trim);
+            setAttached(ToolTrimsAttachments.TRIDENT_TRIM, trim);
     }
 }

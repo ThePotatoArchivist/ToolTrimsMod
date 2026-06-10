@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.ToolTrimsTags;
+import archives.tater.tooltrims.registry.ToolTrimsTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -13,8 +13,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
 
-    public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(output, completableFuture, null);
+    public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override

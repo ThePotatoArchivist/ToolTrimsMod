@@ -1,4 +1,4 @@
 @NullMarked
-package archives.tater.tooltrims.client.data.util;
+package archives.tater.tooltrims.registry;
 
 import org.jspecify.annotations.NullMarked;

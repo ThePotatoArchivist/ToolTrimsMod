@@ -39,6 +39,6 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
 
     @Override
     public String getName() {
-        return "Atlas";
+        return "Atlases";
     }
 }

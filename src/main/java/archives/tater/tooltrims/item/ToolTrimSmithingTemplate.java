@@ -33,7 +33,7 @@ public class ToolTrimSmithingTemplate {
     public static final Identifier EMPTY_SLOT_TRIDENT = ToolTrims.id("container/slot/trident");
     public static final Identifier EMPTY_SLOT_MACE = ToolTrims.id("container/slot/mace");
 
-    public static SmithingTemplateItem of(Item.Properties settings) {
+    public static SmithingTemplateItem create(Item.Properties settings) {
         return new SmithingTemplateItem(
                 APPLIES_TO,
                 INGREDIENTS,

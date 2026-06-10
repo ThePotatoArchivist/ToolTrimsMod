@@ -1,6 +1,6 @@
 package archives.tater.tooltrims;
 
-import archives.tater.tooltrims.item.ToolTrimsItems;
+import archives.tater.tooltrims.registry.*;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -26,12 +26,11 @@ public class ToolTrims implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		ToolTrimsPatterns.register();
-		ToolTrimsItems.register();
-		ToolTrimsTags.register();
-		ToolTrimsGamerules.register();
-		ToolTrimsCommands.register();
-		ToolTrimsDPCompat.register();
-		ToolTrimsDataAttachment.register();
+		ToolTrimsPatterns.init();
+		ToolTrimsItems.init();
+		ToolTrimsTags.init();
+		ToolTrimsCommands.init();
+		ToolTrimsDPCompat.init();
+		ToolTrimsAttachments.init();
 	}
 }
