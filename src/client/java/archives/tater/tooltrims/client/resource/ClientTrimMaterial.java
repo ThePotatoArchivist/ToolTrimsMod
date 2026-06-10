@@ -1,7 +1,7 @@
-package archives.tater.tooltrims.client.data.resource;
+package archives.tater.tooltrims.client.resource;
 
 import archives.tater.tooltrims.ToolTrimsUtil;
-import archives.tater.tooltrims.client.data.resource.util.StoredJsonResourceReloadListener;
+import archives.tater.tooltrims.client.resource.util.StoredJsonResourceReloadListener;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

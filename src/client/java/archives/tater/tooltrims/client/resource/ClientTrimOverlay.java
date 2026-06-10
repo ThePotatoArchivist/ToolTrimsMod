@@ -1,8 +1,8 @@
-package archives.tater.tooltrims.client.data.resource;
+package archives.tater.tooltrims.client.resource;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
-import archives.tater.tooltrims.client.data.resource.util.PreparationJsonResourceReloadListener;
+import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.resource.util.PreparationJsonResourceReloadListener;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

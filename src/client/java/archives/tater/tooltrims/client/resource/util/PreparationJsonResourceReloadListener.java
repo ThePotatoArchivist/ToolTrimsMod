@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.client.data.resource.util;
+package archives.tater.tooltrims.client.resource.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;

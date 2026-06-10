@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.client.data.models.item;
+package archives.tater.tooltrims.client.item;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

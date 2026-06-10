@@ -1,9 +1,9 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.data.resource.ClientTrimOverlay;
-import archives.tater.tooltrims.client.data.models.item.TexturedTridentModelRenderer;
-import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
+import archives.tater.tooltrims.client.item.TexturedTridentModelRenderer;
+import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.mixin.client.ModelTemplateAccessor;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;

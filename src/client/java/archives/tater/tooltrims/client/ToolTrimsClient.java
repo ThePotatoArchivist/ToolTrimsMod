@@ -1,14 +1,14 @@
 package archives.tater.tooltrims.client;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.data.resource.ClientTrimMaterial;
-import archives.tater.tooltrims.client.data.resource.ClientTrimOverlay;
-import archives.tater.tooltrims.client.data.resource.ClientTrimPattern;
-import archives.tater.tooltrims.client.data.atlas.SingleTrimPermutationsSpriteSource;
-import archives.tater.tooltrims.client.data.atlas.TrimPermutationsSpriteSource;
-import archives.tater.tooltrims.client.data.models.item.TexturedTridentModelRenderer;
-import archives.tater.tooltrims.client.data.models.item.TrimPatternProperty;
-import archives.tater.tooltrims.client.data.models.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
+import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
+import archives.tater.tooltrims.client.resource.ClientTrimPattern;
+import archives.tater.tooltrims.client.atlas.SingleTrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.atlas.TrimPermutationsSpriteSource;
+import archives.tater.tooltrims.client.item.TexturedTridentModelRenderer;
+import archives.tater.tooltrims.client.item.TrimPatternProperty;
+import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
