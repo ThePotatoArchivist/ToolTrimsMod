@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "tooltrims:linear_template"
+            "items": "tooltrims:tracks_template"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tooltrims:linear_tool_trim_smithing_template_smithing_trim"
+        "recipe": "tooltrims:tracks_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tooltrims:linear_tool_trim_smithing_template_smithing_trim"
+      "tooltrims:tracks_template_smithing_trim"
     ]
   }
 }

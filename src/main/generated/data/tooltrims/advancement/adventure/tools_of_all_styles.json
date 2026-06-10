@@ -3,25 +3,25 @@
   "criteria": {
     "tool_trimmed_tooltrims:charge": {
       "conditions": {
-        "recipe_id": "tooltrims:charge_tool_trim_smithing_template_smithing_trim"
+        "recipe_id": "tooltrims:charge_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_crafted"
     },
     "tool_trimmed_tooltrims:frost": {
       "conditions": {
-        "recipe_id": "tooltrims:frost_tool_trim_smithing_template_smithing_trim"
+        "recipe_id": "tooltrims:frost_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_crafted"
     },
     "tool_trimmed_tooltrims:linear": {
       "conditions": {
-        "recipe_id": "tooltrims:linear_tool_trim_smithing_template_smithing_trim"
+        "recipe_id": "tooltrims:linear_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_crafted"
     },
     "tool_trimmed_tooltrims:tracks": {
       "conditions": {
-        "recipe_id": "tooltrims:tracks_tool_trim_smithing_template_smithing_trim"
+        "recipe_id": "tooltrims:tracks_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_crafted"
     }

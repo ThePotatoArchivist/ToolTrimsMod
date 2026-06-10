@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tooltrims:charge_tool_trim_smithing_template_smithing_trim"
+        "recipe": "tooltrims:charge_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tooltrims:charge_tool_trim_smithing_template_smithing_trim"
+      "tooltrims:charge_template_smithing_trim"
     ]
   }
 }

@@ -36,7 +36,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             var id = pattern.identifier();
-            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(ResourceKey.create(Registries.RECIPE, id.withSuffix("_tool_trim_smithing_template_smithing_trim"))));
+            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(ResourceKey.create(Registries.RECIPE, id.withSuffix("_template_smithing_trim"))));
         }
         return builder;
     }
