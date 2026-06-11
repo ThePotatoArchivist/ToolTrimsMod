@@ -43,7 +43,7 @@ public class TexturedTridentModelRenderer implements NoDataSpecialModelRenderer 
     public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
         poseStack.pushPose();
         poseStack.scale(1.0F, -1.0F, -1.0F);
-        submitNodeCollector.order(1).submitModelPart(model.root(), poseStack, ToolTrimsClient.TRIDENT_TRIMS_RENDER_TYPE, lightCoords, overlayCoords, sprites.get(sprite), true, hasFoil, -1, null, outlineColor);
+        submitNodeCollector.order(1).submitModelPart(model.root(), poseStack, ToolTrimsClient.TRIDENT_TRIMS_RENDER_TYPE, lightCoords, overlayCoords, sprites.get(sprite), -1, null, outlineColor);
         poseStack.popPose();
     }
 
