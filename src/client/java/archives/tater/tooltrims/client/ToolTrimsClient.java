@@ -1,14 +1,14 @@
 package archives.tater.tooltrims.client;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
-import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
-import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 import archives.tater.tooltrims.client.atlas.SingleTrimPermutationsSpriteSource;
 import archives.tater.tooltrims.client.atlas.TrimPermutationsSpriteSource;
 import archives.tater.tooltrims.client.item.TexturedTridentModelRenderer;
 import archives.tater.tooltrims.client.item.TrimPatternProperty;
 import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
+import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
+import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -17,7 +17,6 @@ import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -59,7 +58,7 @@ public class ToolTrimsClient implements ClientModInitializer {
                                         null,
                                         null,
                                         null,
-                                        new TextureSlots.Data.Builder().addTexture(TextureSlot.LAYER0.getId(), new Material(modelId)).build(),
+                                        new TextureSlots.Data.Builder().addTexture(model.textureSlot(), new Material(modelId)).build(),
                                         model.parent()
                                 ));
                             }

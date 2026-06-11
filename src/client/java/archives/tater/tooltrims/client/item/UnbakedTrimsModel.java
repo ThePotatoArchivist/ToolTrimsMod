@@ -4,6 +4,7 @@ import archives.tater.tooltrims.client.ToolTrimsClient;
 import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
 import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.data.models.model.ItemModelUtils;
@@ -18,11 +19,18 @@ import org.joml.Matrix4fc;
 
 import static net.minecraft.client.data.models.model.ItemModelUtils.*;
 
-public record UnbakedTrimsModel(Identifier basePath, Identifier parent) implements ItemModel.Unbaked {
+public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String textureSlot) implements ItemModel.Unbaked {
+
+    public static final String LAYER0 = "layer0";
     public static final MapCodec<UnbakedTrimsModel> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Identifier.CODEC.fieldOf("base_path").forGetter(UnbakedTrimsModel::basePath),
-            Identifier.CODEC.fieldOf("parent").forGetter(UnbakedTrimsModel::parent)
+            Identifier.CODEC.fieldOf("parent").forGetter(UnbakedTrimsModel::parent),
+            Codec.STRING.optionalFieldOf("texture_slot", LAYER0).forGetter(UnbakedTrimsModel::textureSlot)
     ).apply(instance, UnbakedTrimsModel::new));
+
+    public UnbakedTrimsModel(Identifier basePath, Identifier parent) {
+        this(basePath, parent, LAYER0);
+    }
 
     @Override
     public MapCodec<? extends ItemModel.Unbaked> type() {
