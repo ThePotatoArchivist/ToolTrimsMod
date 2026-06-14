@@ -4,6 +4,8 @@ import archives.tater.tooltrims.client.ToolTrimsClient;
 import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
 import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 
+import net.fabricmc.loader.api.FabricLoader;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,6 +19,8 @@ import net.minecraft.resources.ResourceKey;
 
 import org.joml.Matrix4fc;
 
+import java.util.Map;
+
 import static net.minecraft.client.data.models.model.ItemModelUtils.*;
 
 public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String textureSlot) implements ItemModel.Unbaked {
@@ -27,6 +31,8 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String t
             Identifier.CODEC.fieldOf("parent").forGetter(UnbakedTrimsModel::parent),
             Codec.STRING.optionalFieldOf("texture_slot", LAYER0).forGetter(UnbakedTrimsModel::textureSlot)
     ).apply(instance, UnbakedTrimsModel::new));
+
+    private static final boolean TRIM_PATCHER_INSTALLED = FabricLoader.getInstance().isModLoaded("trimpatcher");
 
     public UnbakedTrimsModel(Identifier basePath, Identifier parent) {
         this(basePath, parent, LAYER0);
@@ -47,13 +53,17 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String t
                                 new TrimMaterialProperty(),
                                 new EmptyModel.Unbaked(),
                                 ToolTrimsClient.TRIM_MATERIALS.joinEntries().entrySet().stream().map(material ->
-                                        when(ResourceKey.create(Registries.TRIM_MATERIAL, material.getKey()), plainModel(
+                                        when(ResourceKey.create(Registries.TRIM_MATERIAL, getId(material)), plainModel(
                                                 createModelId(pattern.getValue(), material.getValue())
                                         ))
                                 ).toList()
                         ))
                 ).toList()
         ).bake(context, transformation);
+    }
+
+    private static Identifier getId(Map.Entry<Identifier, ClientTrimMaterial> material) {
+        return TRIM_PATCHER_INSTALLED ? Identifier.withDefaultNamespace(material.getKey().getPath()) : material.getKey();
     }
 
     public static Identifier createModelId(Identifier basePath, ClientTrimPattern pattern, ClientTrimMaterial material) {

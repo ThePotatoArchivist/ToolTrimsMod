@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "progression_reborn"
+    ]
+  },
+  "asset_name": "progression_reborn:trims/color_palettes/rose",
+  "suffix": "progression_reborn_rose"
+}
