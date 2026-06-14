@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "end_reborn"
+    ]
+  },
+  "asset_name": "end_reborn:trims/color_palettes/crystalline",
+  "suffix": "end_reborn_crystalline"
+}
