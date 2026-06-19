@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "enderite"
+    ]
+  },
+  "asset_name": "enderite:trims/color_palettes/enderite",
+  "suffix": "enderite_enderite"
+}
