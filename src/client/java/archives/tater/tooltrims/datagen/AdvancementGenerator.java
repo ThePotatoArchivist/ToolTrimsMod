@@ -1,8 +1,8 @@
 package archives.tater.tooltrims.datagen;
 
 import archives.tater.tooltrims.ToolTrims;
-import archives.tater.tooltrims.registry.ToolTrimsItems;
 import archives.tater.tooltrims.registry.ToolTrimsPatterns;
+import archives.tater.tooltrims.registry.ToolTrimsItems;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -11,7 +11,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.triggers.RecipeCraftedTrigger;
+import net.minecraft.advancements.criterion.RecipeCraftedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentPatch;

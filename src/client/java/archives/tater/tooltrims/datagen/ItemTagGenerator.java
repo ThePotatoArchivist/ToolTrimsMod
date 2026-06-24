@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.references.ItemIds;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,16 +19,18 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        builder(ToolTrimsTags.TRIMMABLE_TOOLS)
+        valueLookupBuilder(ToolTrimsTags.TRIMMABLE_TOOLS)
                 .forceAddTag(ItemTags.SWORDS)
                 .forceAddTag(ItemTags.PICKAXES)
                 .forceAddTag(ItemTags.AXES)
                 .forceAddTag(ItemTags.SHOVELS)
                 .forceAddTag(ItemTags.HOES)
                 .forceAddTag(ItemTags.SPEARS)
-                .add(ItemIds.BOW)
-                .add(ItemIds.CROSSBOW)
-                .add(ItemIds.TRIDENT)
-                .add(ItemIds.MACE);
+                .add(
+                        Items.BOW,
+                        Items.CROSSBOW,
+                        Items.TRIDENT,
+                        Items.MACE
+                );
     }
 }
