@@ -12,6 +12,7 @@ import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.AtlasRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.client.resources.model.cuboid.CuboidModel;
+import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.resources.Identifier;
@@ -41,7 +43,7 @@ public class ToolTrimsClient implements ClientModInitializer {
     public static final ClientTrimOverlay.Loader TRIM_OVERLAYS = new ClientTrimOverlay.Loader();
 
     public static final Identifier TRIDENT_TRIMS_ATLAS = ToolTrims.id("trident_trims");
-    public static final Identifier TRIDENT_TRIMS_SHEET = ToolTrims.id("textures/atlas/trident_trims.png");
+    public static final Identifier TRIDENT_TRIMS_SHEET = AtlasRegistry.generateTextureLocation(TRIDENT_TRIMS_ATLAS);
     public static final RenderType TRIDENT_TRIMS_RENDER_TYPE = RenderTypes.entityCutout(TRIDENT_TRIMS_SHEET);
 
     public static final RenderStateDataKey<Optional<ArmorTrim>> TRIDENT_TRIM = RenderStateDataKey.create(() -> "tooltrims:trident_trim");
@@ -76,6 +78,7 @@ public class ToolTrimsClient implements ClientModInitializer {
         ItemModels.ID_MAPPER.put(ToolTrims.id("trident_trims"), TexturedTridentModelRenderer.UnbakedTrims.CODEC);
         SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("trim_permutations"), TrimPermutationsSpriteSource.CODEC);
         SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("single_trim_permutations"), SingleTrimPermutationsSpriteSource.CODEC);
+        AtlasRegistry.register(new AtlasManager.AtlasConfig(TRIDENT_TRIMS_SHEET, TRIDENT_TRIMS_ATLAS, false));
 
         var clientResources = ResourceLoader.get(PackType.CLIENT_RESOURCES);
         clientResources.registerReloadListener(TRIM_PATTERNS_ID, TRIM_PATTERNS);
