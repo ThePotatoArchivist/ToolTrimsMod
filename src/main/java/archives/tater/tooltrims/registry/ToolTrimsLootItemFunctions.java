@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 
 import java.util.List;
@@ -30,24 +31,25 @@ public class ToolTrimsLootItemFunctions {
         register("set_random_trimes", SetRandomTrimsFunction.MAP_CODEC);
         /*
             Code to check the functionality of the loot function.
-            I'd delete it but
          */
 //        LootTableEvents.MODIFY_DROPS.register((holder, lootContext, list) -> {
 //            Registry<TrimPattern> patternRegistry = lootContext.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_PATTERN);
 //            Registry<TrimMaterial> materialRegistry = lootContext.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);
 //            WeightedList<Holder<TrimPattern>> patterns = WeightedList.<Holder<TrimPattern>>builder()
-//                    .add(patternRegistry.wrapAsHolder(patternRegistry.getValueOrThrow(ToolTrimsPatterns.FROST)), 2)
-//                    .add(patternRegistry.wrapAsHolder(patternRegistry.getValueOrThrow(ToolTrimsPatterns.CHARGE)), 1)
+//                    .add(patternRegistry.wrapAsHolder(patternRegistry.getValueOrThrow(ToolTrimsPatterns.LINEAR)), 1)
 //                    .build();
 //            WeightedList<Holder<TrimMaterial>> materials = WeightedList.<Holder<TrimMaterial>>builder()
 //                    .add(materialRegistry.wrapAsHolder(materialRegistry.getValueOrThrow(TrimMaterials.DIAMOND)), 1)
 //                    .add(materialRegistry.wrapAsHolder(materialRegistry.getValueOrThrow(TrimMaterials.COPPER)), 10)
+//                    .add(materialRegistry.wrapAsHolder(materialRegistry.getValueOrThrow(TrimMaterials.LAPIS)), 10)
 //                    .add(materialRegistry.wrapAsHolder(materialRegistry.getValueOrThrow(TrimMaterials.IRON)), 5)
 //                    .build();
-//            for (ItemStack itemStack : list) {
-//                if (itemStack.is(ToolTrimsTags.TRIMMABLE_TOOLS) && itemStack.get(DataComponents.TRIM) == null) {
-//                    SetRandomTrimsFunction function = new SetRandomTrimsFunction(List.of(), Optional.of(patterns), Optional.of(materials));
-//                    function.apply(itemStack, lootContext);
+//            if (holder.is(BuiltInLootTables.VILLAGE_TOOLSMITH)){
+//                for (ItemStack itemStack : list) {
+//                    if (itemStack.is(ToolTrimsTags.TRIMMABLE_TOOLS) && itemStack.get(DataComponents.TRIM) == null) {
+//                        SetRandomTrimsFunction function = new SetRandomTrimsFunction(List.of(), Optional.of(patterns), Optional.of(materials));
+//                        function.apply(itemStack, lootContext);
+//                    }
 //                }
 //            }
 //        });
