@@ -1,0 +1,11 @@
+{
+  "advancements.adventure.shiny_tools.description": "用鍛造台合成帶有紋飾的工具",
+  "advancements.adventure.shiny_tools.title": "架生閃令令",
+  "advancements.adventure.tools_of_all_styles.description": "將所有工具紋飾鍛造模板都至少使用一次",
+  "advancements.adventure.tools_of_all_styles.title": "花款齊晒",
+  "template.tooltrims.applies_to": "武器与工具",
+  "trim_pattern.tooltrims.charge": "充盈工具紋飾",
+  "trim_pattern.tooltrims.frost": "霜華工具紋飾",
+  "trim_pattern.tooltrims.linear": "流線工具紋飾",
+  "trim_pattern.tooltrims.tracks": "箭跡工具紋飾"
+}

@@ -4,16 +4,20 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.client.resource.util.PreparationJsonResourceReloadListener;
 
+import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.item.*;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
 
+import com.google.common.collect.ImmutableMap;
 import org.jspecify.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -37,11 +41,18 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         public static final Identifier FALLBACK_SHOVEL = ToolTrims.id("fallback_shovel");
         public static final Identifier FALLBACK_HOE = ToolTrims.id("fallback_hoe");
         public static final Identifier FALLBACK_SPEAR = ToolTrims.id("fallback_spear");
-        private static final Map<Identifier, Identifier> FALLBACKS = BuiltInRegistries.ITEM.keySet().stream().map(item -> {
-            var fallback = getFallback(item);
-            return fallback == null ? null : entry(item, fallback);
-        })
-                .filter(Objects::nonNull)
+
+        private static final Map<Identifier, Identifier> FALLBACKS = Map.of(
+                FALLBACK_SWORD, ItemTags.SWORDS,
+                FALLBACK_SPEAR, ItemTags.SPEARS,
+                FALLBACK_PICKAXE, ItemTags.PICKAXES,
+                FALLBACK_AXE, ItemTags.AXES,
+                FALLBACK_SHOVEL, ItemTags.SHOVELS,
+                FALLBACK_HOE, ItemTags.HOES
+        )
+                .entrySet().stream()
+                .flatMap(entry -> ClientTags.getOrCreateLocalTag(entry.getValue()).stream()
+                        .map(item -> entry(item, entry.getKey())))
                 .collect(toMap());
 
         private CompletableFuture<List<UnbakedTrimsModel>> trimModels = CompletableFuture.completedFuture(List.of());
@@ -55,35 +66,24 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         @Override
         public void apply(CompletableFuture<Map<Identifier, ClientTrimOverlay>> entriesFuture) {
             overlays = entriesFuture.thenApply(entries -> {
-                var overlays = new HashMap<Identifier, ItemModel.Unbaked>();
-
-                for (var overlay : entries.values())
-                    for (var item : overlay.items)
-                        overlays.put(item, overlay.model);
+                var overlays = new ImmutableMap.Builder<Identifier, ItemModel.Unbaked>();
 
                 FALLBACKS.forEach((item, overlayId) -> {
-                    if (overlays.containsKey(item)) return;
                     var overlay = entries.get(overlayId);
                     if (overlay == null) return;
                     overlays.put(item, overlay.model);
                 });
 
-                return Collections.unmodifiableMap(overlays);
+                for (var overlay : entries.values())
+                    for (var item : overlay.items)
+                        overlays.put(item, overlay.model);
+
+                return overlays.buildKeepingLast();
             });
             trimModels = entriesFuture.thenApply(entries -> entries.values().stream()
                     .flatMap(overlay -> extractTrimModels(overlay.model))
                     .distinct()
                     .toList());
-        }
-
-        private static @Nullable Identifier getFallback(Identifier id) {
-            if (id.getPath().contains("sword")) return FALLBACK_SWORD;
-            if (id.getPath().contains("spear")) return FALLBACK_SPEAR;
-            if (id.getPath().contains("pickaxe")) return FALLBACK_PICKAXE;
-            if (id.getPath().contains("axe")) return FALLBACK_AXE;
-            if (id.getPath().contains("shovel")) return FALLBACK_SHOVEL;
-            if (id.getPath().contains("hoe")) return FALLBACK_HOE;
-            return null;
         }
 
         private static Stream<UnbakedTrimsModel> extractTrimModels(ItemModel.@Nullable Unbaked model) {

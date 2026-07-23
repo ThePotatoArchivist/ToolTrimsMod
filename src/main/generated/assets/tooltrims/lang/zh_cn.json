@@ -1,0 +1,11 @@
+{
+  "advancements.adventure.shiny_tools.description": "在锻造台中合成带有纹饰的工具",
+  "advancements.adventure.shiny_tools.title": "百炼流光",
+  "advancements.adventure.tools_of_all_styles.description": "将所有工具纹饰锻造模板都至少使用一次",
+  "advancements.adventure.tools_of_all_styles.title": "全出心裁",
+  "template.tooltrims.applies_to": "武器与工具",
+  "trim_pattern.tooltrims.charge": "充盈工具纹饰",
+  "trim_pattern.tooltrims.frost": "霜华工具纹饰",
+  "trim_pattern.tooltrims.linear": "流线工具纹饰",
+  "trim_pattern.tooltrims.tracks": "箭迹工具纹饰"
+}

@@ -1,0 +1,3 @@
+[submodule "datapack-lang"]
+	path = datapack-lang
+	url = https://github.com/thejoefly/ToolTrims/

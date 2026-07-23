@@ -1,0 +1,11 @@
+{
+  "advancements.adventure.shiny_tools.description": "紋器具於鍛案",
+  "advancements.adventure.shiny_tools.title": "百鍊流光",
+  "advancements.adventure.tools_of_all_styles.description": "凡器紋鍛模，各用一度",
+  "advancements.adventure.tools_of_all_styles.title": "巧式咸備",
+  "template.tooltrims.applies_to": "兵器与器具",
+  "trim_pattern.tooltrims.charge": "充盈器紋",
+  "trim_pattern.tooltrims.frost": "霜華器紋",
+  "trim_pattern.tooltrims.linear": "流線器紋",
+  "trim_pattern.tooltrims.tracks": "矢跡器紋"
+}

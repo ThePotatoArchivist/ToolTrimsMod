@@ -1,5 +1,5 @@
 {
-  "advancements.adventure.shiny_tools.description": "Decora una herramienta en una mesa de herramientas",
+  "advancements.adventure.shiny_tools.description": "Decora una herramienta en una mesa de herrería",
   "advancements.adventure.shiny_tools.title": "Herramientas brillantes",
   "advancements.adventure.tools_of_all_styles.description": "Aplica todos los moldes de herrería para herramientas al menos una vez",
   "advancements.adventure.tools_of_all_styles.title": "Herramientas de todos los estilos",
@@ -12,11 +12,6 @@
   "tag.item.tooltrims.trimmable_tools": "Herramientas Para Decorar",
   "template.tooltrims.applies_to": "Armas y Herramientas",
   "template.tooltrims.base_slot_description": "Añade una pieza de armadura",
-  "tooltip.charge_template": "Charge Tool Trims Smithing Template퀂",
-  "tooltip.frost_template": "Frost Tool Trims Smithing Template퀃",
-  "tooltip.linear_template": "Linear Tool Trims Smithing Template퀀",
-  "tooltip.tracks_template": "Tracks Tool Trims Smithing Template퀁",
-  "tooltrims.title": "Tool Trims",
   "tooltrims.warning.datapack_running": "[Tool Trims] Advertencia: no debes ejecutar el mod y el datapack al mismo tiempo, elimina uno",
   "trim_pattern.tooltrims.charge": "Diseño de herramienta de carga",
   "trim_pattern.tooltrims.frost": "Diseño de herramienta de escarcha",
