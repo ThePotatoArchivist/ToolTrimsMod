@@ -1,5 +1,6 @@
 package archives.tater.tooltrims.datagen;
 
+import archives.tater.tooltrims.registry.ToolTrimsLootItemFunctions;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 

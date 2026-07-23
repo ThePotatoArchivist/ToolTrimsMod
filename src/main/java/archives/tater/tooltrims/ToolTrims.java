@@ -32,5 +32,6 @@ public class ToolTrims implements ModInitializer {
 		ToolTrimsCommands.init();
 		ToolTrimsDPCompat.init();
 		ToolTrimsAttachments.init();
+		ToolTrimsLootItemFunctions.init();
 	}
 }
