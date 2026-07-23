@@ -1,0 +1,12 @@
+{
+  "tag.item.tooltrims.trimmable_tools": "Süslenebilir Aletler",
+  "template.tooltrims.applies_to": "Silahlar ve Aletler",
+
+  "commands.tooltrims.demigrate.error.fail": "%s geri taşınamadı",
+  "commands.tooltrims.demigrate.error.missing_datapack": "Tool Trims veri paketi yüklü olmalıdır, Modrinth'ten indirin",
+  "commands.tooltrims.demigrate.success": "Tool Trims eski eşyası %s başarıyla geri taşındı",
+  "commands.tooltrims.error.noplayer": "Bir oyuncu tarafından çalıştırılmalıdır",
+  "commands.tooltrims.migrate.error.fail": "%s taşınamadı",
+  "commands.tooltrims.migrate.success": "Tool Trims eski eşyası %s başarıyla taşındı",
+  "tooltrims.warning.datapack_running": "[Tool Trims] Uyarı: Geri taşıma işlemi (demigrate) yapmıyorsanız mod ve veri paketini aynı anda çalıştırmamalısınız, aksi takdirde lütfen birini kaldırın"
+}
