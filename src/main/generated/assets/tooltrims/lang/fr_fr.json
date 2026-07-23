@@ -1,5 +1,5 @@
 {
-  "advancements.adventure.shiny_tools.description": "Fabriquez un outil orné en utilisant une table d'outils",
+  "advancements.adventure.shiny_tools.description": "Fabriquez un outil orné en utilisant une table de forge",
   "advancements.adventure.shiny_tools.title": "Outils brillants",
   "advancements.adventure.tools_of_all_styles.description": "Apliquez tous les modèles de forge d'outils au moins une fois",
   "advancements.adventure.tools_of_all_styles.title": "Outils de tous styles",
@@ -12,11 +12,6 @@
   "tag.item.tooltrims.trimmable_tools": "outils pour ornements",
   "template.tooltrims.applies_to": "Armes et outils",
   "template.tooltrims.base_slot_description": "Ajouter une arme ou un outil",
-  "tooltip.charge_template": "Charge Tool Trims Smithing Template퀂",
-  "tooltip.frost_template": "Frost Tool Trims Smithing Template퀃",
-  "tooltip.linear_template": "Linear Tool Trims Smithing Template퀀",
-  "tooltip.tracks_template": "Tracks Tool Trims Smithing Template퀁",
-  "tooltrims.title": "Tool Trims",
   "tooltrims.warning.datapack_running": "[Tool Trims] Avertissement : vous ne devez pas exécuter le mod et le datapack en même temps, veuillez en supprimer un",
   "trim_pattern.tooltrims.charge": "Ornement des charges",
   "trim_pattern.tooltrims.frost": "Ornement des gelées",

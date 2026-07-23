@@ -1,0 +1,11 @@
+{
+  "advancements.adventure.shiny_tools.description": "使用鍛造台合成帶有紋樣的工具",
+  "advancements.adventure.shiny_tools.title": "百鍊流光",
+  "advancements.adventure.tools_of_all_styles.description": "將所有工具紋樣鍛造模板都至少使用一次",
+  "advancements.adventure.tools_of_all_styles.title": "全出心裁",
+  "template.tooltrims.applies_to": "武器与工具",
+  "trim_pattern.tooltrims.charge": "充盈工具紋樣",
+  "trim_pattern.tooltrims.frost": "霜華工具紋樣",
+  "trim_pattern.tooltrims.linear": "流線工具紋樣",
+  "trim_pattern.tooltrims.tracks": "箭跡工具紋樣"
+}

@@ -1,0 +1,16 @@
+{
+  "advancements.adventure.shiny_tools.description": "Bir Demirci Masasında süslenmiş bir alet üret",
+  "advancements.adventure.shiny_tools.title": "Parlak Aletler",
+  "advancements.adventure.tools_of_all_styles.description": "Tüm alet süslemesi demirci şablonlarını en az bir kez uygula",
+  "advancements.adventure.tools_of_all_styles.title": "Her Tarzdan Aletler",
+  "template.tooltrims.applies_to": "Silahlar ve Aletler",
+  "trim_pattern.tooltrims.charge": "Yük Alet Süslemesi",
+  "trim_pattern.tooltrims.frost": "Ayaz Alet Süslemesi",
+  "trim_pattern.tooltrims.linear": "Doğrusal Alet Süslemesi",
+  "trim_pattern.tooltrims.tracks": "İz Alet Süslemesi",
+  "unused.tooltip.charge_template": "Yük Alet Süslemesi Demirci Şablonu퀂",
+  "unused.tooltip.frost_template": "Ayaz Alet Süslemesi Demirci Şablonu퀃",
+  "unused.tooltip.linear_template": "Doğrusal Alet Süslemesi Demirci Şablonu퀀",
+  "unused.tooltip.tracks_template": "İz Alet Süslemesi Demirci Şablonu퀁",
+  "unused.tooltrims.title": "Alet Süslemeleri"
+}
