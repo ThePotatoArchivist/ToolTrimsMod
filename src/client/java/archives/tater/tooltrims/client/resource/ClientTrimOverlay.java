@@ -4,16 +4,21 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
 import archives.tater.tooltrims.client.resource.util.PreparationJsonResourceReloadListener;
 
+import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.item.*;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
 
 import org.jspecify.annotations.Nullable;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -37,11 +42,18 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         public static final Identifier FALLBACK_SHOVEL = ToolTrims.id("fallback_shovel");
         public static final Identifier FALLBACK_HOE = ToolTrims.id("fallback_hoe");
         public static final Identifier FALLBACK_SPEAR = ToolTrims.id("fallback_spear");
-        private static final Map<Identifier, Identifier> FALLBACKS = BuiltInRegistries.ITEM.keySet().stream().map(item -> {
-            var fallback = getFallback(item);
-            return fallback == null ? null : entry(item, fallback);
-        })
-                .filter(Objects::nonNull)
+
+        private static final Map<Identifier, Identifier> FALLBACKS = Map.of(
+                FALLBACK_SWORD, ItemTags.SWORDS,
+                FALLBACK_SPEAR, ItemTags.SPEARS,
+                FALLBACK_PICKAXE, ItemTags.PICKAXES,
+                FALLBACK_AXE, ItemTags.AXES,
+                FALLBACK_SHOVEL, ItemTags.SHOVELS,
+                FALLBACK_HOE, ItemTags.HOES
+        )
+                .entrySet().stream()
+                .flatMap(entry -> ClientTags.getOrCreateLocalTag(entry.getValue()).stream()
+                        .map(item -> entry(item, entry.getKey())))
                 .collect(toMap());
 
         private CompletableFuture<List<UnbakedTrimsModel>> trimModels = CompletableFuture.completedFuture(List.of());
