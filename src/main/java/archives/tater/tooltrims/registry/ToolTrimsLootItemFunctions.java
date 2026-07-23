@@ -15,6 +15,6 @@ public class ToolTrimsLootItemFunctions {
     }
 
     public static void init() {
-        register("set_random_trimes", SetRandomTrimsFunction.MAP_CODEC);
+        register("set_random_trims", SetRandomTrimsFunction.MAP_CODEC);
     }
 }
