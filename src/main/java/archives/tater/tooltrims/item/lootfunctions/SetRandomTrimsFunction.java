@@ -1,4 +1,4 @@
-package archives.tater.tooltrims.item.loot_functions;
+package archives.tater.tooltrims.item.lootfunctions;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,19 +14,18 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.List;
-import java.util.Optional;
 
 public class SetRandomTrimsFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetRandomTrimsFunction> MAP_CODEC = RecordCodecBuilder.mapCodec((i) ->
             commonFields(i)
-                    .and(WeightedList.codec(TrimPattern.CODEC).optionalFieldOf("patterns").forGetter((f) -> f.patterns))
-                    .and(WeightedList.codec(TrimMaterial.CODEC).optionalFieldOf("materials").forGetter((f) -> f.materials))
+                    .and(WeightedList.codec(TrimPattern.CODEC).fieldOf("patterns").forGetter((f) -> f.patterns))
+                    .and(WeightedList.codec(TrimMaterial.CODEC).fieldOf("materials").forGetter((f) -> f.materials))
                     .apply(i, SetRandomTrimsFunction::new));
 
-    private final Optional<WeightedList<Holder<TrimPattern>>> patterns;
-    private final Optional<WeightedList<Holder<TrimMaterial>>> materials;
+    private final WeightedList<Holder<TrimPattern>> patterns;
+    private final WeightedList<Holder<TrimMaterial>> materials;
 
-    public SetRandomTrimsFunction(List<LootItemCondition> predicates, final Optional<WeightedList<Holder<TrimPattern>>> patterns, final Optional<WeightedList<Holder<TrimMaterial>>> materials) {
+    public SetRandomTrimsFunction(List<LootItemCondition> predicates, final WeightedList<Holder<TrimPattern>> patterns, final WeightedList<Holder<TrimMaterial>> materials) {
         super(predicates);
         this.patterns = patterns;
         this.materials = materials;
@@ -39,13 +38,9 @@ public class SetRandomTrimsFunction extends LootItemConditionalFunction {
 
     @Override
     protected ItemStack run(ItemStack itemStack, LootContext context) {
-        boolean hasMaterials = materials.isPresent();
-        boolean hasPatterns = patterns.isPresent();
-        if (hasMaterials && hasPatterns) {
-            patterns.get().getRandom(context.getRandom()).ifPresent(pattern ->
-                    materials.get().getRandom(context.getRandom()).ifPresent(material ->
-                            itemStack.set(DataComponents.TRIM, new ArmorTrim(material, pattern))));
-        }
+        patterns.getRandom(context.getRandom()).ifPresent(pattern ->
+                materials.getRandom(context.getRandom()).ifPresent(material ->
+                        itemStack.set(DataComponents.TRIM, new ArmorTrim(material, pattern))));
         return itemStack;
     }
 }
