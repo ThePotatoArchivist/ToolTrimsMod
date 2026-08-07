@@ -22,8 +22,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toMap;
 import static net.minecraft.client.data.models.model.ItemModelUtils.composite;
-import static net.minecraft.util.Util.toMap;
 
 public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items) {
     public static final Codec<ClientTrimOverlay> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -43,17 +43,17 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
         public static final Identifier FALLBACK_SPEAR = ToolTrims.id("fallback_spear");
 
         private static final Map<Identifier, Identifier> FALLBACKS = Map.of(
-                FALLBACK_SWORD, ItemTags.SWORDS,
                 FALLBACK_SPEAR, ItemTags.SPEARS,
-                FALLBACK_PICKAXE, ItemTags.PICKAXES,
                 FALLBACK_AXE, ItemTags.AXES,
+                FALLBACK_PICKAXE, ItemTags.PICKAXES,
+                FALLBACK_HOE, ItemTags.HOES,
                 FALLBACK_SHOVEL, ItemTags.SHOVELS,
-                FALLBACK_HOE, ItemTags.HOES
+                FALLBACK_SWORD, ItemTags.SWORDS
         )
                 .entrySet().stream()
                 .flatMap(entry -> ClientTags.getOrCreateLocalTag(entry.getValue()).stream()
                         .map(item -> entry(item, entry.getKey())))
-                .collect(toMap());
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (_, second) -> second));
 
         private CompletableFuture<List<UnbakedTrimsModel>> trimModels = CompletableFuture.completedFuture(List.of());
 
