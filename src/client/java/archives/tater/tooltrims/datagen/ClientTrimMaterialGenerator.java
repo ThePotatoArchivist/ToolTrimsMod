@@ -34,6 +34,7 @@ public class ClientTrimMaterialGenerator extends ConditionalCodecDataProvider<Cl
         materials(provider, "progression_reborn", "rose");
         materials(provider, "enderite", "enderite");
         materials(provider, "lighterend", "aurora");
+        materials(provider, "enderscape", "nebulite", "shadoline");
     }
 
     private void materials(BiConsumer<Identifier, ClientTrimMaterial> provider, String namespace, String... paths) {
