@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "enderscape"
+    ]
+  },
+  "asset_name": "enderscape:trims/color_palettes/shadoline",
+  "suffix": "enderscape_shadoline"
+}
