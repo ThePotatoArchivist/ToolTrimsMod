@@ -62,7 +62,7 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String t
         ).bake(context, transformation);
     }
 
-    private static Identifier getId(Map.Entry<Identifier, ClientTrimMaterial> material) {
+    public static Identifier getId(Map.Entry<Identifier, ClientTrimMaterial> material) {
         return TRIM_PATCHER_INSTALLED ? Identifier.withDefaultNamespace(material.getKey().getPath()) : material.getKey();
     }
 
