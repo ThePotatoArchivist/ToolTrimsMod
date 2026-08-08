@@ -25,6 +25,7 @@ import org.joml.Vector3fc;
 
 import java.util.function.Consumer;
 
+import static archives.tater.tooltrims.client.item.UnbakedTrimsModel.getId;
 import static net.minecraft.client.data.models.model.ItemModelUtils.select;
 import static net.minecraft.client.data.models.model.ItemModelUtils.when;
 
@@ -95,7 +96,7 @@ public class TexturedTridentModelRenderer implements NoDataSpecialModelRenderer 
                                     new TrimMaterialProperty(),
                                     new EmptyModel.Unbaked(),
                                     ToolTrimsClient.TRIM_MATERIALS.joinEntries().entrySet().stream().map(material ->
-                                            when(ResourceKey.create(Registries.TRIM_MATERIAL, material.getKey()), ItemModelUtils.specialModel(
+                                            when(ResourceKey.create(Registries.TRIM_MATERIAL, getId(material)), ItemModelUtils.specialModel(
                                                     baseModel,
                                                     new Unbaked(UnbakedTrimsModel.createModelId(basePath, pattern.getValue(), material.getValue()))
                                             ))
