@@ -1,5 +1,9 @@
 package archives.tater.tooltrims.client.resource.util;
 
+import net.fabricmc.fabric.impl.resource.conditions.ResourceConditionsImpl;
+import net.fabricmc.fabric.mixin.resource.conditions.RegistryOpsAccessor;
+
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
@@ -9,10 +13,13 @@ import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.StrictJsonParser;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import org.slf4j.Logger;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -22,6 +29,8 @@ public abstract class PreparationJsonResourceReloadListener<T> implements Prepar
     private final DynamicOps<JsonElement> ops;
     private final Codec<T> codec;
     private final FileToIdConverter lister;
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     protected PreparationJsonResourceReloadListener(final HolderLookup.Provider registries, final Codec<T> codec, final ResourceKey<? extends Registry<T>> registryKey) {
         this(registries.createSerializationContext(JsonOps.INSTANCE), codec, FileToIdConverter.registry(registryKey));
@@ -42,7 +51,34 @@ public abstract class PreparationJsonResourceReloadListener<T> implements Prepar
         var manager = currentReload.resourceManager();
         var entries = CompletableFuture.supplyAsync(() -> {
             Map<Identifier, T> result = new HashMap<>();
-            SimpleJsonResourceReloadListener.scanDirectory(manager, lister, ops, codec, result);
+            var registryInfo = ops instanceof RegistryOpsAccessor accessor ? accessor.getRegistryInfoGetter() : null;
+
+            for (var entry : lister.listMatchingResources(manager).entrySet()) {
+                var location = entry.getKey();
+                var id = lister.fileToId(location);
+
+                try (var reader = entry.getValue().openAsReader()) {
+                    var resourceData = StrictJsonParser.parse(reader);
+
+                    if (resourceData.isJsonObject()) {
+                        var obj = resourceData.getAsJsonObject();
+
+                        var dataType = this.lister.prefix();
+
+                        if (!ResourceConditionsImpl.applyResourceConditions(obj, dataType, entry.getKey(), registryInfo))
+                            continue;
+                    }
+
+                    codec.parse(ops, resourceData).ifSuccess(parsed -> {
+                        if (result.putIfAbsent(id, parsed) != null)
+                            throw new IllegalStateException("Duplicate data file ignored with ID " + id);
+                    }).ifError(error ->
+                            LOGGER.error("Couldn't parse data file '{}' from '{}': {}", id, location, error)
+                    );
+                } catch (IllegalArgumentException | IOException | JsonParseException e) {
+                    LOGGER.error("Couldn't parse data file '{}' from '{}'", id, location, e);
+                }
+            }
             return result;
         }, taskExecutor);
         apply(entries);

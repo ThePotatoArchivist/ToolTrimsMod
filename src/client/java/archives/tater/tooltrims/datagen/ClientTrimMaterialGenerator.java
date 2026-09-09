@@ -27,7 +27,7 @@ public class ClientTrimMaterialGenerator extends ConditionalCodecDataProvider<Cl
                     provider,
                     trimMaterialModel.materialKey().identifier(),
                     ToolTrims.id(trimMaterialModel.materialKey().identifier().getPath()),
-                    trimMaterialModel.assets().base().suffix()
+                    trimMaterialModel.palette().suffix()
             );
 
         materials(provider, "end_reborn", "crystalline", "featherzeal", "remnant");

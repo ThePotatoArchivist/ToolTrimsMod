@@ -84,8 +84,7 @@ public class ThrownTridentRendererMixin {
                 OverlayTexture.NO_OVERLAY,
                 -1,
                 sprite,
-                state.outlineColor,
-                null
+                state.outlineColor
         );
     }
 }

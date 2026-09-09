@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tooltrims:linear_template"
+        "recipes": "tooltrims:linear_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

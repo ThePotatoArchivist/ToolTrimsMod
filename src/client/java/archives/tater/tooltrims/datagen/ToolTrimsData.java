@@ -1,6 +1,5 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.registry.ToolTrimsLootItemFunctions;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -11,6 +10,7 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.TRIM_PATTERN, TrimPatternGenerator::boostrap);
+		registryBuilder.add(TTRecipeGenerator.create());
 	}
 
 	@Override

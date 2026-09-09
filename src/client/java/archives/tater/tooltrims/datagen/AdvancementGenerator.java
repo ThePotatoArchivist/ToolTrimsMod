@@ -14,6 +14,7 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.triggers.RecipeCraftedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -33,16 +34,16 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         super(output, registryLookup);
     }
 
-    private static Advancement.Builder requireAllToolTrims(Advancement.Builder builder) {
+    private static Advancement.Builder requireAllToolTrims(HolderLookup.Provider registryLookup, Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             var id = pattern.identifier();
-            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(ResourceKey.create(Registries.RECIPE, id.withSuffix("_template_smithing_trim"))));
+            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(HolderSet.direct(registryLookup.getOrThrow(ResourceKey.create(Registries.RECIPE, id.withSuffix("_template_smithing_trim"))))));
         }
         return builder;
     }
 
-    private static Advancement.Builder createWithAllToolTrims() {
-        return requireAllToolTrims(Advancement.Builder.recipeAdvancement());
+    private static Advancement.Builder createWithAllToolTrims(HolderLookup.Provider registryLookup) {
+        return requireAllToolTrims(registryLookup, Advancement.Builder.recipeAdvancement());
     }
 
     @Override
@@ -54,31 +55,29 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                 ))
                 .build());
 
-        var shinyTools = createWithAllToolTrims()
+        var shinyTools = createWithAllToolTrims(registryLookup)
                 .parent(Advancement.Builder.advancement().build(Identifier.withDefaultNamespace("adventure/root"))) // fake advancement
                 .display(shinyToolsIcon,
                         Component.translatable("advancements.adventure.shiny_tools.title"),
                         Component.translatable("advancements.adventure.shiny_tools.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
                         false)
                 .requirements(Strategy.OR)
-                .save(consumer, ToolTrims.id("adventure/shiny_tools").toString());
+                .save(consumer, ToolTrims.id("adventure/shiny_tools"));
 
-        createWithAllToolTrims()
+        createWithAllToolTrims(registryLookup)
                 .parent(shinyTools)
                 .display(
                         ToolTrimsItems.LINEAR_TEMPLATE,
                         Component.translatable("advancements.adventure.tools_of_all_styles.title"),
                         Component.translatable("advancements.adventure.tools_of_all_styles.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
                         false)
                 .requirements(Strategy.AND)
-                .save(consumer, ToolTrims.id("adventure/tools_of_all_styles").toString());
+                .save(consumer, ToolTrims.id("adventure/tools_of_all_styles"));
     }
 }

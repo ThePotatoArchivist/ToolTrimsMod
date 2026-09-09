@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-import java.util.List;
+import java.util.Optional;
 
 public class SetRandomTrimsFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetRandomTrimsFunction> MAP_CODEC = RecordCodecBuilder.mapCodec((i) ->
@@ -25,8 +25,9 @@ public class SetRandomTrimsFunction extends LootItemConditionalFunction {
     private final WeightedList<Holder<TrimPattern>> patterns;
     private final WeightedList<Holder<TrimMaterial>> materials;
 
-    public SetRandomTrimsFunction(List<LootItemCondition> predicates, final WeightedList<Holder<TrimPattern>> patterns, final WeightedList<Holder<TrimMaterial>> materials) {
-        super(predicates);
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public SetRandomTrimsFunction(Optional<Holder<LootItemCondition>> condition, final WeightedList<Holder<TrimPattern>> patterns, final WeightedList<Holder<TrimMaterial>> materials) {
+        super(condition);
         this.patterns = patterns;
         this.materials = materials;
     }

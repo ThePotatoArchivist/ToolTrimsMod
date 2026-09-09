@@ -3,7 +3,7 @@
     {
       "type": "tooltrims:single_trim_permutations",
       "base_path": "tooltrims:trims/items/trident_entity",
-      "palette_key": "tooltrims:trims/color_palettes/key"
+      "palette_key": "tooltrims:trim_base"
     }
   ]
 }

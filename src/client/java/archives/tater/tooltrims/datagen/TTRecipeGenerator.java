@@ -1,16 +1,21 @@
 package archives.tater.tooltrims.datagen;
 
-import archives.tater.tooltrims.registry.ToolTrimsTags;
 import archives.tater.tooltrims.registry.ToolTrimsItems;
+import archives.tater.tooltrims.registry.ToolTrimsTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.MultiRegistryBootstrap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SmithingTrimRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
@@ -18,13 +23,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
+
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class TTRecipeGenerator extends RecipeProvider {
 
-    protected TTRecipeGenerator(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    protected TTRecipeGenerator(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
     }
 
     public void offerToolTrimRecipe(Item template, Holder<TrimPattern> pattern, ResourceKey<Recipe<?>> key) {
@@ -44,21 +51,34 @@ public class TTRecipeGenerator extends RecipeProvider {
                 ToolTrimsItems.FROST_TEMPLATE, Items.SNOW_BLOCK
         );
         ToolTrimsItems.SMITHING_TEMPLATES.forEach((entry, templateItem) -> {
-            offerToolTrimRecipe(templateItem, registries.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(entry), ResourceKey.create(Registries.RECIPE, entry.identifier().withSuffix("_template_smithing_trim")));
+            offerToolTrimRecipe(templateItem, this.output.lookup(Registries.TRIM_PATTERN).getOrThrow(entry), ResourceKey.create(Registries.RECIPE, entry.identifier().withSuffix("_template_smithing_trim")));
             copySmithingTemplate(templateItem, materials.get(templateItem));
         });
     }
 
-    public static class Provider extends FabricRecipeProvider {
+    public static MultiRegistryBootstrap create() {
+        return new MultiRegistryBootstrap() {
+            public Set<ResourceKey<? extends Registry<?>>> requestedRegistries() {
+                return Set.of(Registries.RECIPE, Registries.ADVANCEMENT);
+            }
+
+            public void run(final MultiRegistryBootstrap.BootstrapGetter registries) {
+                (new TTRecipeGenerator(registries.get(Registries.RECIPE), registries.get(Registries.ADVANCEMENT))).buildRecipes();
+            }
+        };
+    }
+
+    public static class Provider extends FabricDynamicRegistryProvider {
 
         public Provider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-            return new TTRecipeGenerator(registries, output);
+        protected void configure(HolderLookup.Provider registries, Entries entries) {
+            entries.addAll(registries.lookupOrThrow(Registries.RECIPE));
         }
+
 
         @Override
         public String getName() {

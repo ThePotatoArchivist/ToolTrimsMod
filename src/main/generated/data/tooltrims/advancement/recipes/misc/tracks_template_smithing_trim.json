@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tooltrims:tracks_template_smithing_trim"
+        "recipes": "tooltrims:tracks_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

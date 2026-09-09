@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tooltrims:frost_template"
+        "recipes": "tooltrims:frost_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
