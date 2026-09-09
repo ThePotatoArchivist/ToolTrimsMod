@@ -10,7 +10,6 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.TRIM_PATTERN, TrimPatternGenerator::boostrap);
-		registryBuilder.add(TTRecipeGenerator.create());
 	}
 
 	@Override
@@ -20,7 +19,6 @@ public class ToolTrimsData implements DataGeneratorEntrypoint {
 		pack.addProvider(TrimPatternGenerator::new);
 		pack.addProvider(TTRecipeGenerator.Provider::new);
 		pack.addProvider(ItemTagGenerator::new);
-		pack.addProvider(AdvancementGenerator::new);
 		pack.addProvider(ModelGenerator::new);
 		pack.addProvider(ClientTrimPatternGenerator::new);
 		pack.addProvider(ClientTrimMaterialGenerator::new);

@@ -1,0 +1,9 @@
+// 26.3-pre-3	-999999999-01-01T00:00:00	Tool Trims Mod/Model Definitions
+a86646f993f988e6ea80dd8b5e548f8329ce15a5 assets/tooltrims/items/charge_template.json
+239f45e625a96c3749e93abcc501723ea4da662f assets/tooltrims/items/frost_template.json
+fcc0832c2ef34551428df76b4ff1c14c6a082517 assets/tooltrims/items/linear_template.json
+7b3e264d869b2215f2e0773901cfdbe2980d605f assets/tooltrims/items/tracks_template.json
+b0d0d84e16c3de7419b6b0cbf34de94653f396fd assets/tooltrims/models/item/charge_template.json
+c5ebaa9d0f111d1440bd80f8a92036659a9a0cd4 assets/tooltrims/models/item/frost_template.json
+d1fd75c960baf37d2adc33f6e4096a8944e4d6ea assets/tooltrims/models/item/linear_template.json
+e93e32fb5d11cc0718f552ba13449b9be28b2241 assets/tooltrims/models/item/tracks_template.json

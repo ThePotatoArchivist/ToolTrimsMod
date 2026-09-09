@@ -4,7 +4,7 @@ import archives.tater.tooltrims.registry.ToolTrimsItems;
 import archives.tater.tooltrims.registry.ToolTrimsTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
@@ -68,17 +68,16 @@ public class TTRecipeGenerator extends RecipeProvider {
         };
     }
 
-    public static class Provider extends FabricDynamicRegistryProvider {
+    public static class Provider extends FabricRecipeProvider {
 
         public Provider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
         @Override
-        protected void configure(HolderLookup.Provider registries, Entries entries) {
-            entries.addAll(registries.lookupOrThrow(Registries.RECIPE));
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+            return new TTRecipeGenerator(recipes, advancements);
         }
-
 
         @Override
         public String getName() {

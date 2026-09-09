@@ -1,0 +1,5 @@
+// 26.3-pre-3	-999999999-01-01T00:00:00	Tool Trims Mod/Trim Pattern Definitions
+24527dce4cb2fbd1dfdd201e6d9e6ad45305240c data/tooltrims/trim_pattern/charge.json
+d04276fed012c231a093f67ed39dc73b531a8e67 data/tooltrims/trim_pattern/frost.json
+3429ea1f524004bf457eb5698920c2ee10105322 data/tooltrims/trim_pattern/linear.json
+79006ade056e4a8adaa732fc1e58f521f94a93ed data/tooltrims/trim_pattern/tracks.json

@@ -30,10 +30,10 @@ public class AtlasGenerator extends FabricCodecDataProvider<List<SpriteSource>> 
     @Override
     protected void configure(BiConsumer<Identifier, List<SpriteSource>> provider, HolderLookup.Provider registryLookup) {
         provider.accept(AtlasIds.ITEMS, List.of(
-                new TrimPermutationsSpriteSource(ToolTrims.id("trims/color_palettes/key"))
+                new TrimPermutationsSpriteSource(ToolTrims.id("trim_base"))
         ));
         provider.accept(ToolTrimsClient.TRIDENT_TRIMS_ATLAS, List.of(
-                new SingleTrimPermutationsSpriteSource(trimmedId("trident_entity"), ToolTrims.id("trims/color_palettes/key"))
+                new SingleTrimPermutationsSpriteSource(trimmedId("trident_entity"), ToolTrims.id("trim_base"))
         ));
     }
 

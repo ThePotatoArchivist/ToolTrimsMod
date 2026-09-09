@@ -48,7 +48,7 @@ public class ClientTrimMaterialGenerator extends ConditionalCodecDataProvider<Cl
     }
 
     private static void material(BiConsumer<Identifier, ClientTrimMaterial> provider, Identifier id, Identifier texture, String suffix) {
-        provider.accept(id, new ClientTrimMaterial(texture.withPrefix("trims/color_palettes/"), suffix));
+        provider.accept(id, new ClientTrimMaterial(texture.withPrefix("trim/"), suffix));
     }
 
     @Override
