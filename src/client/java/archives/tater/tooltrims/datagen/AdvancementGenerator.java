@@ -61,7 +61,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                 .build());
 
         var shinyTools = createWithAllToolTrims(registryLookup)
-                .parent(Advancement.Builder.advancement().build(Identifier.withDefaultNamespace("adventure/root"))) // fake advancement
+                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
                 .display(shinyToolsIcon,
                         Component.translatable("advancements.adventure.shiny_tools.title"),
                         Component.translatable("advancements.adventure.shiny_tools.description"),
