@@ -1,4 +1,6 @@
 // 26.3-pre-3	-999999999-01-01T00:00:00	Tool Trims Mod/Tool Trims Recipes
+efd0f72ca0edf193cb62d7052cd312a20300e523 data/tooltrims/advancement/adventure/shiny_tools.json
+312617087fc167f2a3d9ced3034f88f3cced0aa9 data/tooltrims/advancement/adventure/tools_of_all_styles.json
 97e8a22bcfeb65d826b00e6d1dc80095f2f0ca7a data/tooltrims/advancement/recipes/misc/charge_template.json
 7b4dc312927cf2446a5e5c699f2065160a556df7 data/tooltrims/advancement/recipes/misc/charge_template_smithing_trim.json
 829491731b5897c0342b1bd405d23d8dcac5ea4a data/tooltrims/advancement/recipes/misc/frost_template.json
