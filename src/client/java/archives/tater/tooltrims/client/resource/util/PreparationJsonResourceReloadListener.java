@@ -1,10 +1,13 @@
 package archives.tater.tooltrims.client.resource.util;
 
-import net.fabricmc.fabric.impl.resource.conditions.ResourceConditionsImpl;
-import net.fabricmc.fabric.mixin.resource.conditions.RegistryOpsAccessor;
+import archives.tater.tooltrims.mixin.client.RegistryOpsAccessor;
+
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
@@ -51,7 +54,7 @@ public abstract class PreparationJsonResourceReloadListener<T> implements Prepar
         var manager = currentReload.resourceManager();
         var entries = CompletableFuture.supplyAsync(() -> {
             Map<Identifier, T> result = new HashMap<>();
-            var registryInfo = ops instanceof RegistryOpsAccessor accessor ? accessor.getRegistryInfoGetter() : null;
+            var registryInfo = ops instanceof RegistryOpsAccessor accessor ? accessor.getLookupProvider() : null;
 
             for (var entry : lister.listMatchingResources(manager).entrySet()) {
                 var location = entry.getKey();
@@ -65,8 +68,17 @@ public abstract class PreparationJsonResourceReloadListener<T> implements Prepar
 
                         var dataType = this.lister.prefix();
 
-                        if (!ResourceConditionsImpl.applyResourceConditions(obj, dataType, entry.getKey(), registryInfo))
-                            continue;
+                        if (obj.has(ResourceConditions.CONDITIONS_KEY)) {
+                            var conditions = ResourceCondition.CONDITION_CODEC.decode(ops, obj.get(ResourceConditions.CONDITIONS_KEY)).map(com.mojang.datafixers.util.Pair::getFirst);
+                            switch (conditions) {
+                                case DataResult.Success<ResourceCondition>(var condition, var _) -> {
+                                    if (condition.test(registryInfo))
+                                        continue;
+                                }
+                                case DataResult.Error<ResourceCondition> error ->
+                                        LOGGER.error("Failed to parse resource conditions for file of type {} with id {}, skipping: {}", dataType, entry.getKey(), error.message());
+                            }
+                        }
                     }
 
                     codec.parse(ops, resourceData).ifSuccess(parsed -> {

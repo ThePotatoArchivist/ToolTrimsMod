@@ -3,12 +3,15 @@
   "package": "archives.tater.tooltrims.mixin.client",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "ThrownTridentRendererMixin",
     "ModelManagerMixin",
     "ModelTemplateAccessor",
-    "SpriteSourcesAccessor"
+    "SpriteSourcesAccessor",
+    "ThrownTridentRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "RegistryOpsAccessor"
+  ]
 }
