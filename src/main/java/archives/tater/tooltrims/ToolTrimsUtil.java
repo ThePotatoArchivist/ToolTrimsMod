@@ -6,6 +6,11 @@ import net.minecraft.resources.Identifier;
 
 import org.jetbrains.annotations.ApiStatus;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
 @ApiStatus.NonExtendable
 public interface ToolTrimsUtil {
 
@@ -13,4 +18,12 @@ public interface ToolTrimsUtil {
             ? DataResult.success(suffix)
             : DataResult.error(() -> "Non [a-z0-9/._-] character in path for location: " + suffix, suffix)
     );
+
+    static Stream<Path> tryList(Path dir) {
+        try {
+            return Files.list(dir);
+        } catch (IOException e) {
+            return Stream.of();
+        }
+    }
 }
