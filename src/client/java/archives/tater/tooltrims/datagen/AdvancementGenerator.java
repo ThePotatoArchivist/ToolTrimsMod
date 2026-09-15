@@ -12,18 +12,20 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.triggers.RecipeCraftedTrigger;
-import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.EmptyTagLookupWrapper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimMaterials;
 
@@ -35,15 +37,19 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         super(output, registryLookup);
     }
 
-    private static Advancement.Builder requireAllToolTrims(HolderGetter.Provider registryLookup, Advancement.Builder builder) {
+    private static Holder<Recipe<?>> fakeRecipe(HolderLookup.RegistryLookup<Recipe<?>> recipe, ResourceKey<Recipe<?>> recipeResourceKey) {
+        return Holder.Reference.createStandAlone(recipe instanceof EmptyTagLookupWrapper<Recipe<?>>(var parent) ? parent : recipe, recipeResourceKey);
+    }
+
+    private static Advancement.Builder requireAllToolTrims(HolderLookup.Provider registryLookup, Advancement.Builder builder) {
         for (var pattern : ToolTrimsPatterns.PATTERNS) {
             var id = pattern.identifier();
-            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(HolderSet.direct(registryLookup.getOrThrow(ResourceKey.create(Registries.RECIPE, id.withSuffix("_template_smithing_trim"))))));
+            builder.addCriterion("tool_trimmed_" + id, RecipeCraftedTrigger.TriggerInstance.craftedItem(HolderSet.direct(fakeRecipe(registryLookup.lookupOrThrow(Registries.RECIPE), ResourceKey.create(Registries.RECIPE, id.withSuffix("_template_smithing_trim"))))));
         }
         return builder;
     }
 
-    private static Advancement.Builder createWithAllToolTrims(HolderGetter.Provider registryLookup) {
+    private static Advancement.Builder createWithAllToolTrims(HolderLookup.Provider registryLookup) {
         return requireAllToolTrims(registryLookup, Advancement.Builder.recipeAdvancement());
     }
 
@@ -52,7 +58,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
         generateAdvancements(registryLookup, consumer);
     }
 
-    public static void generateAdvancements(HolderGetter.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
+    public static void generateAdvancements(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
         var shinyToolsIcon = new ItemStackTemplate(Items.NETHERITE_SWORD, DataComponentPatch.builder()
                 .set(DataComponents.TRIM, new ArmorTrim(
                         registryLookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(TrimMaterials.DIAMOND),

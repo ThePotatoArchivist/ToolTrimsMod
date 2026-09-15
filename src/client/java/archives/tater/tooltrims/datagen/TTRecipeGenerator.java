@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.MultiRegistryBootstrap;
@@ -26,7 +25,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -56,16 +54,6 @@ public class TTRecipeGenerator extends RecipeProvider {
             offerToolTrimRecipe(templateItem, output.lookup(Registries.TRIM_PATTERN).getOrThrow(entry), ResourceKey.create(Registries.RECIPE, entry.identifier().withSuffix("_template_smithing_trim")));
             copySmithingTemplate(templateItem, materials.get(templateItem));
         });
-
-        AdvancementGenerator.generateAdvancements(
-                new HolderGetter.Provider() {
-                    @Override
-                    public <T> Optional<? extends HolderGetter<T>> lookup(ResourceKey<? extends Registry<? extends T>> key) {
-                        return Optional.of(output.lookup(key));
-                    }
-                },
-                advancementHolder -> advancementHolder.register(advancementOutput)
-        );
     }
 
     public static MultiRegistryBootstrap create() {
