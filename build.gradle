@@ -28,6 +28,7 @@ repositories {
 		}
 	}
     mavenCentral()
+	mavenLocal()
 }
 
 loom {
@@ -63,7 +64,7 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 //	implementation include("maven.modrinth:datapatched:${project.datapatched_version}")
-
+	implementation include("archives.tater.lootinj:lootinj:${project.lootinj_version}")
 }
 
 processResources {

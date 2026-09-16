@@ -1,0 +1,23 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": 2
+          },
+          "name": "tooltrims:tracks_template",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "targets": "minecraft:chests/pillager_outpost"
+}

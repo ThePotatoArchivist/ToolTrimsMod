@@ -1,0 +1,17 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tooltrims:tracks_template"
+        },
+        {
+          "type": "minecraft:empty"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "targets": "minecraft:chests/woodland_mansion"
+}
