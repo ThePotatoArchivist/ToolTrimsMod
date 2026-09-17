@@ -1,9 +1,6 @@
 {
-  "type": "datapatched:add_pools",
-  "targets": "minecraft:chests/ancient_city",
   "pools": [
     {
-      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -14,7 +11,9 @@
           "type": "minecraft:empty",
           "weight": 76
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "targets": "minecraft:chests/ancient_city"
 }
