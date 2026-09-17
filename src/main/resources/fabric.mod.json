@@ -38,9 +38,10 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.3-",
+		"minecraft": "~26.3",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"lootinj": "^1.0.0"
 	},
 	"suggests": {
 		"datapatched": "^2.0.0"
