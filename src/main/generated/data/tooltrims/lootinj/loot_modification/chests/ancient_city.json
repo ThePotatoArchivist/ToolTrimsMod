@@ -1,0 +1,20 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tooltrims:charge_template",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 76
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "targets": "minecraft:chests/ancient_city"
+}

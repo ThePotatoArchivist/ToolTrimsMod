@@ -1,0 +1,11 @@
+{
+  "modify_pools": {
+    "entries": [
+      {
+        "type": "minecraft:item",
+        "name": "tooltrims:linear_template"
+      }
+    ]
+  },
+  "targets": "minecraft:archaeology/trail_ruins_rare"
+}
