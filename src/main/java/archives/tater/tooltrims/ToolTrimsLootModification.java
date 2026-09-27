@@ -27,6 +27,8 @@ public class ToolTrimsLootModification {
 
     public static void init() {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, holder) -> {
+            if (!source.isBuiltin()) return;
+
             if (key == BuiltInLootTables.ABANDONED_MINESHAFT) addTablePool(tableBuilder, holder.getOrThrow(ABANDONED_MINESHAFT));
             if (key == BuiltInLootTables.ANCIENT_CITY) addTablePool(tableBuilder, holder.getOrThrow(ANCIENT_CITY));
             if (key == BuiltInLootTables.IGLOO_CHEST) addTablePool(tableBuilder, holder.getOrThrow(IGLOO_CHEST));
