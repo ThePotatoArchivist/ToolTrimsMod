@@ -1,4 +1,5 @@
 {
+  "type": "minecraft:chest",
   "pools": [
     {
       "entries": [
@@ -12,6 +13,5 @@
       ],
       "rolls": 1
     }
-  ],
-  "targets": "minecraft:chests/woodland_mansion"
+  ]
 }

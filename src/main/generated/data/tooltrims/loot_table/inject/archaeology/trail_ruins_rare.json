@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tooltrims:linear_template"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+// 26.3	-999999999-01-01T00:00:00	Tool Trims Mod/minecraft:chest Loot Table
+d2a08c5401cc455c1618a3e1abf9f1af66c53677 data/tooltrims/loot_table/inject/archaeology/trail_ruins_rare.json
+214bd2ab9831fd9b75927d9427a6376a927a4a52 data/tooltrims/loot_table/inject/chests/abandoned_mineshaft.json
+2bec81e2f0006a8eef462cd163eefe749f7f9e11 data/tooltrims/loot_table/inject/chests/ancient_city.json
+6b050810e75c5d6ce4b2cdbd39e62f3936929b48 data/tooltrims/loot_table/inject/chests/igloo_chest.json
+3ba7935c15b435b9ad92e7ac50a1a3bf0af5c3cf data/tooltrims/loot_table/inject/chests/pillager_outpost.json
+727bc7b107678287568a0a6492b777228c0daba9 data/tooltrims/loot_table/inject/chests/woodland_mansion.json
