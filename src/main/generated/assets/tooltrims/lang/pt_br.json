@@ -1,8 +1,8 @@
 {
-  "advancements.adventure.shiny_tools.description": "Reveste uma ferramenta numa Mesa de Ferraria",
+  "advancements.adventure.shiny_tools.description": "Enfeite uma ferramenta numa Bancada de Ferraria",
   "advancements.adventure.shiny_tools.title": "Ferramentas brilhantes",
-  "advancements.adventure.tools_of_all_styles.description": "Aplica todos os modelos de ferraria para ferramentas pelo menos uma vez",
-  "advancements.adventure.tools_of_all_styles.title": "Ferramentas de todos os estilos",
+  "advancements.adventure.tools_of_all_styles.description": "Aplique todos os moldes de ferramenteiro de: Linha, Faixas, Carga, Profundezas e Geada",
+  "advancements.adventure.tools_of_all_styles.title": "A mais alta classe",
   "commands.tooltrims.demigrate.error.fail": "Could not demigrate %s",
   "commands.tooltrims.demigrate.error.missing_datapack": "The Tool Trims datapack must be installed, download it from modrinth",
   "commands.tooltrims.demigrate.success": "Successfully demigrated Tool Trims legacy item %s",
@@ -10,11 +10,16 @@
   "commands.tooltrims.migrate.error.fail": "O item %s não pode ser utilizado.",
   "commands.tooltrims.migrate.success": "Item do Tool Trims atualizado com sucesso: %s",
   "tag.item.tooltrims.trimmable_tools": "Trimmable Tools",
-  "template.tooltrims.applies_to": "Armas e Ferramentas",
+  "template.tooltrims.applies_to": "Armas e ferramentas",
   "template.tooltrims.base_slot_description": "Adiciona uma arma ou uma ferramenta",
   "tooltrims.warning.datapack_running": "[Tool Trims] Warning: You should not run the mod and datapack at the same time unless you are demigrating, otherwise please remove one",
-  "trim_pattern.tooltrims.charge": "Revestimento de carga",
-  "trim_pattern.tooltrims.frost": "Revestimento de geada",
-  "trim_pattern.tooltrims.linear": "Revestimento de linha",
-  "trim_pattern.tooltrims.tracks": "Revestimento de faixas"
+  "trim_pattern.tooltrims.charge": "Enfeite de Carga",
+  "trim_pattern.tooltrims.frost": "Enfeite de Geada",
+  "trim_pattern.tooltrims.linear": "Enfeite de Linha",
+  "trim_pattern.tooltrims.tracks": "Enfeite de Faixas",
+  "unused.tooltip.charge_template": "Molde de Ferramenteiro de Carga",
+  "unused.tooltip.frost_template": "Molde de Ferramenteiro de Geada",
+  "unused.tooltip.linear_template": "Molde de Ferramenteiro de Linha",
+  "unused.tooltip.tracks_template": "Molde de Ferramenteiro de Faixas",
+  "unused.tooltrims.title": "Tool Trims"
 }
