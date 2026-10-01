@@ -29,12 +29,6 @@ public class ClientTrimMaterialGenerator extends ConditionalCodecDataProvider<Cl
                     ToolTrims.id(trimMaterialModel.materialKey().identifier().getPath()),
                     trimMaterialModel.palette().suffix()
             );
-
-        materials(provider, "end_reborn", "crystalline", "featherzeal", "remnant");
-        materials(provider, "progression_reborn", "rose");
-        materials(provider, "enderite", "enderite");
-        materials(provider, "lighterend", "aurora");
-        materials(provider, "enderscape", "nebulite", "shadoline");
     }
 
     private void materials(BiConsumer<Identifier, ClientTrimMaterial> provider, String namespace, String... paths) {
