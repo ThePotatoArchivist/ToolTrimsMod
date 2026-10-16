@@ -6,7 +6,7 @@ type: bug
 body:
   - type: textarea
     id: description
-    description: 
+    description: Description
     attributes:
       label: What the bug is and how to reproduce it
     validations:
@@ -15,11 +15,11 @@ body:
     id: game_loader
     attributes:
       label: Game Version & Loader
-      description: If your game version & loader combination is not listed, it is likely unsupported.
+      description: If your game version & loader combination is not listed, it is considered unsupported.
       options:
         - 26.1.2 Fabric
         - 26.3 Fabric
-    validation:
+    validations:
       required: true
   - type: input
     id: mod_version
