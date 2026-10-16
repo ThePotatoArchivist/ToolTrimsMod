@@ -26,6 +26,7 @@ body:
     attributes:
       label: Mod Version
       description: What version of the mod were you running?
+      placeholder: e.g. 2.0.10+tt3.0.x+mc26.1.2
     validations:
       required: true
   - type: dropdown
@@ -40,8 +41,9 @@ body:
   - type: input
     id: logs
     attributes:
-      label: Logs
+      label: Link to log
       description: Please use https://mclo.gs or your preferred paste site.
+      placeholder: https://mclo.gs/xxxxxxx
     validations:
       required: true
   - type: upload
