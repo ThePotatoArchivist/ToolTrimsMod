@@ -36,7 +36,7 @@ body:
       options:
         - 26.1.2 Fabric
         - 26.3 Fabric
-  - type: nput
+  - type: input
     id: logs
     attributes:
       label: Logs
