@@ -4,28 +4,11 @@ title: "[Bug] "
 labels: ["bug"]
 type: bug
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
   - type: textarea
-    id: what-happened
+    id: description
+    description: 
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-    validations:
-      required: true
-  - type: dropdown
-    id: mod_version
-    attributes:
-      label: Mod Version
-      description: What version of the mod?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
-      default: 0
+      label: What the bug is and how to reproduce it
     validations:
       required: true
   - type: dropdown
@@ -36,6 +19,24 @@ body:
       options:
         - 26.1.2 Fabric
         - 26.3 Fabric
+    validation:
+      required: true
+  - type: input
+    id: mod_version
+    attributes:
+      label: Mod Version
+      description: What version of the mod were you running?
+    validations:
+      required: true
+  - type: dropdown
+    id: isolated
+    attributes:
+      label: Does the bug happen without other mods installed?
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
   - type: input
     id: logs
     attributes:
