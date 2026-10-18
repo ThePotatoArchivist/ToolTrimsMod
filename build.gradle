@@ -27,10 +27,6 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
-	maven {
-		name = "JitPack"
-		url = "https://jitpack.io"
-	}
     mavenCentral()
 }
 
@@ -66,7 +62,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	implementation include("com.github.ThePotatoArchivist:LootInj:${project.lootinj_version}")
+	implementation include("maven.modrinth:datapatched:${project.datapatched_version}")
+
 }
 
 processResources {
