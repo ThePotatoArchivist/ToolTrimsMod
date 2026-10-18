@@ -1,0 +1,24 @@
+license="https://github.com/ThePotatoArchivist/ToolTrimsMod/?tab=License-1-ov-file"
+issueTrackerURL="https://github.com/ThePotatoArchivist/ToolTrimsMod/issues"
+
+[properties]
+"launchpad:placeholder"=true
+
+[[mods]]
+modId="tooltrims"
+version="2.0.12+tt3.0.x+mc26.1.2"
+displayName="Tool Trims Mod"
+displayURL="https://modrinth.com/mod/tool-trims-mod"
+logoFile="assets/tooltrims/icon.png"
+authors="ThePotatoArchivist, joefly"
+description='''
+Fabric port of JoeFly's Tool Trims datapack
+'''
+
+[[dependencies.tooltrims]]
+modId="launchpad"
+type="required"
+versionRange="*"
+ordering="NONE"
+side="BOTH"
+
