@@ -46,14 +46,6 @@
 	"suggests": {
 	},
 	"custom": {
-		"launchpad:compatible": true,
-		"launchpad:overrides": {
-			"depends": {
-				"fabricloader": ">=0.19.3",
-				"minecraft": "~26.3",
-				"java": ">=25",
-				"forgified-fabric-api": "*"
-			}
-		}
+		"launchpad:compatible": true
 	}
 }
