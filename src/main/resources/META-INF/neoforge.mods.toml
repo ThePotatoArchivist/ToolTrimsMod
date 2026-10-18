@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/ThePotatoArchivist/ToolTrimsMod/issues"
 
 [[mods]]
 modId="tooltrims"
-version="2.0.12+tt3.0.x+mc26.1.2"
+version="${version}"
 displayName="Tool Trims Mod"
 displayURL="https://modrinth.com/mod/tool-trims-mod"
 logoFile="assets/tooltrims/icon.png"
@@ -21,4 +21,3 @@ type="required"
 versionRange="*"
 ordering="NONE"
 side="BOTH"
-
