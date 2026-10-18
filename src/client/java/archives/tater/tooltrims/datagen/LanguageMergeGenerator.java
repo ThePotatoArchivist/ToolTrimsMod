@@ -42,7 +42,8 @@ public class LanguageMergeGenerator extends FabricCodecDataProvider<Map<String, 
         mergeLang(provider, "ja_jp");
         mergeLang(provider, "lzh");
         mergeLang(provider, "pl_pl");
-        mergeLang(provider, "pt_pt", "pt_br");
+        mergeLang(provider, "pt_pt");
+        mergeLang(provider, "pt_br");
         mergeLang(provider, "ru_ru");
         mergeLang(provider, "tr_tr");
         mergeLang(provider, "zh_cn");
