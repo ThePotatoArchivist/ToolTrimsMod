@@ -18,6 +18,7 @@ body:
       description: If your game version & loader combination is not listed, it is considered unsupported.
       options:
         - 26.1.2 Fabric
+        - 26.1.2 Neoforge
         - 26.3 Fabric
     validations:
       required: true
