@@ -96,12 +96,16 @@ public record ClientTrimOverlay(ItemModel.Unbaked model, List<Identifier> items)
             };
         }
 
-        public static ItemModel.Unbaked modifyModel(Map<Identifier, ItemModel.Unbaked> overlays, ItemModel.Unbaked model, Identifier itemId) {
+        public static ClientItem modifyModel(Map<Identifier, ItemModel.Unbaked> overlays, ClientItem model, Identifier itemId) {
             var trimModel = overlays.get(itemId);
             if (trimModel == null || trimModel instanceof EmptyModel.Unbaked) return model;
-            return composite(
-                    model,
-                    trimModel
+            return new ClientItem(
+                    composite(
+                            model.model(),
+                            trimModel
+                    ),
+                    model.properties(),
+                    model.registrySwapper()
             );
         }
 
