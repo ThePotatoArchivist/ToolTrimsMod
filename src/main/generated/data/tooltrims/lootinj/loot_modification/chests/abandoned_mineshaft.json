@@ -1,5 +1,4 @@
 {
-  "type": "minecraft:chest",
   "pools": [
     {
       "entries": [
@@ -15,5 +14,6 @@
       ],
       "rolls": 1
     }
-  ]
+  ],
+  "targets": "minecraft:chests/abandoned_mineshaft"
 }
