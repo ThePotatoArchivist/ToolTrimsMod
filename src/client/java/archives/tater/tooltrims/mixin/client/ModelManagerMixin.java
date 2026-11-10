@@ -1,9 +1,7 @@
 package archives.tater.tooltrims.mixin.client;
 
 import archives.tater.tooltrims.client.ToolTrimsClient;
-import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +9,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.renderer.item.ClientItem;
-import net.minecraft.client.resources.model.ClientItemInfoLoader;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.cuboid.CuboidModel;
 import net.minecraft.resources.Identifier;
@@ -24,17 +20,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Executor;
 
-import static net.minecraft.util.Util.toMap;
-
 @Mixin(ModelManager.class)
 public class ModelManagerMixin {
-
-    @ModifyExpressionValue(method = "reload", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/ClientItemInfoLoader;scheduleLoad(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"))
-    private CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> hookBlockStateModels(CompletableFuture<ClientItemInfoLoader.LoadedClientInfos> original) {
-        return original.thenCombine(ToolTrimsClient.TRIM_OVERLAYS.overlays(), (infos, overlays) -> new ClientItemInfoLoader.LoadedClientInfos(infos.contents().entrySet().stream()
-                .map(entry -> Map.entry(entry.getKey(), ClientTrimOverlay.Loader.modifyModel(overlays, entry.getValue(), entry.getKey())))
-                .collect(toMap())));
-    }
 
     @Inject(
             method = "lambda$loadBlockModels$1",

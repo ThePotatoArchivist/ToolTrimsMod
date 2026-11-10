@@ -12,6 +12,7 @@ import archives.tater.tooltrims.client.resource.ClientTrimPattern;
 import archives.tater.tooltrims.mixin.client.SpriteSourcesAccessor;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.AtlasRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
@@ -90,5 +91,11 @@ public class ToolTrimsClient implements ClientModInitializer {
         clientResources.addListenerOrdering(TRIM_PATTERNS_ID, ResourceReloaderKeys.Client.TEXTURES);
         clientResources.addListenerOrdering(TRIM_MATERIALS_ID, ResourceReloaderKeys.Client.TEXTURES);
         clientResources.addListenerOrdering(TRIM_OVERLAYS_ID, ResourceReloaderKeys.Client.TEXTURES);
+
+        ModelLoadingPlugin.register(pluginContext -> {
+            pluginContext.modifyItemModelOnLoad().register((model, context) ->
+                    ClientTrimOverlay.Loader.modifyModel(TRIM_OVERLAYS.overlays().join(), model, context.itemId())
+            );
+        });
     }
 }
