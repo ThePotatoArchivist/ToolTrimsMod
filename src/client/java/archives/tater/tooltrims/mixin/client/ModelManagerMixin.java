@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.mixin.client;
 
-import archives.tater.tooltrims.client.ToolTrimsClient;
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,6 +28,6 @@ public class ModelManagerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;sequence(Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;")
     )
     private static void addTrimModels(Executor executor, Map<Identifier, Resource> resources, CallbackInfoReturnable<CompletionStage<Map<Identifier, Resource>>> cir, @Local(name = "result") List<CompletableFuture<Pair<Identifier, CuboidModel>>> result) {
-        ToolTrimsClient.getTrimModels().forEach(pair -> result.add(CompletableFuture.completedFuture(pair)));
+        ClientTrimLoader.getPendingResult().join().models().forEach(pair -> result.add(CompletableFuture.completedFuture(pair)));
     }
 }

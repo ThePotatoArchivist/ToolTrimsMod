@@ -1,6 +1,7 @@
 package archives.tater.tooltrims.client.item;
 
 import archives.tater.tooltrims.client.ToolTrimsClient;
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
@@ -96,15 +97,16 @@ public class TexturedTridentModelRenderer implements NoDataSpecialModelRenderer 
 
         @Override
         public ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
+            var result = ClientTrimLoader.getPendingResult().join();
             return select(
                     TrimPatternProperty.INSTANCE,
                     new EmptyModel.Unbaked(),
-                    ToolTrimsClient.TRIM_PATTERNS.joinEntries().entrySet().stream().map(pattern ->
+                    result.patterns().entrySet().stream().map(pattern ->
                             when(
                                     ResourceKey.create(Registries.TRIM_PATTERN, pattern.getKey()), select(
                                     new TrimMaterialProperty(),
                                     new EmptyModel.Unbaked(),
-                                    ToolTrimsClient.TRIM_MATERIALS.joinEntries().entrySet().stream().map(material ->
+                                    result.materials().entrySet().stream().map(material ->
                                             when(ResourceKey.create(Registries.TRIM_MATERIAL, getId(material)), ItemModelUtils.specialModel(
                                                     baseModel,
                                                     new Unbaked(UnbakedTrimsModel.createModelId(basePath, pattern.getValue(), material.getValue()))

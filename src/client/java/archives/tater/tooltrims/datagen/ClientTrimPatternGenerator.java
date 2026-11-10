@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 
 public class ClientTrimPatternGenerator extends FabricCodecDataProvider<ClientTrimPattern> {
     protected ClientTrimPatternGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimPattern.Loader.PATH, ClientTrimPattern.CODEC);
+        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimPattern.PATH, ClientTrimPattern.CODEC);
     }
 
     @Override

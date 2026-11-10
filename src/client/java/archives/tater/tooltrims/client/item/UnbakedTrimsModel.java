@@ -1,8 +1,8 @@
 package archives.tater.tooltrims.client.item;
 
-import archives.tater.tooltrims.client.ToolTrimsClient;
 import archives.tater.tooltrims.client.resource.ClientTrimMaterial;
 import archives.tater.tooltrims.client.resource.ClientTrimPattern;
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -45,14 +45,15 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String t
 
     @Override
     public ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
+        var result = ClientTrimLoader.getPendingResult().join();
         return ItemModelUtils.select(
                 TrimPatternProperty.INSTANCE,
                 new EmptyModel.Unbaked(),
-                ToolTrimsClient.TRIM_PATTERNS.joinEntries().entrySet().stream().map(pattern ->
+                result.patterns().entrySet().stream().map(pattern ->
                         when(ResourceKey.create(Registries.TRIM_PATTERN, pattern.getKey()), select(
                                 new TrimMaterialProperty(),
                                 new EmptyModel.Unbaked(),
-                                ToolTrimsClient.TRIM_MATERIALS.joinEntries().entrySet().stream().map(material ->
+                                result.materials().entrySet().stream().map(material ->
                                         when(ResourceKey.create(Registries.TRIM_MATERIAL, getId(material)), plainModel(
                                                 createModelId(pattern.getValue(), material.getValue())
                                         ))
@@ -76,8 +77,9 @@ public record UnbakedTrimsModel(Identifier basePath, Identifier parent, String t
 
     @Override
     public void resolveDependencies(Resolver resolver) {
-        var materials = ToolTrimsClient.TRIM_MATERIALS.joinEntries().values();
-        for (var pattern : ToolTrimsClient.TRIM_PATTERNS.joinEntries().values()) {
+        var result = ClientTrimLoader.getPendingResult().join();
+        var materials = result.materials().values();
+        for (var pattern : result.patterns().values()) {
             for (var material : materials)
                 resolver.markDependency(createModelId(pattern, material));
         }

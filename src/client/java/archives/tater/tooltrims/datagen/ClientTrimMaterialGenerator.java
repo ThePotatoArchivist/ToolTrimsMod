@@ -17,7 +17,7 @@ import static net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions.
 
 public class ClientTrimMaterialGenerator extends ConditionalCodecDataProvider<ClientTrimMaterial> {
     protected ClientTrimMaterialGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimMaterial.Loader.PATH, ClientTrimMaterial.CODEC);
+        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimMaterial.PATH, ClientTrimMaterial.CODEC);
     }
 
     @Override

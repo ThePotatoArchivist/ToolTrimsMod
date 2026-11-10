@@ -1,6 +1,6 @@
 package archives.tater.tooltrims.client.atlas;
 
-import archives.tater.tooltrims.client.ToolTrimsClient;
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -19,14 +19,15 @@ public record TrimPermutationsSpriteSource(Identifier paletteKey) implements Spr
 
     @Override
     public void run(ResourceManager resourceManager, Output output) {
-        var patterns = ToolTrimsClient.TRIM_PATTERNS.joinEntries().values();
+        var result = ClientTrimLoader.getPendingResult().join();
+        var patterns = result.patterns().values();
         new PalettedPermutations(
-                ToolTrimsClient.TRIM_OVERLAYS.trimModels().join().stream()
+                result.trimModels().stream()
                         .flatMap(model -> patterns.stream()
                                 .map(pattern -> model.basePath().withSuffix("_" + pattern.suffix()))
                         ).toList(),
                 paletteKey,
-                ToolTrimsClient.TRIM_MATERIALS.joinEntries().values().stream()
+                result.materials().values().stream()
                         .map(material -> entry(material.suffix(), material.assetName()))
                         .collect(toMap())
         ).run(resourceManager, output);

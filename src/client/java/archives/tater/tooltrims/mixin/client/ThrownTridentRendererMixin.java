@@ -1,5 +1,6 @@
 package archives.tater.tooltrims.mixin.client;
 
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 import archives.tater.tooltrims.registry.ToolTrimsAttachments;
 import archives.tater.tooltrims.client.ToolTrimsClient;
 
@@ -50,8 +51,9 @@ public class ThrownTridentRendererMixin {
     private void setTrimSpriteLookup(EntityRendererProvider.Context context, CallbackInfo ci) {
         var tridentTrimAtlas = context.getAtlas(ToolTrimsClient.TRIDENT_TRIMS_ATLAS);
         trimSpriteLookup = memoize(trim -> {
-            var pattern = ToolTrimsClient.TRIM_PATTERNS.joinEntries().get(trim.pattern().unwrapKey().orElseThrow().identifier());
-            var material = ToolTrimsClient.TRIM_MATERIALS.joinEntries().get(trim.material().unwrapKey().orElseThrow().identifier());
+            var result = ClientTrimLoader.getPendingResult().resultNow();
+            var pattern = result.patterns().get(trim.pattern().unwrapKey().orElseThrow().identifier());
+            var material = result.materials().get(trim.material().unwrapKey().orElseThrow().identifier());
             return pattern == null || material == null
                     ? null
                     : tridentTrimAtlas.getSprite(trimmedId("trident_entity_" + pattern.suffix() + "_" + material.suffix()));

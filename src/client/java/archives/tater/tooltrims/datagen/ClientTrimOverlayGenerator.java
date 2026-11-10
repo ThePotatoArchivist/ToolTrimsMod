@@ -4,6 +4,7 @@ import archives.tater.tooltrims.ToolTrims;
 import archives.tater.tooltrims.client.resource.ClientTrimOverlay;
 import archives.tater.tooltrims.client.item.TexturedTridentModelRenderer;
 import archives.tater.tooltrims.client.item.UnbakedTrimsModel;
+import archives.tater.tooltrims.client.resource.ClientTrimLoader;
 import archives.tater.tooltrims.mixin.client.ModelTemplateAccessor;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -33,7 +34,7 @@ import static net.minecraft.client.data.models.model.ModelLocationUtils.getModel
 public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTrimOverlay> {
 
     protected ClientTrimOverlayGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimOverlay.Loader.PATH, ClientTrimOverlay.CODEC);
+        super(packOutput, registriesFuture, PackOutput.Target.RESOURCE_PACK, ClientTrimOverlay.PATH, ClientTrimOverlay.CODEC);
     }
 
     private static Identifier getParent(ModelTemplate modelTemplate) {
@@ -181,12 +182,12 @@ public class ClientTrimOverlayGenerator extends FabricCodecDataProvider<ClientTr
                 when(CrossbowItem.ChargeType.ROCKET, new UnbakedTrimsModel(trimmedId("crossbow_firework"), getModelLocation(Items.CROSSBOW, "_firework")))
         ));
 
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SWORD, Items.NETHERITE_SWORD);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_PICKAXE, Items.NETHERITE_PICKAXE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_AXE, Items.NETHERITE_AXE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SHOVEL, Items.NETHERITE_SHOVEL);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_HOE, Items.NETHERITE_HOE);
-        registerEmpty(provider, ClientTrimOverlay.Loader.FALLBACK_SPEAR, spear(Items.NETHERITE_SPEAR));
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_SWORD, Items.NETHERITE_SWORD);
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_PICKAXE, Items.NETHERITE_PICKAXE);
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_AXE, Items.NETHERITE_AXE);
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_SHOVEL, Items.NETHERITE_SHOVEL);
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_HOE, Items.NETHERITE_HOE);
+        registerEmpty(provider, ClientTrimLoader.FALLBACK_SPEAR, spear(Items.NETHERITE_SPEAR));
     }
 
     @Override
