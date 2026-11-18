@@ -1,5 +1,6 @@
 package archives.tater.tooltrims;
 
+import archives.tater.tooltrims.mixin.ServerCommonPacketListenerImplAccessor;
 import archives.tater.tooltrims.registry.ToolTrimsItems;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -18,11 +19,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import org.jspecify.annotations.Nullable;
 
 public class ToolTrimsDPCompat {
+
+    public static final ResourceKey<LootTable> LINEAR_TEMPLATE = createLootKey("linear_template");
+    public static final ResourceKey<LootTable> TRACKS_TEMPLATE = createLootKey("tracks_template");
+    public static final ResourceKey<LootTable> CHARGE_TEMPLATE = createLootKey("charge_template");
+    public static final ResourceKey<LootTable> FROST_TEMPLATE = createLootKey("frost_template");
+
+    private static ResourceKey<LootTable> createLootKey(String path) {
+        return ResourceKey.create(Registries.LOOT_TABLE, ToolTrims.id(path));
+    }
+
     public static void init() {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             if (isDatapackRunning(server))
@@ -30,7 +42,7 @@ public class ToolTrimsDPCompat {
         });
 
         ServerPlayConnectionEvents.JOIN.register((listener, _, server) -> {
-            if (!server.isPublished() && isDatapackRunning(server))
+            if (((ServerCommonPacketListenerImplAccessor) listener).getConnection().isMemoryConnection() && isDatapackRunning(server))
                 listener.player.sendSystemMessage(Component.translatable("tooltrims.warning.datapack_running").withStyle(ChatFormatting.GOLD));
         });
     }
@@ -61,11 +73,11 @@ public class ToolTrimsDPCompat {
         return newStack;
     }
 
-    private static @Nullable Identifier getTemplateLootTable(ItemStack template) {
-        if (template.is(ToolTrimsItems.LINEAR_TEMPLATE)) return ToolTrims.id("linear_template");
-        if (template.is(ToolTrimsItems.TRACKS_TEMPLATE)) return ToolTrims.id("tracks_template");
-        if (template.is(ToolTrimsItems.CHARGE_TEMPLATE)) return ToolTrims.id("charge_template");
-        if (template.is(ToolTrimsItems.FROST_TEMPLATE)) return ToolTrims.id("frost_template");
+    private static @Nullable ResourceKey<LootTable> getTemplateLootTable(ItemStack template) {
+        if (template.is(ToolTrimsItems.LINEAR_TEMPLATE)) return LINEAR_TEMPLATE;
+        if (template.is(ToolTrimsItems.TRACKS_TEMPLATE)) return TRACKS_TEMPLATE;
+        if (template.is(ToolTrimsItems.CHARGE_TEMPLATE)) return CHARGE_TEMPLATE;
+        if (template.is(ToolTrimsItems.FROST_TEMPLATE)) return FROST_TEMPLATE;
         return null;
     }
 
@@ -73,7 +85,7 @@ public class ToolTrimsDPCompat {
         if (!ToolTrimsItems.SMITHING_TEMPLATES.containsValue(stack.getItem())) return null;
         var lootTable = getTemplateLootTable(stack);
         if (lootTable == null) return null;
-        var stacks = level.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, lootTable))
+        var stacks = level.getServer().reloadableRegistries().getLootTable(lootTable)
                 .getRandomItems(new LootParams.Builder(level).create(LootContextParamSets.EMPTY));
         if (stacks.isEmpty()) return null;
         var newStack = stacks.getFirst();
