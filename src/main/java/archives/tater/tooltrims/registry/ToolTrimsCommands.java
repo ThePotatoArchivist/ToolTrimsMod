@@ -63,7 +63,7 @@ public class ToolTrimsCommands {
     }
 
     public static void migrate(CommandContext<CommandSourceStack> ctx, @Nullable ServerPlayer player, int slot, boolean reverse) throws CommandSyntaxException {
-        if (!ToolTrimsDPCompat.isDatapackRunning(ctx.getSource().getServer())) throw ERROR_MISSING_DATAPACK.create();
+        if (reverse && !ToolTrimsDPCompat.isDatapackRunning(ctx.getSource().getServer())) throw ERROR_MISSING_DATAPACK.create();
         if (player == null) throw ERROR_NOPLAYER.create();
         var stackReference = player.getSlot(slot);
         if (stackReference == null) return;
