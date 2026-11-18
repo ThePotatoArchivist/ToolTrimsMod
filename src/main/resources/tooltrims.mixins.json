@@ -3,6 +3,7 @@
   "package": "archives.tater.tooltrims.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "ServerCommonPacketListenerImplAccessor",
     "SmithingTemplateItemAccessor",
     "ThrownTridentMixin"
   ],

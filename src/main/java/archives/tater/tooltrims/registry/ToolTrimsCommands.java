@@ -65,13 +65,18 @@ public class ToolTrimsCommands {
     public static void migrate(CommandContext<CommandSourceStack> ctx, @Nullable ServerPlayer player, int slot, boolean reverse) throws CommandSyntaxException {
         if (reverse && !ToolTrimsDPCompat.isDatapackRunning(ctx.getSource().getServer())) throw ERROR_MISSING_DATAPACK.create();
         if (player == null) throw ERROR_NOPLAYER.create();
+
         var stackReference = player.getSlot(slot);
         if (stackReference == null) return;
+
         var currentStack = stackReference.get();
         var newStack = reverse ? ToolTrimsDPCompat.demigrateItem(player.level(), currentStack) : ToolTrimsDPCompat.migrateItem(currentStack);
         if (newStack == null)
             throw (reverse ? DEMIGRATE_FAIL : MIGRATE_FAIL).create(currentStack.getDisplayName());
+
         stackReference.set(newStack);
-        ctx.getSource().sendSuccess(() -> Component.translatable(reverse ? "commands.tooltrims.demigrate.success" : "commands.tooltrims.migrate.success", newStack.getDisplayName()), true);
+        ctx.getSource().sendSuccess(() -> reverse
+                ? Component.translatable("commands.tooltrims.demigrate.success", newStack.getDisplayName())
+                : Component.translatable("commands.tooltrims.migrate.success", newStack.getDisplayName()), true);
     }
 }
