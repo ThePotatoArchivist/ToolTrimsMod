@@ -32,10 +32,11 @@ body:
   - type: dropdown
     id: isolated
     attributes:
-      label: Does the bug happen without other mods installed?
+      label: Have you isolated the bug?
+      description: This means you know which mods, if any, are needed to reproduce the bug
       options:
-        - 'Yes'
         - 'No'
+        - 'Yes'
     validations:
       required: true
   - type: input
