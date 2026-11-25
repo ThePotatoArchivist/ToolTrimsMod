@@ -19,15 +19,14 @@ import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.renderer.item.ItemModels;
-import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.client.core.registries.BuiltInClientRegistries;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.client.resources.model.cuboid.CuboidModel;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
@@ -73,10 +72,10 @@ public class ToolTrimsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
-        SelectItemModelProperties.ID_MAPPER.put(ToolTrims.id("trim_pattern"), TrimPatternProperty.TYPE);
-        SpecialModelRenderers.ID_MAPPER.put(ToolTrims.id("trimmed_trident"), TexturedTridentModelRenderer.Unbaked.CODEC);
-        ItemModels.ID_MAPPER.put(ToolTrims.id("trims"), UnbakedTrimsModel.CODEC);
-        ItemModels.ID_MAPPER.put(ToolTrims.id("trident_trims"), TexturedTridentModelRenderer.UnbakedTrims.CODEC);
+        Registry.register(BuiltInClientRegistries.SELECT_ITEM_MODEL_PROPERTY_TYPE, ToolTrims.id("trim_pattern"), TrimPatternProperty.TYPE);
+        Registry.register(BuiltInClientRegistries.SPECIAL_MODEL_RENDERER_TYPE, ToolTrims.id("trimmed_trident"), TexturedTridentModelRenderer.Unbaked.CODEC);
+        Registry.register(BuiltInClientRegistries.ITEM_MODEL_TYPE, ToolTrims.id("trims"), UnbakedTrimsModel.CODEC);
+        Registry.register(BuiltInClientRegistries.ITEM_MODEL_TYPE, ToolTrims.id("trident_trims"), TexturedTridentModelRenderer.UnbakedTrims.CODEC);
         SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("trim_permutations"), TrimPermutationsSpriteSource.CODEC);
         SpriteSourcesAccessor.getID_MAPPER().put(ToolTrims.id("single_trim_permutations"), SingleTrimPermutationsSpriteSource.CODEC);
         AtlasRegistry.register(new AtlasManager.AtlasConfig(TRIDENT_TRIMS_SHEET, TRIDENT_TRIMS_ATLAS, false));

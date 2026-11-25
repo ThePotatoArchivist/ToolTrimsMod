@@ -24,6 +24,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import org.jspecify.annotations.Nullable;
 
+import java.util.List;
+
 public class ToolTrimsDPCompat {
 
     public static final ResourceKey<LootTable> LINEAR_TEMPLATE = createLootKey("linear_template");
@@ -50,7 +52,8 @@ public class ToolTrimsDPCompat {
     public static boolean isDatapackRunning(MinecraftServer server) {
         return server.getFunctions()
                 .getTag(Identifier.withDefaultNamespace("load"))
-                .stream().anyMatch(function -> function.id().equals(Identifier.fromNamespaceAndPath("tooltrims", "load_wait")));
+                .stream().flatMap(List::stream)
+                .anyMatch(function -> function.id().equals(Identifier.fromNamespaceAndPath("tooltrims", "load_wait")));
     }
 
     private static @Nullable Item getMigratedItem(ItemStack stack) {

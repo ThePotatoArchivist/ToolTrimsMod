@@ -10,6 +10,7 @@ import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
@@ -43,5 +44,10 @@ public class SetRandomTrimsFunction extends LootItemConditionalFunction {
                 materials.getRandom(context.getRandom()).ifPresent(material ->
                         itemStack.set(DataComponents.TRIM, new ArmorTrim(material, pattern))));
         return itemStack;
+    }
+
+    @Override
+    protected void validateCustom(ValidationContext context) {
+
     }
 }
